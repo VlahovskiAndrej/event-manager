@@ -20,7 +20,7 @@ class EventServiceImpl(
     override fun createEvent(
         eventRequest: EventRequest
     ): Event {
-        val e= Event(
+        return eventRepository.save(Event(
             id = 0,
             name = eventRequest.name,
             description = eventRequest.description,
@@ -29,11 +29,9 @@ class EventServiceImpl(
             latitude = eventRequest.latitude,
             dateFinish = eventRequest.dateFinish,
             dateStart = eventRequest.dateStart,
-            tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toList(),
-            categories = eventRequest.categoriesNames.map { cn -> Category(cn) }.toList()
-            )
-        eventRepository.save(e)
-        return e
+            tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
+            categories = eventRequest.categoriesNames.map { cn -> Category(cn) }.toMutableList()
+            ))
     }
 
     override fun getEvents(): List<Event> {
@@ -50,26 +48,24 @@ class EventServiceImpl(
 
     override fun updateEvent(
         id: Long,
-        name: String,
-        description: String,
-        maxPeople: Int,
-        longitude: String,
-        latitude: String,
-        categoriesNames: List<String>,
-        tagsNames: List<String>,
-        dateStart: LocalDateTime,
-        dateFinish: LocalDateTime
+        eventRequest: EventRequest
     ): Event {
-        TODO("Not yet implemented")
+        val event: Event = eventRepository.findById(id).orElse(null)
+        event.availableTickets = eventRequest.maxPeople
+        return eventRepository.save(event)
     }
 
-    override fun addCategory(categoryName: String): Category {
-        TODO("Not yet implemented")
-    }
+//    override fun addCategory(eventId: Long, categoryName: String): Event {
+//        val event: Event = eventRepository.findById(eventId).orElse(null)
+//        event.categories.add(Category(categoryName))
+//        return eventRepository.save(event)
+//    }
 
-    override fun removeCategory(categoryName: String) {
-        TODO("Not yet implemented")
-    }
+//    override fun removeCategory(eventId: Long, categoryName: String) : Event{
+//        val event: Event = eventRepository.findById(eventId).orElse(null)
+//        event.categories.remove(Category(categoryName))
+//        return eventRepository.save(event)
+//    }
 
     override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
         val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)

@@ -22,10 +22,10 @@ data class Event(
     val latitude: String,
 
     @ManyToMany
-    val categories: List<Category>,
+    val categories: MutableList<Category>,
 
     @ManyToMany
-    val tags: List<Tag>,
+    val tags: MutableList<Tag>,
 
     val dateStart: LocalDateTime,
 

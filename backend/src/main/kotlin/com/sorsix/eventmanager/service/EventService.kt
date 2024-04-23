@@ -8,9 +8,7 @@ import java.time.LocalDateTime
 
 interface EventService {
 
-    fun createEvent(
-        eventRequest: EventRequest
-    ) : Event
+    fun createEvent(eventRequest: EventRequest) : Event
 
     fun getEvents(): List<Event>
 
@@ -18,22 +16,11 @@ interface EventService {
 
     fun deleteEvent(id: Long) : Unit
 
-    fun updateEvent(
-        id: Long,
-        name: String,
-        description: String,
-        maxPeople: Int,
-        longitude: String,
-        latitude: String,
-        categoriesNames: List<String>,
-        tagsNames: List<String>,
-        dateStart: LocalDateTime,
-        dateFinish: LocalDateTime
-    ) : Event
+    fun updateEvent(id: Long, eventRequest: EventRequest) : Event
 
-    fun addCategory(categoryName: String) : Category
+//    fun addCategory(eventId: Long, categoryName: String) : Event?
 
-    fun removeCategory(categoryName: String) : Unit
+//    fun removeCategory(eventId: Long, categoryName: String) : Event?
 
     fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest): Event?
 
