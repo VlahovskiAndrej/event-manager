@@ -21,8 +21,8 @@ data class Event(
     val longitude: String,
     val latitude: String,
 
-    @ManyToMany
-    val categories: MutableList<Category>,
+    @Enumerated(EnumType.STRING)
+    val category: Category,
 
     @ManyToMany
     val tags: MutableList<Tag>,

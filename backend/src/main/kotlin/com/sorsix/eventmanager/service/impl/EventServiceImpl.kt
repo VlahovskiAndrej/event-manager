@@ -30,7 +30,7 @@ class EventServiceImpl(
             dateFinish = eventRequest.dateFinish,
             dateStart = eventRequest.dateStart,
             tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
-            categories = eventRequest.categoriesNames.map { cn -> Category(cn) }.toMutableList()
+            category = eventRequest.category
             ))
     }
 
@@ -54,18 +54,6 @@ class EventServiceImpl(
         event.availableTickets = eventRequest.maxPeople
         return eventRepository.save(event)
     }
-
-//    override fun addCategory(eventId: Long, categoryName: String): Event {
-//        val event: Event = eventRepository.findById(eventId).orElse(null)
-//        event.categories.add(Category(categoryName))
-//        return eventRepository.save(event)
-//    }
-
-//    override fun removeCategory(eventId: Long, categoryName: String) : Event{
-//        val event: Event = eventRepository.findById(eventId).orElse(null)
-//        event.categories.remove(Category(categoryName))
-//        return eventRepository.save(event)
-//    }
 
     override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
         val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)

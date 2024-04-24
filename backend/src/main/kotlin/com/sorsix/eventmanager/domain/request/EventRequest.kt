@@ -1,5 +1,6 @@
 package com.sorsix.eventmanager.domain.request
 
+import com.sorsix.eventmanager.domain.Category
 import java.time.LocalDateTime
 
 
@@ -14,7 +15,7 @@ data class EventRequest(
     val longitude: String,
     val latitude: String,
 
-    val categoriesNames: List<String>,
+    val category: Category,
 
     val tagsNames: List<String>,
 

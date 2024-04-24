@@ -1,0 +1,15 @@
+<p>event works!</p>
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>{{event?.name}}</mat-card-title>
+      <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+    @if(event?.availableTickets == 0){
+        <button mat-flat-button color="primary" disabled>Buy Ticket</button>
+    }
+    @else{
+        <button mat-flat-button color="primary">Buy Ticket</button>
+    }
+    </mat-card-actions>
+  </mat-card>

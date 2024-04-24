@@ -6,6 +6,7 @@ import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.service.EventService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,13 +19,14 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/events")
+@CrossOrigin("*")
 class EventController(
     val eventService: EventService
 ) {
 
     @GetMapping("")
-    fun getAllEvents(): List<Event>{
-        return eventService.getEvents()
+    fun getAllEvents(): ResponseEntity<List<Event>>{
+        return ResponseEntity.ok(eventService.getEvents())
     }
 
     @GetMapping("/{id}")
