@@ -15,7 +15,10 @@
     }
 
     @if (token != null){
-        <a mat-button (click)="logout()"> Sign out</a>
+        <a id="username" mat-button>{{username}}</a>
+        <a mat-button (click)="logout()"> 
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="exit_to_app"></mat-icon> 
+        </a>
     }
 
 </mat-toolbar>

@@ -31,6 +31,7 @@ export class RegisterComponent {
       (response) => {
         console.log(response)
         localStorage.setItem('token', response['token'])
+        localStorage.setItem('username', response['username'])
         location.href = '/events'
       }
     )

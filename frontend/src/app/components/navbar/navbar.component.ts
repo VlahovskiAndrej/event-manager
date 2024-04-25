@@ -21,6 +21,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent{
   token: string | null = localStorage.getItem('token')
+  username: string | null = localStorage.getItem('username')
 
   constructor(
     private authService: AuthService

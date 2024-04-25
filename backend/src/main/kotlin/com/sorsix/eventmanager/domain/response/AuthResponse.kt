@@ -1,5 +1,6 @@
 package com.sorsix.eventmanager.domain.response
 
 data class AuthResponse(
-    val token: String
+    val token: String,
+    val username: String
 )

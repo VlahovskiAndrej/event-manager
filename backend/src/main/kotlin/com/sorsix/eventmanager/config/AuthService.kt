@@ -33,7 +33,7 @@ class AuthService(
         val savedUser = userRepository.save(user);
         val jwtToken = jwtService.generateToken(user);
 //        val refreshToken = jwtService.generateToken(user);
-        return AuthResponse(jwtToken)
+        return AuthResponse(jwtToken, savedUser.username)
     }
 
     fun login(loginRequest: LoginRequest): AuthResponse{
@@ -45,6 +45,6 @@ class AuthService(
         )
         val user: UserDetails = userRepository.findByEmail(loginRequest.email)!!
         val jwtToken = jwtService.generateToken(user)
-        return AuthResponse(jwtToken)
+        return AuthResponse(jwtToken, user.username)
     }
 }
