@@ -32,7 +32,7 @@ class AuthService(
         )
         val savedUser = userRepository.save(user);
         val jwtToken = jwtService.generateToken(user);
-        val refreshToken = jwtService.generateToken(user);
+//        val refreshToken = jwtService.generateToken(user);
         return AuthResponse(jwtToken)
     }
 

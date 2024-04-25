@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EventInterface } from '../interfaces/event';
 import { AuthResponse } from '../interfaces/auth-response';
@@ -33,4 +33,10 @@ export class AuthService {
     return this.http.post<AuthResponse>(`http://localhost:8080/api/auth/register`, body)
 
   }
+
+  logout(): void{
+    localStorage.removeItem('token')
+    location.href = '/login'
+  }
+
 }

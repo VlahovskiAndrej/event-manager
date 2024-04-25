@@ -15,7 +15,7 @@
     }
 
     @if (token != null){
-        <a mat-button onclick="localStorage.clear()"> Sign out</a>
+        <a mat-button (click)="logout()"> Sign out</a>
     }
 
 </mat-toolbar>

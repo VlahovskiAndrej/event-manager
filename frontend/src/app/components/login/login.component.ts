@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         console.log(response)
         localStorage.setItem('token', response['token'])
-        
+        location.href = '/events';
       }
     )
   }
