@@ -30,6 +30,10 @@ class AuthService(
             passwordEncoder.encode(registerRequest.password),
             Role.USER
         )
+
+        if (user.firstName == "" || user.lastName == "" || user.username == "" || registerRequest.password == "")
+            throw Exception("Invalid input data for creating username!")
+
         val savedUser = userRepository.save(user);
         val jwtToken = jwtService.generateToken(user);
 //        val refreshToken = jwtService.generateToken(user);
