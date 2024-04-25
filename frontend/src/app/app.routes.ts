@@ -1,14 +1,20 @@
 import { Routes } from '@angular/router';
 import { SearchEventsComponent } from './components/search-events/search-events.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
-    // {
-    //     path: '',
-    //     component: SearchEventsComponent,
-    // },
+    {
+        path: 'login',
+        component: LoginComponent,
+    },
     {
         path: 'events',
         component: SearchEventsComponent,
-    }
+    },
+    {
+        path: 'register',
+        component: RegisterComponent,
+    },
 
 ];

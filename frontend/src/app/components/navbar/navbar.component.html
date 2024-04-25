@@ -8,9 +8,15 @@
     <a mat-button>Tickets</a>
     <a mat-button>Near me</a>
 
-    <a mat-raised-button>Sign up
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>      
-    </a>
+    @if (token == null){   
+        <a mat-raised-button routerLink="/login">Sign up
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>      
+        </a>
+    }
+
+    @if (token != null){
+        <a mat-button onclick="localStorage.clear()"> Sign out</a>
+    }
 
 </mat-toolbar>
   
