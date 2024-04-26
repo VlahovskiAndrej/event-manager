@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { SearchEventsComponent } from './components/search-events/search-events.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CreateEventComponent } from './create-event/create-event.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
 
 export const routes: Routes = [
     {
