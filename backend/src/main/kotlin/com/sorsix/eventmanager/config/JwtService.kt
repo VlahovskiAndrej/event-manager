@@ -1,5 +1,6 @@
 package com.sorsix.eventmanager.config
 
+import com.sorsix.eventmanager.domain.user.User
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -69,6 +70,5 @@ class JwtService(
     private fun extractExpiration(token: String): Date {
         return extractClaim(token, Claims::getExpiration)
     }
-
 
 }

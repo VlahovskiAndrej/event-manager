@@ -1,0 +1,25 @@
+<form>
+    <mat-form-field class="example-chip-list">
+      <mat-label>Tags</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Tag selection">
+        @for (tag of tags; track tag) {
+          <mat-chip-row (removed)="remove(tag)">
+            {{tag}}
+            <button matChipRemove [attr.aria-label]="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input placeholder="Add Tags..." #fruitInput [formControl]="fruitCtrl"
+        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        @for (fruit of filteredFruits | async; track fruit) {
+          <mat-option [value]="fruit">{{fruit}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+</form>
+  

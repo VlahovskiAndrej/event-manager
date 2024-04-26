@@ -8,7 +8,7 @@
     @if (token == null){   
         <a mat-button routerLink="/">Home</a>
         <a mat-button routerLink="/events">Events</a>
-        <a mat-button routerLink="/events">About Us</a>
+        <a mat-button routerLink="/">About Us</a>
         <a mat-raised-button routerLink="/login">Sign up
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>      
         </a>
@@ -16,12 +16,14 @@
 
     @if (token != null){
         <a mat-button routerLink="/">Home</a>
+        
         <button mat-button [matMenuTriggerFor]="menu">Events</button>
         <mat-menu #menu="matMenu">
             <a mat-menu-item routerLink="/events">Browse events</a>
-            <a mat-menu-item>Create event</a>
+            <a mat-menu-item routerLink="/events/create">Create event</a>
             <a mat-menu-item>My events</a>
         </mat-menu>
+
         <a mat-button>Near me</a>
         <a mat-button>Tickets</a>
         <a id="username" mat-button>{{username}}</a>

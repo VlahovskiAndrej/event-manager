@@ -6,6 +6,8 @@ import com.sorsix.eventmanager.domain.response.AuthResponse
 import com.sorsix.eventmanager.domain.user.Role
 import com.sorsix.eventmanager.domain.user.User
 import com.sorsix.eventmanager.repository.UserRepository
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
@@ -36,7 +38,6 @@ class AuthService(
 
         val savedUser = userRepository.save(user);
         val jwtToken = jwtService.generateToken(user);
-//        val refreshToken = jwtService.generateToken(user);
         return AuthResponse(jwtToken, savedUser.username)
     }
 
@@ -50,5 +51,12 @@ class AuthService(
         val user: UserDetails = userRepository.findByEmail(loginRequest.email)!!
         val jwtToken = jwtService.generateToken(user)
         return AuthResponse(jwtToken, user.username)
+    }
+
+    fun getUserByJwtToken(request: HttpServletRequest): User? {
+        val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION).substring(7)
+        val username: String = jwtService.extractUsername(authHeader)
+        val user: User? =  userRepository.findByEmail(username)
+        return user
     }
 }
