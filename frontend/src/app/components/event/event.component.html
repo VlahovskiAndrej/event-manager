@@ -3,6 +3,7 @@
     <mat-card-header>
       <mat-card-title>{{event?.name}}</mat-card-title>
       <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
+      <mat-card-subtitle>Username: {{event?.creator?.username}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
     @if(event?.availableTickets == 0){

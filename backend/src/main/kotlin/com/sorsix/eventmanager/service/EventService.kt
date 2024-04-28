@@ -4,11 +4,12 @@ import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
+import jakarta.servlet.http.HttpServletRequest
 import java.time.LocalDateTime
 
 interface EventService {
 
-    fun createEvent(eventRequest: EventRequest) : Event
+    fun createEvent(eventRequest: EventRequest, request: HttpServletRequest) : Event
 
     fun getEvents(): List<Event>
 
@@ -18,12 +19,10 @@ interface EventService {
 
     fun updateEvent(id: Long, eventRequest: EventRequest) : Event
 
-//    fun addCategory(eventId: Long, categoryName: String) : Event?
-
-//    fun removeCategory(eventId: Long, categoryName: String) : Event?
-
     fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest): Event?
 
     fun buyTicket(id: Long, num: Int) : Event?
+
+    fun getEventsByUser(request: HttpServletRequest): List<Event>
 
 }

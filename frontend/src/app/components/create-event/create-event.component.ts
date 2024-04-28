@@ -6,7 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { Observable, Subject } from 'rxjs';
 import {MatChipsModule} from '@angular/material/chips';
-import { AddTagsComponent } from '../../add-tags/add-tags.component';
+import { AddTagsComponent } from '../add-tags/add-tags.component';
 import { EventService } from '../../services/event.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { routes } from '../../app.routes';

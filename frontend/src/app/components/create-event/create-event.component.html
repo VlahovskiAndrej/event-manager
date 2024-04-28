@@ -1,11 +1,3 @@
-<!-- availableTickets: number;
-    longitude: string;
-    latitude: string;
-    category: string; // moze da e problem deka e ENUM
-    tags: Tag[];
-    dateStart: Date;
-    dateFinish: Date; -->
-
 
 <p>Create Event</p>
 <form name="loginForm" class="example-form"  (ngSubmit)="createEvent(eventName.value, description.value, longitude.value, latitude.value, category.value, datestart.value, datefinish.value)">
@@ -35,12 +27,6 @@
         <input matInput #category name="latitude">
     </mat-form-field> 
 
-     <!-- <mat-form-field class="example-full-width">
-        <mat-label>Tags: (da se napravi pravilno) </mat-label>
-        <input matInput #tag name="tags">
-        <button (click)="onAddTag(tag.value)">Add tag</button>
-    </mat-form-field>-->
-
     <app-add-tags (tagsEvent)="addTag($event)"></app-add-tags>
 
     <mat-form-field class="example-full-width">
@@ -56,7 +42,5 @@
     <button type="submit" mat-raised-button color="primary">
         CREATE
     </button>
-
-    <!-- Already have an account?<a href="http://localhost:4200/login"> Login now!</a> -->
 
 </form>

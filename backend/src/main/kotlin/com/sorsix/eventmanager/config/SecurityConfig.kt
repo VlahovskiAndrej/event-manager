@@ -29,7 +29,8 @@ data class SecurityConfig (
                 it
                     .requestMatchers(
                         "/api/events",
-                        "/api/auth/**"
+                        "/api/auth/**",
+                        "/api/events/{id}"
                     )
                     .permitAll()
                     .anyRequest()

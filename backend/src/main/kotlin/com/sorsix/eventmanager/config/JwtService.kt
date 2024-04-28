@@ -16,7 +16,7 @@ import kotlin.collections.HashMap
 class JwtService(
 ){
     val SECRET_KEY: String = "311a2a52f178219e8fd2a8b9eb89d7ca2a557c0b8036cf424ca1f6de82f71b9b"
-    val JWT_EXPIRATION_DATE: Long = 1000 * 60 * 24
+    val JWT_EXPIRATION_DATE: Long = 6000000
 
     fun extractUsername(jwt: String): String{
         return extractClaim(jwt, Claims::getSubject)

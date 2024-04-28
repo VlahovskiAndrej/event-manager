@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>{{event?.name}}</mat-card-title>
+      <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
+      <mat-card-subtitle>Username: {{event?.creator?.username}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <button mat-flat-button (click)="onDeleteEvent(event?.id!!)" color="warn">Delete</button>
+        <button mat-flat-button [routerLink]="['/events', event?.id, 'update']" color="primary">Edit</button>
+    </mat-card-actions>
+
+    <form name="loginForm" class="example-form" (ngSubmit)="onPublishTickets( numTickets.value, price.value)">
+        <mat-form-field class="example-full-width">
+          <mat-label>Number of tickets</mat-label>
+          <input matInput #numTickets placeholder="10" name="numTickets" type="number">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Price</mat-label>
+            <input matInput #price placeholder="5" name="numTickets" type="number">
+          </mat-form-field>
+    
+        <button type="submit" mat-raised-button color="primary">
+            Publish Tickets
+        </button>
+    
+      </form>
+
+  </mat-card>

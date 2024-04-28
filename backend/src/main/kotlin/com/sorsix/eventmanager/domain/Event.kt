@@ -1,5 +1,6 @@
 package com.sorsix.eventmanager.domain
 
+import com.sorsix.eventmanager.domain.user.User
 import jakarta.persistence.*
 
 import java.time.LocalDateTime
@@ -12,23 +13,26 @@ data class Event(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
-    val name: String,
+    var name: String,
 
-    val description: String,
+    var description: String,
 
     var availableTickets: Int, /* number of Tickets */
 
-    val longitude: String,
-    val latitude: String,
+    var longitude: String,
+    var latitude: String,
 
     @Enumerated(EnumType.STRING)
-    val category: Category,
+    var category: Category,
 
     @ManyToMany
-    val tags: MutableList<Tag>,
+    var tags: MutableList<Tag>,
 
-    val dateStart: LocalDateTime,
+    var dateStart: LocalDateTime,
 
-    val dateFinish: LocalDateTime,
+    var dateFinish: LocalDateTime,
+
+    @ManyToOne
+    val creator: User
 //    val activeDiscountPercentage: Double
 )

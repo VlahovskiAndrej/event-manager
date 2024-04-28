@@ -4,6 +4,8 @@ import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.service.EventService
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -35,13 +37,18 @@ class EventController(
     }
 
     @PostMapping("/create")
-    fun createEvent(@RequestBody eventRequest: EventRequest) : ResponseEntity<Event>{
-        return ResponseEntity.ok(eventService.createEvent(eventRequest))
+    fun createEvent(@RequestBody eventRequest: EventRequest, request: HttpServletRequest) : ResponseEntity<Event>{
+        return ResponseEntity.ok(eventService.createEvent(eventRequest, request))
     }
 
     @DeleteMapping("/{id}/delete")
     fun deleteEventById(@PathVariable id: Long) : ResponseEntity<Any>{
         return ResponseEntity.ok(eventService.deleteEvent(id))
+    }
+
+    @PutMapping("/{id}/update")
+    fun updateEventById(@PathVariable id: Long, @RequestBody eventRequest: EventRequest) : ResponseEntity<Any>{
+        return ResponseEntity.ok(eventService.updateEvent(id, eventRequest))
     }
 
     @PutMapping("/publish")
@@ -52,5 +59,10 @@ class EventController(
     @PostMapping("/{id}/buy") // ?num=2
     fun buyTicketsForEventId(@PathVariable id: Long, @RequestParam num: Int = 1) : ResponseEntity<Any>{
         return ResponseEntity.ok(eventService.buyTicket(id, num))
+    }
+
+    @GetMapping("/my-events")
+    fun getEventsByUser(request: HttpServletRequest): ResponseEntity<List<Event>>{
+        return ResponseEntity.ok(eventService.getEventsByUser(request))
     }
 }

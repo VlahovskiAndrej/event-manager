@@ -3,6 +3,8 @@ import { SearchEventsComponent } from './components/search-events/search-events.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CreateEventComponent } from './components/create-event/create-event.component';
+import { SearchMyEventsComponent } from './components/search-my-events/search-my-events.component';
+import { UpdateEventComponent } from './components/update-event/update-event.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +22,14 @@ export const routes: Routes = [
     {
         path: 'events/create',
         component: CreateEventComponent,
+    },
+    {
+        path: 'events/my-events',
+        component: SearchMyEventsComponent,
+    },
+    {
+        path: 'events/:id/update',
+        component: UpdateEventComponent,
     },
 
 ];

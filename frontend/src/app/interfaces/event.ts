@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface EventInterface {
     id: number;
     name: string;
@@ -9,6 +11,7 @@ export interface EventInterface {
     tags: Tag[];
     dateStart: Date;
     dateFinish: Date;
+    creator: User
 }
 
 // enum Category {
