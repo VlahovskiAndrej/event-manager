@@ -7,7 +7,6 @@ import com.sorsix.eventmanager.service.EventService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -52,7 +51,8 @@ class EventController(
     }
 
     @PutMapping("/publish")
-    fun publishTicketsForEventId(@RequestBody publishTicketsRequest: PublishTicketsRequest): ResponseEntity<Any>{
+    fun publishTicketsForEventId(@RequestBody publishTicketsRequest: PublishTicketsRequest
+): ResponseEntity<Any>{
         return ResponseEntity.ok(eventService.publishTicketsForEventId(publishTicketsRequest))
     }
 
@@ -64,5 +64,15 @@ class EventController(
     @GetMapping("/my-events")
     fun getEventsByUser(request: HttpServletRequest): ResponseEntity<List<Event>>{
         return ResponseEntity.ok(eventService.getEventsByUser(request))
+    }
+
+    @GetMapping("/search")
+    fun getSearchResults(@RequestParam query : String) : ResponseEntity<List<Event>>{
+        return ResponseEntity.ok(eventService.searchEvents(query))
+    }
+
+    @GetMapping("/recents")
+    fun getRecentlyAddedEvents(): ResponseEntity<List<Event>>{
+        return ResponseEntity.ok(eventService.getRecentlyAddedEvents())
     }
 }

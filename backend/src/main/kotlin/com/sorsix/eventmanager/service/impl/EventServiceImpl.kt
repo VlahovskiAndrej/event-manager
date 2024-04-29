@@ -1,7 +1,6 @@
 package com.sorsix.eventmanager.service.impl
 
 import com.sorsix.eventmanager.config.AuthService
-import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.Tag
 import com.sorsix.eventmanager.domain.Ticket
@@ -15,6 +14,7 @@ import com.sorsix.eventmanager.service.EventService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import java.time.Month
 
 @Service
 class EventServiceImpl(
@@ -22,12 +22,10 @@ class EventServiceImpl(
     val ticketRepository: TicketRepository,
     val authService: AuthService
 ) : EventService{
-    override fun createEvent(
-        eventRequest: EventRequest,
-        request: HttpServletRequest
-    ): Event {
+    override fun createEvent(eventRequest: EventRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
         return eventRepository.save(Event(
+
             id = 0,
             name = eventRequest.name,
             description = eventRequest.description,
@@ -38,7 +36,7 @@ class EventServiceImpl(
             dateStart = eventRequest.dateStart,
             tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
             category = eventRequest.category,
-            creator = user!!
+            creator=user!!
             ))
     }
 
@@ -55,7 +53,7 @@ class EventServiceImpl(
     }
 
     override fun updateEvent(id: Long, eventRequest: EventRequest): Event {
-        val event: Event = eventRepository.findById(id).orElse(null) ?: throw EventNotFoundException()
+        val event: Event = eventRepository.findById(id).orElse(null)
         event.name = eventRequest.name
         event.description = eventRequest.description
         event.category = eventRequest.category
@@ -64,12 +62,6 @@ class EventServiceImpl(
         event.longitude = eventRequest.longitude
         event.dateStart = eventRequest.dateStart
         event.dateFinish = eventRequest.dateFinish
-        return eventRepository.save(event)
-    }
-
-    override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
-        val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)
-        event.availableTickets += publishTicketsRequest.numberOfTickets
         return eventRepository.save(event)
     }
 
@@ -83,10 +75,24 @@ class EventServiceImpl(
         return eventRepository.save(event)
     }
 
+    override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
+        val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)
+        event.availableTickets += publishTicketsRequest.numberOfTickets
+        return eventRepository.save(event)
+    }
+
     override fun getEventsByUser(request: HttpServletRequest): List<Event> {
         val user: User? = authService.getUserByJwtToken(request)
         return eventRepository.findEventsByCreator(user)
     }
 
+
+    override fun searchEvents(query: String): List<Event> {
+        return eventRepository.findAllByNameContainingIgnoreCase(query);
+    }
+
+    override fun getRecentlyAddedEvents(): List<Event> {
+        return eventRepository.findAllByDateStartAfter(LocalDateTime.of(2024, Month.JANUARY, 1, 0, 0));
+    }
 
 }

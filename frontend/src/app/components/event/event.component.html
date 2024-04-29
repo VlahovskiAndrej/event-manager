@@ -1,16 +1,28 @@
-<p>event works!</p>
-<mat-card>
+<mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>{{event?.name}}</mat-card-title>
-      <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
-      <mat-card-subtitle>Username: {{event?.creator?.username}}</mat-card-subtitle>
+      <mat-card-subtitle>{{event?.category}}</mat-card-subtitle>
+
     </mat-card-header>
-    <mat-card-actions>
-    @if(event?.availableTickets == 0){
-        <button mat-flat-button color="primary" disabled>Buy Ticket</button>
+    <img mat-card-image src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F751099259%2F215986123110%2F1%2Foriginal.20240424-082319?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=306a1c27ff2dc08686b92124780d8362">
+    @if(showDetails){
+      <mat-card-content>
+        <p>{{event?.description}}</p>
+        <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
+        <!--mat-card-subtitle>{{event?.review}}</mat-card-subtitle-->
+        <mat-card-subtitle>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</mat-card-subtitle>
+        @for (tag of event?.tags; track tag) {
+          <mat-chip>{{tag.name}}</mat-chip>
+        }
+      </mat-card-content>
+      <mat-card-actions>
+      @if(event?.availableTickets == 0){
+          <button mat-flat-button color="primary" disabled>Buy Ticket</button>
+      }
+      @else{
+          <button mat-flat-button color="primary">Buy Ticket</button>
+      }
+      </mat-card-actions>
     }
-    @else{
-        <button mat-flat-button color="primary">Buy Ticket</button>
-    }
-    </mat-card-actions>
-  </mat-card>
+</mat-card>
+

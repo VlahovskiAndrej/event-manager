@@ -17,7 +17,7 @@ export class AuthService {
       password: password,
     };
     
-    return this.http.post<AuthResponse>(`http://localhost:8080/api/auth/login`, body)
+    return this.http.post<AuthResponse>(`http://localhost:8081/api/auth/login`, body)
 
   }
 
@@ -30,7 +30,7 @@ export class AuthService {
       password: password,
     };
     
-    return this.http.post<AuthResponse>(`http://localhost:8080/api/auth/register`, body)
+    return this.http.post<AuthResponse>(`http://localhost:8081/api/auth/register`, body)
 
   }
 

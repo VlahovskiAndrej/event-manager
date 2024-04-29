@@ -11,7 +11,15 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   getEvents() : Observable<EventInterface[]>{
-    return this.http.get<EventInterface[]>(`http://localhost:8080/api/events`)
+    return this.http.get<EventInterface[]>(`http://localhost:8081/api/events`)
+  }
+
+  getRecentEvents() : Observable<EventInterface[]>{
+    return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/recents`)
+  }
+
+  search(query : String) : Observable<EventInterface[]>{
+    return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/search?query=${query}`)
   }
 
   createEvent(name: string, 
@@ -40,7 +48,7 @@ export class EventService {
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
 
-    return this.http.post<EventInterface[]>(`http://localhost:8080/api/events/create`, body, { headers: headers })
+    return this.http.post<EventInterface[]>(`http://localhost:8081/api/events/create`, body, { headers: headers })
   }
 
   updateEvent(
@@ -71,7 +79,7 @@ export class EventService {
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
       });
 
-      return this.http.put<EventInterface[]>(`http://localhost:8080/api/events/${id}/update`, body, { headers: headers })
+      return this.http.put<EventInterface[]>(`http://localhost:8081/api/events/${id}/update`, body, { headers: headers })
       }
 
   getMyEvents() : Observable<EventInterface[]>{
@@ -79,7 +87,7 @@ export class EventService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
-    return this.http.get<EventInterface[]>(`http://localhost:8080/api/events/my-events`, { headers: headers })
+    return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/my-events`, { headers: headers })
   }
 
   deleteEvent(id: number){
@@ -87,7 +95,7 @@ export class EventService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
-    return this.http.delete<EventInterface[]>(`http://localhost:8080/api/events/${id}/delete`, { headers: headers })
+    return this.http.delete<EventInterface[]>(`http://localhost:8081/api/events/${id}/delete`, { headers: headers })
   }
 
   publishTickets(eventId: number, price: string, numberOfTickets: string){
@@ -100,11 +108,11 @@ export class EventService {
       price: price,
       numberOfTickets: numberOfTickets
     };
-    return this.http.put<EventInterface[]>(`http://localhost:8080/api/events/publish`, body, { headers: headers })
+    return this.http.put<EventInterface[]>(`http://localhost:8081/api/events/publish`, body, { headers: headers })
   }
 
   getEventById(id: string) : Observable<EventInterface>{
-    return this.http.get<EventInterface>(`http://localhost:8080/api/events/${id}`)
+    return this.http.get<EventInterface>(`http://localhost:8081/api/events/${id}`)
   }
 
 }

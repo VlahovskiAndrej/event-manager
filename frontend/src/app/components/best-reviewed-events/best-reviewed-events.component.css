@@ -1,0 +1,44 @@
+.picsum-img-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#container{
+    width:85%;
+    margin: auto;
+}
+
+.carousel-container {
+    display: flex;
+  }
+  
+.carousel-slide{
+    flex: 0 0 33.3333%;
+    transition: transform 0.5s ease-in-out;
+}
+
+::ng-deep .carousel-control-prev{
+    width:10%;
+    background-color: black;
+    margin-right:60px;
+    visibility: 100%;
+    color: black;
+
+}
+
+::ng-deep  .carousel-control-next{
+    width:10%;
+    background-color: black;
+
+}
+
+::ng-deep ngb-carousel{
+    width:100%;
+
+}
+.companies{
+    padding-top:200px;
+    margin: auto;
+}

@@ -1,22 +1,31 @@
-<h1>Events</h1>
 <div class="input-container">
     <input type="text" placeholder="Search..." #searchInput (input)="search(searchInput.value)">
 </div>
 
+<div class="options">
+    <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection">
+        <mat-chip-option>TECH</mat-chip-option>
+        <mat-chip-option>BUSINESS</mat-chip-option>
+  </mat-chip-listbox>
+</div>
+
 @if (!loading){
+    <h2>All events</h2>
+    <div class="card-container">
+        @for (e of events; track e.id){
+            <app-event [event]="e"></app-event>
+        }
+    </div>
+    <h2>Recently added events</h2>
+    <div class="card-container">
+        @for (e of recentEvents; track e.id){
+            <app-event [event]="e"></app-event>
+        }
+    </div>
+    
+    
 
-    <!-- <p>{{events?.toString()}}</p> -->
 
-    @for (e of events; track e.id){
-        <app-event [event]="e"></app-event>
-    }
-
-    <!-- <div class="card-container">
-        <h2>{{events}}</h2>
-    </div> -->
-
-    <!-- <div *ngFor="let event of eventData">
-    </div>-->
 }
 @else {
     <p id="loading-text">Loading...</p>
