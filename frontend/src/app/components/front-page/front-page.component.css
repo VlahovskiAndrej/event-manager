@@ -1,0 +1,16 @@
+h2{
+    font-size: 60px;
+}
+
+img{
+    width:650px;
+    height: 600px;
+}
+
+#frontpage{
+    display: flex; 
+    width:85%;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+}

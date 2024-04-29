@@ -1,6 +1,5 @@
 package com.sorsix.eventmanager.service
 
-import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
@@ -15,7 +14,8 @@ interface EventService {
 
     fun getEventById(id: Long): Event?
 
-    fun deleteEvent(id: Long) : Unit
+
+    fun deleteEvent(id: Long)
 
     fun updateEvent(id: Long, eventRequest: EventRequest) : Event
 
@@ -24,5 +24,11 @@ interface EventService {
     fun buyTicket(id: Long, num: Int) : Event?
 
     fun getEventsByUser(request: HttpServletRequest): List<Event>
+
+    fun searchEvents(query : String) : List<Event>
+
+    fun getRecentlyAddedEvents() : List<Event>
+
+
 
 }

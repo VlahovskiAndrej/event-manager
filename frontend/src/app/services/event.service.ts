@@ -14,6 +14,14 @@ export class EventService {
     return this.http.get<EventInterface[]>(`http://localhost:8080/api/events`)
   }
 
+  getRecentEvents() : Observable<EventInterface[]>{
+    return this.http.get<EventInterface[]>(`http://localhost:8080/api/events/recents`)
+  }
+
+  search(query : String) : Observable<EventInterface[]>{
+    return this.http.get<EventInterface[]>(`http://localhost:8080/api/events/search/${query}`)
+  }
+
   createEvent(name: string, 
               description: string, 
               longitude: string, 
