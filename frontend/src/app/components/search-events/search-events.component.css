@@ -1,0 +1,27 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 105px;
+    padding:50px;
+    padding-top: 20px;
+}
+
+
+h2{
+    padding-left:50px;
+}
+
+.input-container, .options{
+    display: flex;
+    justify-content: flex-start;
+    padding-top:20px;
+    padding-left:50px;
+    padding-bottom:15px;
+}
+
+.options{
+    max-width: 20px;
+    text-align: center;
+}
+

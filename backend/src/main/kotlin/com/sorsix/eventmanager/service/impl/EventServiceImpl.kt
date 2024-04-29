@@ -4,6 +4,7 @@ import com.sorsix.eventmanager.config.AuthService
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.Tag
 import com.sorsix.eventmanager.domain.Ticket
+import com.sorsix.eventmanager.domain.exception.EventNotFoundException
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.domain.user.User
@@ -51,19 +52,16 @@ class EventServiceImpl(
         eventRepository.deleteById(id)
     }
 
-    override fun updateEvent(
-        id: Long,
-        eventRequest: EventRequest
-    ): Event {
+    override fun updateEvent(id: Long, eventRequest: EventRequest): Event {
         val event: Event = eventRepository.findById(id).orElse(null)
-        event.availableTickets = eventRequest.maxPeople
-        return eventRepository.save(event)
-    }
-
-    override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
-        val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)
-//        (1..publishTicketsRequest.numberOfTickets).map { ticketRepository.save(Ticket(0, publishTicketsRequest.price, event)) }
-        event.availableTickets += publishTicketsRequest.numberOfTickets
+        event.name = eventRequest.name
+        event.description = eventRequest.description
+        event.category = eventRequest.category
+        event.tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList()
+        event.latitude = eventRequest.latitude
+        event.longitude = eventRequest.longitude
+        event.dateStart = eventRequest.dateStart
+        event.dateFinish = eventRequest.dateFinish
         return eventRepository.save(event)
     }
 
@@ -77,10 +75,17 @@ class EventServiceImpl(
         return eventRepository.save(event)
     }
 
+    override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
+        val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)
+        event.availableTickets += publishTicketsRequest.numberOfTickets
+        return eventRepository.save(event)
+    }
+
     override fun getEventsByUser(request: HttpServletRequest): List<Event> {
         val user: User? = authService.getUserByJwtToken(request)
         return eventRepository.findEventsByCreator(user)
     }
+
 
     override fun searchEvents(query: String): List<Event> {
         return eventRepository.findAllByNameContainingIgnoreCase(query);
