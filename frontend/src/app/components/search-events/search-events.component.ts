@@ -23,32 +23,38 @@ export class SearchEventsComponent {
 
   query$: Subject<string> = new Subject();
   loading: boolean = true;
-    title = 'mdb-angular-ui-kit-free';
+  title = 'mdb-angular-ui-kit-free';
 
   constructor(private eventService: EventService){}
 
   ngOnInit(): void {
 
     this.eventService.getEvents()
-    .subscribe(events => {
-      this.events = events
-      this.loading = false
-    });
+    .subscribe(
+      events => {
+        this.events = events
+        this.loading = false
+      }
+    );
 
     this.eventService.getRecentEvents()
-    .subscribe(recentEvents =>{
-      this.recentEvents = recentEvents
-      this.loading=false
-    });
+    .subscribe(
+      recentEvents => {
+        this.recentEvents = recentEvents
+        this.loading = false
+      }
+    );
 
     this.query$.pipe(
       debounceTime(400),
       distinctUntilChanged(),
       switchMap(query => this.eventService.search(query))
-      ).subscribe(result => {
-        this.events= result
-        this.loading = false
-    });
+      ).subscribe(
+        result => {
+          this.events = result
+          this.loading = false
+        }
+    );
   }
 
   search(query: string){

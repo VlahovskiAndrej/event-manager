@@ -52,31 +52,32 @@ export class EventService {
   }
 
   updateEvent(
-    id: string,
-    name: string, 
-    description: string, 
-    longitude: string, 
-    latitude: string, 
-    category: string, 
-    tagNames: string[], 
-    dateStart: string,
-    dateFinish: string
+            id: string,
+            name: string, 
+            description: string, 
+            longitude: string, 
+            latitude: string, 
+            category: string, 
+            tagNames: string[], 
+            dateStart: string,
+            dateFinish: string
     ) : Observable<EventInterface[]>{
+
       const body = {
-      name: name,
-      description: description,
-      maxPeople: 0,
-      longitude: longitude,
-      latitude: latitude,
-      category: category,
-      tagsNames: tagNames,
-      dateStart: dateStart,
-      dateFinish: dateFinish,
+        name: name,
+        description: description,
+        maxPeople: 0,
+        longitude: longitude,
+        latitude: latitude,
+        category: category,
+        tagsNames: tagNames,
+        dateStart: dateStart,
+        dateFinish: dateFinish,
       };
 
       const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
       });
 
       return this.http.put<EventInterface[]>(`http://localhost:8081/api/events/${id}/update`, body, { headers: headers })
@@ -115,4 +116,16 @@ export class EventService {
     return this.http.get<EventInterface>(`http://localhost:8081/api/events/${id}`)
   }
 
+  buyTicket(id: number | undefined) : Observable<EventInterface>{
+    const numberOfTickets = 1
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+
+    const body = {};
+
+    return this.http.post<EventInterface>(`http://localhost:8081/api/events/${id}/buy?num=${numberOfTickets}`, body, { headers: headers })
+  }
 }

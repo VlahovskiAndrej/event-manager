@@ -25,7 +25,6 @@ class EventServiceImpl(
     override fun createEvent(eventRequest: EventRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
         return eventRepository.save(Event(
-
             id = 0,
             name = eventRequest.name,
             description = eventRequest.description,
@@ -65,11 +64,12 @@ class EventServiceImpl(
         return eventRepository.save(event)
     }
 
-    override fun buyTicket(id: Long, num: Int): Event? {
+    override fun buyTicket(id: Long, num: Int, request: HttpServletRequest): Event? {
         val event: Event = eventRepository.findById(id).orElse(null)
+        val user: User? = authService.getUserByJwtToken(request)
         if (event.availableTickets >= num){
             event.availableTickets -= num
-            (1 .. num).map { ticketRepository.save(Ticket(0, 5.0, event)) }
+            (1 .. num).map { ticketRepository.save(Ticket(0, 5.0, event, user!!)) }
         }
 
         return eventRepository.save(event)
@@ -85,7 +85,6 @@ class EventServiceImpl(
         val user: User? = authService.getUserByJwtToken(request)
         return eventRepository.findEventsByCreator(user)
     }
-
 
     override fun searchEvents(query: String): List<Event> {
         return eventRepository.findAllByNameContainingIgnoreCase(query);

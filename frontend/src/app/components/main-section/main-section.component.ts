@@ -4,13 +4,13 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-  selector: 'app-front-page',
+  selector: 'app-main-section',
   standalone: true,
   imports: [MatIconModule,MatDividerModule,MatButtonModule],
   
-  templateUrl: './front-page.component.html',
-  styleUrl: './front-page.component.css'
+  templateUrl: './main-section.component.html',
+  styleUrl: './main-section.component.css'
 })
-export class FrontPageComponent {
+export class MainSectionComponent {
 
 }

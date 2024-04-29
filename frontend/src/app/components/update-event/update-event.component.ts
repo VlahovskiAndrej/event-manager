@@ -60,7 +60,6 @@ export class UpdateEventComponent implements OnInit{
         (response) => {
           console.log(response)
           this.router.navigate(['events/my-events'])
-          // this.showSuccessMessage()
         }
         )
     }

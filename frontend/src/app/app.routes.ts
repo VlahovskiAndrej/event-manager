@@ -6,6 +6,7 @@ import { CreateEventComponent } from './components/create-event/create-event.com
 import { SearchMyEventsComponent } from './components/search-my-events/search-my-events.component';
 import { UpdateEventComponent } from './components/update-event/update-event.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { SearchTicketsComponent } from './components/search-tickets/search-tickets.component';
 
 export const routes: Routes = [
     {
@@ -33,8 +34,13 @@ export const routes: Routes = [
         component: UpdateEventComponent,
     },
     {
+        path: 'tickets',
+        component: SearchTicketsComponent,
+    },
+    {
         path: '**',
         component: HomePageComponent,
-    }
+        // ova mora da e najdole
+    },
 
 ];

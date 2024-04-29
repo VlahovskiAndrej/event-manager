@@ -21,7 +21,7 @@ interface EventService {
 
     fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest): Event?
 
-    fun buyTicket(id: Long, num: Int) : Event?
+    fun buyTicket(id: Long, num: Int, request: HttpServletRequest) : Event?
 
     fun getEventsByUser(request: HttpServletRequest): List<Event>
 

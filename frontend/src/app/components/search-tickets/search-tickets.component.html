@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <td>Ticket Id</td>
+        <td>Price($)</td>
+        <td>Event name</td>
+        <td>User</td>
+    </thead>
+    @for (ticket of tickets; track ticket.id) {
+        <tbody>
+            <td>{{ticket.id}}</td>
+            <td>{{ticket.price}}</td>
+            <td>{{ticket.event.name}}</td>
+            <td>{{ticket.buyer.username}}</td>
+        </tbody>
+    }
+</table>
+
+
+

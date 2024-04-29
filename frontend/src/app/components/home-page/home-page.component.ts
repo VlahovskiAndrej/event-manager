@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { BestReviewedEventsComponent } from '../best-reviewed-events/best-reviewed-events.component';
 import { EventInterface } from '../../interfaces/event';
 import { EventService } from '../../services/event.service';
-import { FrontPageComponent } from '../front-page/front-page.component';
+import { MainSectionComponent } from '../main-section/main-section.component';
+
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [BestReviewedEventsComponent,FrontPageComponent],
+  imports: [
+    BestReviewedEventsComponent,
+    MainSectionComponent
+  ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

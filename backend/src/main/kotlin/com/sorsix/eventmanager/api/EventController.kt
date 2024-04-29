@@ -52,13 +52,13 @@ class EventController(
 
     @PutMapping("/publish")
     fun publishTicketsForEventId(@RequestBody publishTicketsRequest: PublishTicketsRequest
-): ResponseEntity<Any>{
+    ): ResponseEntity<Any>{
         return ResponseEntity.ok(eventService.publishTicketsForEventId(publishTicketsRequest))
     }
 
     @PostMapping("/{id}/buy") // ?num=2
-    fun buyTicketsForEventId(@PathVariable id: Long, @RequestParam num: Int = 1) : ResponseEntity<Any>{
-        return ResponseEntity.ok(eventService.buyTicket(id, num))
+    fun buyTicketsForEventId(@PathVariable id: Long, @RequestParam num: Int = 1, request: HttpServletRequest) : ResponseEntity<Any>{
+        return ResponseEntity.ok(eventService.buyTicket(id, num, request))
     }
 
     @GetMapping("/my-events")
