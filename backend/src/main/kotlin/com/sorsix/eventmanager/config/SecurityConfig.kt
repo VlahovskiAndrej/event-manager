@@ -32,7 +32,9 @@ data class SecurityConfig (
                         "/api/auth/**",
                         "/api/events/search",
                         "api/events/recents",
-                        "/api/events/{id}"
+                        "/api/events/{id}",
+                        "/api/events/categories",
+                        "/api/events/filteredByCategory"
                     )
                     .permitAll()
                     .anyRequest()

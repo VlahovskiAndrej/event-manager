@@ -18,16 +18,21 @@ export class EventService {
     return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/recents`)
   }
 
-  search(query : String) : Observable<EventInterface[]>{
+  search(query : string) : Observable<EventInterface[]>{
     return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/search?query=${query}`)
   }
 
-  createEvent(name: string, 
-              description: string, 
-              longitude: string, 
-              latitude: string, 
-              category: string, 
-              tagNames: string[], 
+  filterByCategory(category : string) : Observable<EventInterface[]>{
+    if(category==null) return this.getEvents()
+    return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/filteredByCategory?category=${category}`)
+  }
+
+  createEvent(name: string,
+              description: string,
+              longitude: string,
+              latitude: string,
+              category: string,
+              tagNames: string[],
               dateStart: string,
               dateFinish: string
               ) : Observable<EventInterface[]>{
@@ -53,12 +58,12 @@ export class EventService {
 
   updateEvent(
             id: string,
-            name: string, 
-            description: string, 
-            longitude: string, 
-            latitude: string, 
-            category: string, 
-            tagNames: string[], 
+            name: string,
+            description: string,
+            longitude: string,
+            latitude: string,
+            category: string,
+            tagNames: string[],
             dateStart: string,
             dateFinish: string
     ) : Observable<EventInterface[]>{
@@ -128,4 +133,10 @@ export class EventService {
 
     return this.http.post<EventInterface>(`http://localhost:8081/api/events/${id}/buy?num=${numberOfTickets}`, body, { headers: headers })
   }
+
+  getEventCategories() : Observable<string[]>{
+    return this.http.get<string[]>(`http://localhost:8081/api/events/categories`)
+  }
+
+
 }

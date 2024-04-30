@@ -3,5 +3,14 @@ package com.sorsix.eventmanager.domain
 
 enum class Category(){
     BUSINESS,
-    TECH
+    TECH,
+    COMMUNITY,
+    EDUCATION,
+    CORPORATE,
+    WORKSHOP,
+    SOCIAL,
+    CULTURAL,
+    RECREATION,
+    CHARITY,
+    NETWORKING
 }

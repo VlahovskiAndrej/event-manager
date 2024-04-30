@@ -3,9 +3,10 @@
 </div>
 
 <div class="options">
-    <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection">
-        <mat-chip-option>TECH</mat-chip-option>
-        <mat-chip-option>BUSINESS</mat-chip-option>
+    <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal" aria-multiselectable="true">
+        @for(c of categories;track c){
+            <mat-chip-option  (click)="filterByCategory(c)">{{c}}</mat-chip-option>
+        }
   </mat-chip-listbox>
 </div>
 

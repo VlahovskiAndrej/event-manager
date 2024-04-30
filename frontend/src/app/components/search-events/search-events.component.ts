@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import { Subject, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { EventInterface } from '../../interfaces/event';
 import { EventComponent } from '../event/event.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { FormsModule } from '@angular/forms';
 
 
 import {} from 'mdb-angular-ui-kit/'
@@ -20,10 +21,15 @@ import {} from 'mdb-angular-ui-kit/'
 export class SearchEventsComponent {
   events: EventInterface[] | undefined;
   recentEvents: EventInterface[] | undefined;
+  allEvents: EventInterface[] | undefined;
+  categories: string[] | undefined;
 
   query$: Subject<string> = new Subject();
+  category$ = new BehaviorSubject<string | null>(null);
+
   loading: boolean = true;
-  title = 'mdb-angular-ui-kit-free';
+
+  clicked: boolean = false;
 
   constructor(private eventService: EventService){}
 
@@ -33,6 +39,7 @@ export class SearchEventsComponent {
     .subscribe(
       events => {
         this.events = events
+        this.allEvents = events
         this.loading = false
       }
     );
@@ -45,6 +52,14 @@ export class SearchEventsComponent {
       }
     );
 
+    this.eventService.getEventCategories()
+    .subscribe(
+      categories =>{
+          this.categories = categories
+          console.log(categories)
+      }
+    )
+
     this.query$.pipe(
       debounceTime(400),
       distinctUntilChanged(),
@@ -55,10 +70,33 @@ export class SearchEventsComponent {
           this.loading = false
         }
     );
+
+    this.category$.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(category => this.eventService.filterByCategory(category!!))
+      ).subscribe(
+        result => {
+          this.events = result
+          this.loading = false
+          this.clicked = true
+        }
+    );
+
   }
 
   search(query: string){
     this.query$.next(query);
   }
 
+  filterByCategory(category: string){
+    console.log(this.clicked)
+    if(this.category$.value === category && this.clicked===true){
+       this.clicked = false
+       this.events = this.allEvents
+    }
+    else {
+      this.category$.next(category)
+    }
+  }
 }

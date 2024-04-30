@@ -1,5 +1,6 @@
 package com.sorsix.eventmanager.service
 
+import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
@@ -28,6 +29,10 @@ interface EventService {
     fun searchEvents(query : String) : List<Event>
 
     fun getRecentlyAddedEvents() : List<Event>
+
+    fun getAllCategories() : List<Category>
+
+    fun filterByCategory(category: Category) : List<Event>
 
 
 

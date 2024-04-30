@@ -1,11 +1,11 @@
 package com.sorsix.eventmanager.api
 
+import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.service.EventService
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -75,4 +75,15 @@ class EventController(
     fun getRecentlyAddedEvents(): ResponseEntity<List<Event>>{
         return ResponseEntity.ok(eventService.getRecentlyAddedEvents())
     }
+
+    @GetMapping("/categories")
+    fun getAllCategories() : ResponseEntity<List<Category>>{
+        return ResponseEntity.ok(eventService.getAllCategories())
+    }
+
+    @GetMapping("/filteredByCategory")
+    fun getEventsByCategory(@RequestParam category: Category) : ResponseEntity<List<Event>>{
+        return ResponseEntity.ok(eventService.filterByCategory(category))
+    }
+
 }

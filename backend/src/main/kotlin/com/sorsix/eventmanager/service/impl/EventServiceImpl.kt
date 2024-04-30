@@ -1,10 +1,10 @@
 package com.sorsix.eventmanager.service.impl
 
 import com.sorsix.eventmanager.config.AuthService
+import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.Tag
 import com.sorsix.eventmanager.domain.Ticket
-import com.sorsix.eventmanager.domain.exception.EventNotFoundException
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.domain.user.User
@@ -87,11 +87,19 @@ class EventServiceImpl(
     }
 
     override fun searchEvents(query: String): List<Event> {
-        return eventRepository.findAllByNameContainingIgnoreCase(query);
+        return eventRepository.findAllByNameContainingIgnoreCase(query)
     }
 
     override fun getRecentlyAddedEvents(): List<Event> {
-        return eventRepository.findAllByDateStartAfter(LocalDateTime.of(2024, Month.JANUARY, 1, 0, 0));
+        return eventRepository.findAllByDateStartAfter(LocalDateTime.of(2024, Month.JANUARY, 1, 0, 0))
+    }
+
+    override fun getAllCategories(): List<Category> {
+        return eventRepository.findAllCategories()
+    }
+
+    override fun filterByCategory(category: Category): List<Event> {
+        return eventRepository.findAllEventsByCategory(category)
     }
 
 }

@@ -19,9 +19,9 @@ h2{
     padding-left:50px;
     padding-bottom:15px;
 }
-
-.options{
-    max-width: 20px;
-    text-align: center;
+mat-chip-listbox{
+    display: flex;
+    flex-direction: row;
+    width: 150px;
 }
 
