@@ -5,15 +5,18 @@ import { EventInterface } from '../../interfaces/event';
 import { EventComponent } from '../event/event.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
-
+import { MatIconModule } from '@angular/material/icon';
 
 import {} from 'mdb-angular-ui-kit/'
+import { NgFor } from '@angular/common';
 @Component({
   selector: 'app-search-events',
   standalone: true,
   imports: [
+    NgFor,
     EventComponent,
-    MatChipsModule
+    MatChipsModule,
+    MatIconModule
   ],
   templateUrl: './search-events.component.html',
   styleUrl: './search-events.component.css'

@@ -45,7 +45,8 @@ export class CreateEventComponent {
   });
 
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    x: ['', Validators.required],
+    y: ['', Validators.required],
   });
 
   isEditable = true;

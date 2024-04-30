@@ -89,11 +89,21 @@
     <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Location</ng-template>
+
         <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+          <mat-label>X-coordinate</mat-label>
+          <input matInput formControlName="x" placeholder="50.0547"
                  required>
         </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Y-coordinate</mat-label>
+          <input matInput formControlName="y" placeholder="39.1127"
+                 required>
+        </mat-form-field>
+
+        <div id="map" style="height: 400px; border: 1px solid black;"></div>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -102,7 +112,7 @@
     </mat-step>
 
     <!-- Tickets -->
-    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+    <!-- <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Tickets</ng-template>
           <mat-form-field>
@@ -115,7 +125,7 @@
             <button mat-button matStepperNext>Next</button>
           </div>
         </form>
-      </mat-step>
+      </mat-step> -->
 
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
