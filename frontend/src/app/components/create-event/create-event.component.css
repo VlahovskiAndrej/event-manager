@@ -1,13 +1,25 @@
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
+.create-form {
+    /* min-width: 150px;
+    max-width: 500px; */
     width: 100%;
   }
   
-  .example-full-width {
+  .full-width {
     width: 100%;
+    margin: auto;
   }
 
   #desc{
     height: 100px;
   }
+
+mat-stepper{
+  /* padding-top: 25px; */
+  width: 40%;
+  margin: auto;
+}
+
+form{
+  margin: auto;
+  
+}

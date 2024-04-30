@@ -3,6 +3,7 @@ import { BestReviewedEventsComponent } from '../best-reviewed-events/best-review
 import { EventInterface } from '../../interfaces/event';
 import { EventService } from '../../services/event.service';
 import { MainSectionComponent } from '../main-section/main-section.component';
+import { MapComponent } from '../map/map.component';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { MainSectionComponent } from '../main-section/main-section.component';
   standalone: true,
   imports: [
     BestReviewedEventsComponent,
-    MainSectionComponent
+    MainSectionComponent,
+    MapComponent
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'

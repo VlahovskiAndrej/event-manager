@@ -1,0 +1,12 @@
+ .map-container {
+    position: relative;
+    height: 90.5%;
+  }
+
+  .map-frame {
+    height: 100%;
+  }
+   
+  #map {
+    height: 100%;
+  }

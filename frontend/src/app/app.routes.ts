@@ -7,6 +7,7 @@ import { SearchMyEventsComponent } from './components/search-my-events/search-my
 import { UpdateEventComponent } from './components/update-event/update-event.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SearchTicketsComponent } from './components/search-tickets/search-tickets.component';
+import { MapComponent } from './components/map/map.component';
 
 export const routes: Routes = [
     {
@@ -38,9 +39,14 @@ export const routes: Routes = [
         component: SearchTicketsComponent,
     },
     {
+        path: 'near-me',
+        component: MapComponent,
+    },
+    {
         path: '**',
         component: HomePageComponent,
         // ova mora da e najdole
     },
+
 
 ];
