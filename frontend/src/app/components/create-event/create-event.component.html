@@ -45,7 +45,6 @@
 
 </form> -->
 
-  
   <mat-stepper linear #stepper>
 
     <!-- Initial -->
@@ -60,23 +59,19 @@
 
         <mat-form-field class="full-width">
           <mat-label>Description</mat-label>
-          <input matInput formControlName="description" placeholder="Desc..." required>
+          <textarea style="height: 120px;" matInput formControlName="description" placeholder="Desc..." required></textarea>
         </mat-form-field>
 
         <mat-form-field class="full-width">
           <mat-label>Category</mat-label>
-          <input matInput formControlName="category" placeholder="TECH" required>
+          <mat-select formControlName="category">
+            @for (category of categories; track category) {
+              <mat-option [value]="category.value">{{category.viewValue}}</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>Tags</mat-label>
-          <input matInput formControlName="tags" placeholder="" required>
-        </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <mat-label>Type</mat-label>
-          <input matInput formControlName="type" placeholder="Public" required>
-        </mat-form-field>
+        <app-add-tags (tagsEvent)="addTag($event)"></app-add-tags>
 
         <div>
           <button mat-raised-button matStepperNext color="primary">Next</button>
@@ -89,52 +84,97 @@
     <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Location</ng-template>
+       
+        <mat-form-field class="full-width">
+          <mat-label>Date start:</mat-label>
+          <input matInput formControlName="dateStart" type="datetime-local">
+        </mat-form-field>
+  
+        <mat-form-field class="full-width">
+          <mat-label>Date finish:</mat-label>
+          <input matInput formControlName="dateFinish" type="datetime-local">
+        </mat-form-field>
 
+        <div class="full-width">
+          <mat-radio-group formControlName="type" color="primary">
+            <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)" [checked]="isChecked">On-site</mat-radio-button>
+            <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)">Virtual</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        @if(favoriteSeason == 'virtual'){
+          <mat-form-field class="full-width">
+            <mat-label>Link to Google meet</mat-label>
+            <input matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
+          </mat-form-field>
+        }
+        @else{
         <mat-form-field>
           <mat-label>X-coordinate</mat-label>
-          <input matInput formControlName="x" placeholder="50.0547"
-                 required>
+          <input matInput formControlName="x" placeholder="50.0547">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Y-coordinate</mat-label>
-          <input matInput formControlName="y" placeholder="39.1127"
-                 required>
+          <input matInput formControlName="y" placeholder="39.1127">
         </mat-form-field>
 
         <div id="map" style="height: 400px; border: 1px solid black;"></div>
+      }
 
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-raised-button matStepperNext color="primary">Next</button>
         </div>
+      
       </form>
     </mat-step>
 
     <!-- Tickets -->
-    <!-- <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-        <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" >
+        <form [formGroup]="thirdFormGroup" class="create-form">
           <ng-template matStepLabel>Tickets</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+          <mat-form-field class="full-width">
+            <mat-label>Price per ticket:</mat-label>
+            <input matInput formControlName="price" placeholder="10" type="number" 
                    required>
           </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Number of tickets:</mat-label>
+            <input matInput formControlName="numberOfTickets" placeholder="100" type="number" 
+                   required>
+          </mat-form-field>
+
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-raised-button matStepperNext color="primary">Next</button>
           </div>
         </form>
-      </mat-step> -->
+    </mat-step>
 
+    <!-- images -->
+    <mat-step>
+      <ng-template matStepLabel>Images</ng-template>
+
+      <app-upload-images></app-upload-images>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary">Next</button>
+      </div>
+    </mat-step>
+
+    <!-- Done -->
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
       <p>You are now done.</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="create()">Finish</button>
+        <button mat-raised-button color="primary" (click)="createEvent()">Create Event</button>
       </div>
     </mat-step>
+
   </mat-stepper>
   
 

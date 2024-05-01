@@ -14,7 +14,7 @@
   }
 
 mat-stepper{
-  /* padding-top: 25px; */
+  padding-top: 25px;
   width: 40%;
   margin: auto;
 }

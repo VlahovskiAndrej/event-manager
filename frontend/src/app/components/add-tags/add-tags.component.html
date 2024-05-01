@@ -1,6 +1,6 @@
 <form>
     <mat-form-field class="example-chip-list">
-      <mat-label>Tags</mat-label>
+      <mat-label>Tags*</mat-label>
       <mat-chip-grid #chipGrid aria-label="Tag selection">
         @for (tag of tags; track tag) {
           <mat-chip-row (removed)="remove(tag)">

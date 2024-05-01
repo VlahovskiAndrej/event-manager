@@ -13,6 +13,9 @@ import { routes } from '../../app.routes';
 import { Router } from '@angular/router';
 import {MatStepperModule} from '@angular/material/stepper';
 import { GoogleMapsModule } from '@angular/google-maps'
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import { ImageUploadComponent } from '../upload-images/upload-images.component';
 
 
 @Component({
@@ -29,62 +32,88 @@ import { GoogleMapsModule } from '@angular/google-maps'
     MatStepperModule,
     ReactiveFormsModule,
     GoogleMapsModule,
+    MatSelectModule,
+    MatRadioModule,
+    ImageUploadComponent
   ],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.css'
 })
 export class CreateEventComponent {
 
+  favoriteSeason: string|undefined;
+  isChecked: boolean = false
+
+  categories = [
+    {value: 'TECH', viewValue: 'Tech'},
+    {value: 'BUSINESS', viewValue: 'Business'}
+  ];
+
 
   firstFormGroup = this._formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
     category: ['', Validators.required],
-    tags: ['', Validators.required],
-    type: ['', Validators.required],
   });
 
   secondFormGroup = this._formBuilder.group({
-    x: ['', Validators.required],
-    y: ['', Validators.required],
+    meetingUrl: ['', Validators.nullValidator],
+    type: ['', Validators.required],
+    x: ['', Validators.nullValidator],
+    y: ['', Validators.nullValidator],
+    dateStart: ['', Validators.required],
+    dateFinish: ['', Validators.required]
+  });
+
+  thirdFormGroup = this._formBuilder.group({
+    price: ['', Validators.required],
+    numberOfTickets: ['', Validators.required],
   });
 
   isEditable = true;
 
   create(){
     console.log(this.firstFormGroup.value)
+    console.log(this.tags)
     console.log(this.secondFormGroup.value)
+    console.log(this.thirdFormGroup.value)
   }
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private eventService: EventService, private snackBar: MatSnackBar, private router: Router, private _formBuilder: FormBuilder){}
 
-  // constructor(private eventService: EventService, private snackBar: MatSnackBar, private router: Router){}
+  tags: string[] = [];
 
-  // tags: string[] = [];
-  // isEditable = true;
-
-  // addTag(tagList: string[]){
-  //   this.tags = tagList;
-  // }
+  addTag(tagList: string[]){
+    this.tags = tagList;
+  }
 
 
-  // showSuccessMessage(){
-  //   this.snackBar.open("Successfuly created event", "x");
-  // }
+  showSuccessMessage(){
+    this.snackBar.open("Successfuly created event", "x");
+  }
 
-  // createEvent(name: string, 
-  //             description: string, 
-  //             longitude: string, 
-  //             latitude: string, 
-  //             category: string,  
-  //             dateStart: string,
-  //             dateFinish: string) {
-  //   this.eventService.createEvent(name, description, longitude, latitude, category, this.tags, dateStart, dateFinish).subscribe(
-  //     (response) => {
-  //       console.log(response)
-  //       this.router.navigate(['events'])
-  //       this.showSuccessMessage()
-  //     }
-  //   )
-  // }
+  createEvent() {
+    this.eventService.createEvent(
+      this.firstFormGroup.value.name!!, 
+      this.firstFormGroup.value.description!!, 
+      this.secondFormGroup.value.x ? this.secondFormGroup.value.x : "online-event", 
+      this.secondFormGroup.value.y ? this.secondFormGroup.value.y : "online-event", 
+      this.firstFormGroup.value.category!!, 
+      this.tags, 
+      this.secondFormGroup.value.dateStart!!, 
+      this.secondFormGroup.value.dateFinish!!, 
+    )
+    .subscribe(
+      (response) => {
+        console.log(response)
+        this.router.navigate(['events'])
+        this.showSuccessMessage()
+      }
+    )
+  }
+
+  onChangeType(value: string){
+    this.favoriteSeason = value
+    console.log(this.favoriteSeason)
+  }
 }

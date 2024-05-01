@@ -1,0 +1,11 @@
+<!-- <input type="file" (change)="onFilesSelected($event)" multiple>
+<div *ngFor="let imageUrl of imageUrls" class="image-container">
+  <img [src]="imageUrl" alt="Uploaded Image">
+  <button (click)="removeImage(i)">Remove</button>
+</div> -->
+
+<input type="file" (change)="onFilesSelected($event)" multiple>
+<div *ngFor="let image of images; let i = index" class="image-container">
+    <img [src]="image.url" alt="Uploaded Image">
+    <button mat-flat-button color="warn" (click)="removeImage(i)">Remove</button>
+</div>
