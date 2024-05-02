@@ -48,7 +48,7 @@
 // }
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -63,6 +63,8 @@ export class MapComponent implements OnInit {
   marker: L.Marker|any;
   lat: any
   lng: any
+  // @Output() lattitudeEvent = new EventEmitter<string>();
+  @Output() longitudeEvent = new EventEmitter<any>();
 
   constructor() { }
 
@@ -71,7 +73,7 @@ export class MapComponent implements OnInit {
   }
 
   private initializeMap() {
-    this.map = L.map('map').setView([51.505, -0.09], 13);
+    this.map = L.map('map').setView([41.9944, 21.4146], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
@@ -92,6 +94,8 @@ export class MapComponent implements OnInit {
   private displayCoordinates(latlng: L.LatLng) {
     this.lat = latlng.lat.toFixed(4);
     this.lng = latlng.lng.toFixed(4);
-    // alert(`Latitude: ${lat}, Longitude: ${lng}`);
+    
+    // this.lattitudeEvent.emit(this.lattitude)
+    this.longitudeEvent.emit({'lng' : this.lng, 'lat': this.lat})
   }
 }

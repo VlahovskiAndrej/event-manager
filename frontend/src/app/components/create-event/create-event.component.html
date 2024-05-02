@@ -45,6 +45,7 @@
 
 </form> -->
 
+<div class="stepper-container">
   <mat-stepper linear #stepper>
 
     <!-- Initial -->
@@ -97,8 +98,8 @@
 
         <div class="full-width">
           <mat-radio-group formControlName="type" color="primary">
-            <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)" [checked]="isChecked">On-site</mat-radio-button>
-            <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)">Virtual</mat-radio-button>
+            <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)">On-site</mat-radio-button>
+            <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)" [checked]="isEditable">Virtual</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -109,17 +110,17 @@
           </mat-form-field>
         }
         @else{
-        <mat-form-field>
-          <mat-label>X-coordinate</mat-label>
-          <input matInput formControlName="x" placeholder="50.0547">
+        <mat-form-field class="coordinates">
+          <mat-label>Longitude</mat-label>
+          <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Y-coordinate</mat-label>
-          <input matInput formControlName="y" placeholder="39.1127">
+        <mat-form-field class="coordinates">
+          <mat-label>Lattitude</mat-label>
+          <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
         </mat-form-field>
 
-        <div id="map" style="height: 400px; border: 1px solid black;"></div>
+        <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
       }
 
         <div>
@@ -128,29 +129,6 @@
         </div>
       
       </form>
-    </mat-step>
-
-    <!-- Tickets -->
-    <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" >
-        <form [formGroup]="thirdFormGroup" class="create-form">
-          <ng-template matStepLabel>Tickets</ng-template>
-          <mat-form-field class="full-width">
-            <mat-label>Price per ticket:</mat-label>
-            <input matInput formControlName="price" placeholder="10" type="number" 
-                   required>
-          </mat-form-field>
-
-          <mat-form-field class="full-width">
-            <mat-label>Number of tickets:</mat-label>
-            <input matInput formControlName="numberOfTickets" placeholder="100" type="number" 
-                   required>
-          </mat-form-field>
-
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button matStepperNext color="primary">Next</button>
-          </div>
-        </form>
     </mat-step>
 
     <!-- images -->
@@ -165,6 +143,27 @@
       </div>
     </mat-step>
 
+    <!-- Tickets -->
+    <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" optional>
+        <form [formGroup]="thirdFormGroup" class="create-form">
+          <ng-template matStepLabel>Tickets</ng-template>
+          <mat-form-field class="full-width">
+            <mat-label>Price per ticket:</mat-label>
+            <input matInput formControlName="price" placeholder="10" type="number">
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Number of tickets:</mat-label>
+            <input matInput formControlName="numberOfTickets" placeholder="100" type="number">
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext color="primary">Next</button>
+          </div>
+        </form>
+    </mat-step>
+
     <!-- Done -->
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
@@ -176,6 +175,7 @@
     </mat-step>
 
   </mat-stepper>
+</div>
   
 
   <!-- 1. Name, desc, categ, tags, private/public

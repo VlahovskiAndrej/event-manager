@@ -16,6 +16,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { ImageUploadComponent } from '../upload-images/upload-images.component';
+import { MapComponent } from '../map/map.component';
 
 
 @Component({
@@ -34,19 +35,28 @@ import { ImageUploadComponent } from '../upload-images/upload-images.component';
     GoogleMapsModule,
     MatSelectModule,
     MatRadioModule,
-    ImageUploadComponent
+    ImageUploadComponent,
+    MapComponent
   ],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.css'
 })
 export class CreateEventComponent {
 
-  favoriteSeason: string|undefined;
+  favoriteSeason: string = 'virtual';
   isChecked: boolean = false
+  longitude: number|undefined 
+  lattitude: number|undefined 
 
   categories = [
     {value: 'TECH', viewValue: 'Tech'},
-    {value: 'BUSINESS', viewValue: 'Business'}
+    {value: 'BUSINESS', viewValue: 'Business'},
+    {value: 'COMMUNITY', viewValue: 'Community'},
+    {value: 'EDUCATION', viewValue: 'Education'},
+    {value: 'CORPORATE', viewValue: 'Corporate'},
+    {value: 'WORKSHOP', viewValue: 'Workshop'},
+    {value: 'SOCIAL', viewValue: 'Social'},
+    {value: 'CULTURAL', viewValue: 'Cultural'}
   ];
 
 
@@ -59,25 +69,18 @@ export class CreateEventComponent {
   secondFormGroup = this._formBuilder.group({
     meetingUrl: ['', Validators.nullValidator],
     type: ['', Validators.required],
-    x: ['', Validators.nullValidator],
-    y: ['', Validators.nullValidator],
+    longitude: ['', Validators.nullValidator],
+    lattitude: ['', Validators.nullValidator],
     dateStart: ['', Validators.required],
     dateFinish: ['', Validators.required]
   });
 
   thirdFormGroup = this._formBuilder.group({
-    price: ['', Validators.required],
-    numberOfTickets: ['', Validators.required],
+    price: ['', Validators.nullValidator],
+    numberOfTickets: ['', Validators.nullValidator],
   });
 
   isEditable = true;
-
-  create(){
-    console.log(this.firstFormGroup.value)
-    console.log(this.tags)
-    console.log(this.secondFormGroup.value)
-    console.log(this.thirdFormGroup.value)
-  }
 
   constructor(private eventService: EventService, private snackBar: MatSnackBar, private router: Router, private _formBuilder: FormBuilder){}
 
@@ -96,8 +99,8 @@ export class CreateEventComponent {
     this.eventService.createEvent(
       this.firstFormGroup.value.name!!, 
       this.firstFormGroup.value.description!!, 
-      this.secondFormGroup.value.x ? this.secondFormGroup.value.x : "online-event", 
-      this.secondFormGroup.value.y ? this.secondFormGroup.value.y : "online-event", 
+      this.secondFormGroup.value.longitude ? this.secondFormGroup.value.longitude : "online-event", 
+      this.secondFormGroup.value.lattitude ? this.secondFormGroup.value.lattitude : "online-event", 
       this.firstFormGroup.value.category!!, 
       this.tags, 
       this.secondFormGroup.value.dateStart!!, 
@@ -116,4 +119,10 @@ export class CreateEventComponent {
     this.favoriteSeason = value
     console.log(this.favoriteSeason)
   }
+
+  addCoordinates(value: {'lng': string, 'lat': string}){
+    this.longitude = Number.parseFloat(value.lng)
+    this.lattitude = Number.parseFloat(value.lat)
+  }
+
 }
