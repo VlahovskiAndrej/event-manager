@@ -56,7 +56,7 @@ export class UpdateEventComponent implements OnInit{
               category: string,  
               dateStart: string,
               dateFinish: string) {
-    this.eventService.updateEvent(this.route.snapshot.params['id'] , name, description, longitude, latitude, category, this.tags, dateStart, dateFinish).subscribe(
+    this.eventService.updateEvent(this.route.snapshot.params['id'] , name, description, longitude, latitude, category, this.tags, dateStart, dateFinish, '', '', 1.0).subscribe(
         (response) => {
           console.log(response)
           this.router.navigate(['events/my-events'])

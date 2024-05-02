@@ -11,7 +11,10 @@ export interface EventInterface {
     tags: Tag[];
     dateStart: Date;
     dateFinish: Date;
-    creator: User
+    creator: User;
+    meetingUrl: string,
+    type: string,
+    price: number,
 }
 
 // enum Category {

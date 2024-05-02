@@ -1,4 +1,4 @@
-package com.sorsix.eventmanager.api
+package com.sorsix.eventmanager.web
 
 import com.sorsix.eventmanager.config.AuthService
 import com.sorsix.eventmanager.domain.request.LoginRequest

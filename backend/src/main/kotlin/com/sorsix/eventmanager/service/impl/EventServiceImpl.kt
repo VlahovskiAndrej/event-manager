@@ -28,13 +28,16 @@ class EventServiceImpl(
             id = 0,
             name = eventRequest.name,
             description = eventRequest.description,
-            availableTickets = 0,
+            availableTickets = eventRequest.maxPeople,
             longitude = eventRequest.longitude,
             latitude = eventRequest.latitude,
             dateFinish = eventRequest.dateFinish,
             dateStart = eventRequest.dateStart,
             tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
             category = eventRequest.category,
+            type = eventRequest.type,
+            price = eventRequest.price,
+            meetingUrl = eventRequest.meetingUrl,
             creator=user!!
             ))
     }
@@ -61,6 +64,9 @@ class EventServiceImpl(
         event.longitude = eventRequest.longitude
         event.dateStart = eventRequest.dateStart
         event.dateFinish = eventRequest.dateFinish
+        event.type = eventRequest.type
+        event.price = eventRequest.price
+        event.meetingUrl = eventRequest.meetingUrl
         return eventRepository.save(event)
     }
 

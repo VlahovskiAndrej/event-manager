@@ -87,14 +87,26 @@
         <ng-template matStepLabel>Location</ng-template>
        
         <mat-form-field class="full-width">
-          <mat-label>Date start:</mat-label>
-          <input matInput formControlName="dateStart" type="datetime-local">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate formControlName="dateStart" placeholder="Start date">
+            <input matEndDate formControlName="dateFinish" placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
         </mat-form-field>
-  
-        <mat-form-field class="full-width">
-          <mat-label>Date finish:</mat-label>
-          <input matInput formControlName="dateFinish" type="datetime-local">
-        </mat-form-field>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <label style="font-size: 16px;">Daily time range:</label>
+            <input formControlName="timeStart" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
+            <label style="font-size: 16px;"> :</label>
+            <input formControlName="timeFinish" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
+          </div>
+        </div>
+        
+        
 
         <div class="full-width">
           <mat-radio-group formControlName="type" color="primary">
@@ -121,7 +133,7 @@
         </mat-form-field>
 
         <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
-      }
+        }
 
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -147,14 +159,19 @@
     <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" optional>
         <form [formGroup]="thirdFormGroup" class="create-form">
           <ng-template matStepLabel>Tickets</ng-template>
-          <mat-form-field class="full-width">
+
+          <mat-checkbox color="primary" (change)="onChangeFreeEnterance()">Free Enterance</mat-checkbox>
+          <mat-form-field floatLabel="always" class="full-width">
             <mat-label>Price per ticket:</mat-label>
-            <input matInput formControlName="price" placeholder="10" type="number">
+            <input matInput formControlName="price" placeholder="2.00" type="number">
+            <span matTextPrefix>$&nbsp;</span>
           </mat-form-field>
 
+          <mat-checkbox color="primary" (change)="onChangeUnlimitedTickets()">Unlimited Tickets</mat-checkbox>
           <mat-form-field class="full-width">
             <mat-label>Number of tickets:</mat-label>
-            <input matInput formControlName="numberOfTickets" placeholder="100" type="number">
+            <input matInput formControlName="numberOfTickets" placeholder="20" type="number">
+
           </mat-form-field>
 
           <div>

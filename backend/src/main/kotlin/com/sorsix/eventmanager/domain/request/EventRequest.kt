@@ -22,4 +22,10 @@ data class EventRequest(
     val dateStart: LocalDateTime,
 
     val dateFinish: LocalDateTime,
+
+    val meetingUrl: String,
+
+    val type: String,
+
+    val price: Double,
 )

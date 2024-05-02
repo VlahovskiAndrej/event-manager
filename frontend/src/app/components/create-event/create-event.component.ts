@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -17,7 +17,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { ImageUploadComponent } from '../upload-images/upload-images.component';
 import { MapComponent } from '../map/map.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-create-event',
@@ -36,17 +38,22 @@ import { MapComponent } from '../map/map.component';
     MatSelectModule,
     MatRadioModule,
     ImageUploadComponent,
-    MapComponent
+    MapComponent,
+    MatDatepickerModule,
+    MatCheckboxModule
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.css'
 })
-export class CreateEventComponent {
+export class CreateEventComponent{
 
   favoriteSeason: string = 'virtual';
   isChecked: boolean = false
-  longitude: number|undefined 
-  lattitude: number|undefined 
+  isFreeEnterance: boolean = false
+  isUnlimitedTickets: boolean = false
+  longitude: number|undefined
+  lattitude: number|undefined
 
   categories = [
     {value: 'TECH', viewValue: 'Tech'},
@@ -69,20 +76,23 @@ export class CreateEventComponent {
   secondFormGroup = this._formBuilder.group({
     meetingUrl: ['', Validators.nullValidator],
     type: ['', Validators.required],
-    longitude: ['', Validators.nullValidator],
-    lattitude: ['', Validators.nullValidator],
+    longitude: [''],
+    lattitude: [''],
     dateStart: ['', Validators.required],
-    dateFinish: ['', Validators.required]
+    dateFinish: ['', Validators.required],
+    timeStart: ['', Validators.required],
+    timeFinish: ['', Validators.required]
   });
 
   thirdFormGroup = this._formBuilder.group({
-    price: ['', Validators.nullValidator],
-    numberOfTickets: ['', Validators.nullValidator],
+     price: ['', Validators.nullValidator],
+     numberOfTickets: ['', Validators.nullValidator],
   });
 
   isEditable = true;
 
   constructor(private eventService: EventService, private snackBar: MatSnackBar, private router: Router, private _formBuilder: FormBuilder){}
+
 
   tags: string[] = [];
 
@@ -99,12 +109,18 @@ export class CreateEventComponent {
     this.eventService.createEvent(
       this.firstFormGroup.value.name!!, 
       this.firstFormGroup.value.description!!, 
-      this.secondFormGroup.value.longitude ? this.secondFormGroup.value.longitude : "online-event", 
-      this.secondFormGroup.value.lattitude ? this.secondFormGroup.value.lattitude : "online-event", 
+      // this.secondFormGroup.value.longitude ? this.secondFormGroup.value.longitude : "online-event", 
+      // this.secondFormGroup.value.lattitude ? this.secondFormGroup.value.lattitude : "online-event", 
+      this.longitude ? this.longitude.toString() : '',
+      this.lattitude ? this.lattitude.toString() : '',
       this.firstFormGroup.value.category!!, 
       this.tags, 
       this.secondFormGroup.value.dateStart!!, 
       this.secondFormGroup.value.dateFinish!!, 
+      this.secondFormGroup.value.meetingUrl!!,
+      this.secondFormGroup.value.type!!,
+      Number.parseFloat(this.thirdFormGroup.value.price!!),
+      Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!)
     )
     .subscribe(
       (response) => {
@@ -123,6 +139,33 @@ export class CreateEventComponent {
   addCoordinates(value: {'lng': string, 'lat': string}){
     this.longitude = Number.parseFloat(value.lng)
     this.lattitude = Number.parseFloat(value.lat)
+  }
+
+  onChangeFreeEnterance(){
+    if (!this.isFreeEnterance){
+      this.thirdFormGroup.get('price')?.disable()
+      this.thirdFormGroup.get('price')?.setValue('0.00')
+      this.isFreeEnterance = true
+      console.log(this.secondFormGroup.value.timeStart)
+      console.log(this.secondFormGroup.value.dateStart)
+    }
+    else{
+      this.thirdFormGroup.get('price')?.enable()
+      this.isFreeEnterance = false
+    } 
+      
+  }
+
+  onChangeUnlimitedTickets(){
+    if (!this.isUnlimitedTickets){
+      this.thirdFormGroup.get('numberOfTickets')?.disable()
+      this.isUnlimitedTickets = true
+    }
+    else {
+      this.thirdFormGroup.get('numberOfTickets')?.enable()
+      this.isUnlimitedTickets = false
+    }
+      
   }
 
 }

@@ -34,18 +34,25 @@ export class EventService {
               category: string,
               tagNames: string[],
               dateStart: string,
-              dateFinish: string
+              dateFinish: string,
+              meetingUrl: string,
+              type: string,
+              price: number,
+              maxPeople: number
               ) : Observable<EventInterface[]>{
     const body = {
       name: name,
       description: description,
-      maxPeople: 0,
+      maxPeople: maxPeople,
       longitude: longitude,
       latitude: latitude,
       category: category,
       tagsNames: tagNames,
       dateStart: dateStart,
       dateFinish: dateFinish,
+      meetingUrl: meetingUrl,
+      type: type,
+      price: price
     };
 
     const headers = new HttpHeaders({
@@ -65,7 +72,10 @@ export class EventService {
             category: string,
             tagNames: string[],
             dateStart: string,
-            dateFinish: string
+            dateFinish: string,
+            meetingUrl: string,
+            type: string,
+            price: number
     ) : Observable<EventInterface[]>{
 
       const body = {
@@ -78,6 +88,9 @@ export class EventService {
         tagsNames: tagNames,
         dateStart: dateStart,
         dateFinish: dateFinish,
+        meetingUrl: meetingUrl,
+        type: type,
+        price: price
       };
 
       const headers = new HttpHeaders({

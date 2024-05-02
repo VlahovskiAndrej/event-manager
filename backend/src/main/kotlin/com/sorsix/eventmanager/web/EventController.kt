@@ -1,4 +1,4 @@
-package com.sorsix.eventmanager.api
+package com.sorsix.eventmanager.web
 
 import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event

@@ -17,7 +17,7 @@ data class Event(
 
     var description: String,
 
-    var availableTickets: Int, /* number of Tickets */
+    var availableTickets: Int,
 
     var longitude: String,
     var latitude: String,
@@ -31,6 +31,12 @@ data class Event(
     var dateStart: LocalDateTime,
 
     var dateFinish: LocalDateTime,
+
+    var meetingUrl: String,
+
+    var type: String,
+
+    var price: Double,
 
     @ManyToOne
     val creator: User
