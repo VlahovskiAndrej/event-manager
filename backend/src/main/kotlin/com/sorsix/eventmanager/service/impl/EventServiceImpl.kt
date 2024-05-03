@@ -12,7 +12,11 @@ import com.sorsix.eventmanager.repository.EventRepository
 import com.sorsix.eventmanager.repository.TicketRepository
 import com.sorsix.eventmanager.service.EventService
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.core.io.ByteArrayResource
 import org.springframework.stereotype.Service
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.time.LocalDateTime
 import java.time.Month
 
@@ -22,8 +26,23 @@ class EventServiceImpl(
     val ticketRepository: TicketRepository,
     val authService: AuthService
 ) : EventService{
+
+    private val root: Path = Paths.get("upload")
+
     override fun createEvent(eventRequest: EventRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
+
+//        val eventPathSlug = eventRequest.name.lowercase().replace(" ", "_")
+//        val pathToUpload = Files.createDirectory(root.resolve(eventPathSlug))
+//        val multipartFile = CommonsMultipartFile(
+//            ByteArrayResource(request.thumbnail.fileContent),
+//            request.thumbnail.fileName
+//        )
+//
+//        Files.copy(eventRequest.thumbnail.inputStream, pathToUpload.resolve("thumbnail.jpeg"))
+//        val thumbnailPath = pathToUpload.resolve("thumbnail.jpeg").toAbsolutePath().toString()
+
+
         return eventRepository.save(Event(
             id = 0,
             name = eventRequest.name,
@@ -33,13 +52,16 @@ class EventServiceImpl(
             latitude = eventRequest.latitude,
             dateFinish = eventRequest.dateFinish,
             dateStart = eventRequest.dateStart,
+            timeStart = eventRequest.timeStart,
+            timeFinish = eventRequest.timeFinish,
             tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
             category = eventRequest.category,
             type = eventRequest.type,
             price = eventRequest.price,
             meetingUrl = eventRequest.meetingUrl,
-            creator=user!!
-            ))
+            creator=user!!,
+//            thumbnailUrl = thumbnailPath,
+        ))
     }
 
     override fun getEvents(): List<Event> {
@@ -64,6 +86,8 @@ class EventServiceImpl(
         event.longitude = eventRequest.longitude
         event.dateStart = eventRequest.dateStart
         event.dateFinish = eventRequest.dateFinish
+        event.timeStart = eventRequest.timeStart
+        event.timeFinish = eventRequest.timeFinish
         event.type = eventRequest.type
         event.price = eventRequest.price
         event.meetingUrl = eventRequest.meetingUrl

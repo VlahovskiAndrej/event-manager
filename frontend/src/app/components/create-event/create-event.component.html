@@ -147,9 +147,9 @@
     <mat-step>
       <ng-template matStepLabel>Images</ng-template>
 
-      <app-upload-images></app-upload-images>
+      <app-upload-images (imagesEvent)="addImages($event)"></app-upload-images>
 
-      <div>
+      <div style="margin-top: 25px;">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-raised-button matStepperNext color="primary">Next</button>
       </div>

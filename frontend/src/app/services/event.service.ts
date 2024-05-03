@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventInterface } from '../interfaces/event';
+import { Image } from '../interfaces/image';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,14 @@ export class EventService {
               tagNames: string[],
               dateStart: string,
               dateFinish: string,
+              timeStart: string,
+              timeFinish: string,
               meetingUrl: string,
               type: string,
               price: number,
-              maxPeople: number
+              maxPeople: number,
+              images: Image[],
+              thumbnail: Image|null,
               ) : Observable<EventInterface[]>{
     const body = {
       name: name,
@@ -50,13 +55,16 @@ export class EventService {
       tagsNames: tagNames,
       dateStart: dateStart,
       dateFinish: dateFinish,
+      timeStart: timeStart,
+      timeFinish: timeFinish,
       meetingUrl: meetingUrl,
       type: type,
-      price: price
+      price: price,
+      // thumbnail: thumbnail?.file
     };
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
 

@@ -4,8 +4,35 @@
   <button (click)="removeImage(i)">Remove</button>
 </div> -->
 
-<input type="file" (change)="onFilesSelected($event)" multiple>
-<div *ngFor="let image of images; let i = index" class="image-container">
-    <img [src]="image.url" alt="Uploaded Image">
-    <button mat-flat-button color="warn" (click)="removeImage(i)">Remove</button>
+<span style="font-weight: 400; font-size: 18px;">Thumbnail: </span>
+<label for="file-upload" class="custom-file-upload">
+  <i class="fa fa-cloud-upload"></i> Choose one
+</label>
+<input id="file-upload" type="file" (change)="onThumbnailSelected($event)"/>
+
+@if(thumbnail != null){
+
+  <mat-card class="example-card">
+    <img mat-card-image [src]="thumbnail.url" alt="Uploaded image">
+    <mat-card-actions>
+      <button mat-flat-button color="warn" (click)="removeThumbnail()">Remove</button>
+    </mat-card-actions>
+  </mat-card>
+
+}<hr>
+
+<span style="font-weight: 400; font-size: 18px;">Photos: </span>
+<label for="file-uploads" class="custom-file-upload">
+  <i class="fa fa-cloud-upload"></i> Choose multiple
+</label>
+<input id="file-uploads" type="file" (change)="onFilesSelected($event)" multiple/>
+<div class="image-container">
+  @for( image of images; track image.url){
+    <mat-card class="example-card">
+      <img mat-card-image [src]="image.url" alt="Uploaded image">
+      <mat-card-actions>
+        <button mat-flat-button color="warn" (click)="removeImage(image)">Remove</button>
+      </mat-card-actions>
+    </mat-card>
+  }
 </div>

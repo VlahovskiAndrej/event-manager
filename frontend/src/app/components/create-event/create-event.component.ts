@@ -20,6 +20,7 @@ import { MapComponent } from '../map/map.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { Image } from '../../interfaces/image';
 
 @Component({
   selector: 'app-create-event',
@@ -54,6 +55,8 @@ export class CreateEventComponent{
   isUnlimitedTickets: boolean = false
   longitude: number|undefined
   lattitude: number|undefined
+  images: Image[] = []
+  thumbnail: Image|null = null
 
   categories = [
     {value: 'TECH', viewValue: 'Tech'},
@@ -100,35 +103,36 @@ export class CreateEventComponent{
     this.tags = tagList;
   }
 
-
   showSuccessMessage(){
-    this.snackBar.open("Successfuly created event", "x");
+    this.snackBar.open("Successfuly created event", '', {duration: 3000});
   }
 
   createEvent() {
-    this.eventService.createEvent(
-      this.firstFormGroup.value.name!!, 
-      this.firstFormGroup.value.description!!, 
-      // this.secondFormGroup.value.longitude ? this.secondFormGroup.value.longitude : "online-event", 
-      // this.secondFormGroup.value.lattitude ? this.secondFormGroup.value.lattitude : "online-event", 
-      this.longitude ? this.longitude.toString() : '',
-      this.lattitude ? this.lattitude.toString() : '',
-      this.firstFormGroup.value.category!!, 
-      this.tags, 
-      this.secondFormGroup.value.dateStart!!, 
-      this.secondFormGroup.value.dateFinish!!, 
-      this.secondFormGroup.value.meetingUrl!!,
-      this.secondFormGroup.value.type!!,
-      Number.parseFloat(this.thirdFormGroup.value.price!!),
-      Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!)
-    )
-    .subscribe(
-      (response) => {
-        console.log(response)
-        this.router.navigate(['events'])
-        this.showSuccessMessage()
-      }
-    )
+      this.eventService.createEvent(
+        this.firstFormGroup.value.name!!, 
+        this.firstFormGroup.value.description!!, 
+        this.longitude ? this.longitude.toString() : '',
+        this.lattitude ? this.lattitude.toString() : '',
+        this.firstFormGroup.value.category!!, 
+        this.tags, 
+        this.secondFormGroup.value.dateStart!!, 
+        this.secondFormGroup.value.dateFinish!!, 
+        this.secondFormGroup.value.timeStart!!,
+        this.secondFormGroup.value.timeFinish!!,
+        this.secondFormGroup.value.meetingUrl!!,
+        this.secondFormGroup.value.type!!,
+        Number.parseFloat(this.thirdFormGroup.value.price!!),
+        Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!),
+        this.images,
+        this.thumbnail
+      )
+      .subscribe(
+        (response) => {
+          console.log(response)
+          this.router.navigate(['events'])
+          this.showSuccessMessage()
+        }
+      )
   }
 
   onChangeType(value: string){
@@ -139,6 +143,13 @@ export class CreateEventComponent{
   addCoordinates(value: {'lng': string, 'lat': string}){
     this.longitude = Number.parseFloat(value.lng)
     this.lattitude = Number.parseFloat(value.lat)
+  }
+
+  addImages(value: {'images':Image[], 'thumbnail': Image|null}){
+    this.images = value.images
+    this.thumbnail = value.thumbnail
+    console.log(this.images)
+    console.log(this.thumbnail)
   }
 
   onChangeFreeEnterance(){

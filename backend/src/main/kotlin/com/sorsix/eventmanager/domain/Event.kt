@@ -2,8 +2,10 @@ package com.sorsix.eventmanager.domain
 
 import com.sorsix.eventmanager.domain.user.User
 import jakarta.persistence.*
+import java.time.LocalDate
 
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 @Entity
 @Table(name = "events")
@@ -28,9 +30,13 @@ data class Event(
     @ManyToMany
     var tags: MutableList<Tag>,
 
-    var dateStart: LocalDateTime,
+    var dateStart: LocalDate,
 
-    var dateFinish: LocalDateTime,
+    var dateFinish: LocalDate,
+
+    var timeStart: LocalTime,
+
+    var timeFinish: LocalTime,
 
     var meetingUrl: String,
 
@@ -39,6 +45,10 @@ data class Event(
     var price: Double,
 
     @ManyToOne
-    val creator: User
-//    val activeDiscountPercentage: Double
+    val creator: User,
+
+//    var thumbnailUrl: String
+
+//    @OneToMany
+//    var images: List<Image>
 )
