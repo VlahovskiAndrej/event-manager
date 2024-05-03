@@ -1,48 +1,125 @@
 
 
-<p>Update Event</p>
-<form name="loginForm" class="example-form"  (ngSubmit)="updateEvent(eventName.value, description.value, longitude.value, latitude.value, category.value, datestart.value, datefinish.value)">
-    
-    <mat-form-field class="example-full-width">
-        <mat-label>Event name</mat-label>
-        <input matInput [defaultValue]="event?.name" #eventName name="eventname">
-    </mat-form-field>
+<div class="stepper-container">
 
-    <mat-form-field class="example-full-width">
-        <mat-label>Description</mat-label>
-        <textarea id="desc" [defaultValue]="event?.description" matInput #description name="description"></textarea>
-    </mat-form-field>
+    <mat-stepper linear #stepper>
+      <div>
+        <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
+      </div>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Longitude</mat-label>
-      <input matInput #longitude [defaultValue]="event?.longitude" name="longitude">
-    </mat-form-field>
+      <!-- Initial -->
+      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+        <form [formGroup]="firstFormGroup" class="create-form">
+          <ng-template matStepLabel>Initial</ng-template>
   
-    <mat-form-field class="example-full-width">
-        <mat-label>Latitude</mat-label>
-        <input matInput #latitude [defaultValue]="event?.latitude" name="latitude">
-    </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput [value]="event?.name" formControlName="name" placeholder="Event name">
+          </mat-form-field>
+  
+          <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea [value]="event?.description" style="height: 120px;" matInput formControlName="description" placeholder="Desc..."></textarea>
+          </mat-form-field>
+  
+          <mat-form-field class="full-width">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category" [value]="event?.category">
+              @for (category of categories; track category) {
+                <mat-option [value]="category.value">{{category.viewValue}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+  
+          <app-add-tags [editTags]="tags" (tagsEvent)="addTag($event)"></app-add-tags>
+  
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <button mat-raised-button matStepperNext color="primary">Next</button>
+            <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
+          </div>
+  
+        </form>
+      </mat-step>
+  
+      <!-- Location -->
+      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Location</ng-template>
+         
+          <mat-form-field class="full-width">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input [value]="event?.dateStart" matStartDate formControlName="dateStart" placeholder="Start date">
+              <input [value]="event?.dateFinish" matEndDate formControlName="dateFinish" placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+  
+          </mat-form-field>
+  
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <label style="font-size: 16px;">Daily time range:</label>
+              <input [value]="event?.timeStart" formControlName="timeStart" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
+              <label style="font-size: 16px;"> :</label>
+              <input [value]="event?.timeFinish" formControlName="timeFinish" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
+            </div>
+          </div>
+          
+          
+  
+          <div class="full-width">
+            <mat-radio-group formControlName="type" color="primary" [value]="event?.type">
+              <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)">On-site</mat-radio-button>
+              <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)" [checked]="isEditable">Virtual</mat-radio-button>
+            </mat-radio-group>
+          </div>
+  
+          @if(favoriteSeason == 'virtual'){
+            <mat-form-field class="full-width">
+              <mat-label>Link to Google meet</mat-label>
+              <input [value]="event?.meetingUrl" matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
+            </mat-form-field>
+          }
+          @else{
+          <mat-form-field class="coordinates">
+            <mat-label>Longitude</mat-label>
+            <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
+          </mat-form-field>
+  
+          <mat-form-field class="coordinates">
+            <mat-label>Lattitude</mat-label>
+            <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
+          </mat-form-field>
+  
+          <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
+          }
+  
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-raised-button matStepperNext color="primary">Next</button>
+            </div>
+            <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
+        </div>
+        </form>
+      </mat-step>
+  
+      <!-- images -->
+      <mat-step>
+        <ng-template matStepLabel>Images</ng-template>
+  
+        <app-upload-images (imagesEvent)="addImages($event)"></app-upload-images>
 
-    <mat-form-field class="example-full-width">
-        <mat-label>category</mat-label>
-        <input matInput #category [defaultValue]="event?.category" name="latitude">
-    </mat-form-field> 
-
-    <p style="color: red;">Da se napravi default tags</p>
-    <app-add-tags (tagsEvent)="addTag($event)"></app-add-tags>
-
-    <mat-form-field class="example-full-width">
-        <mat-label>Date start:</mat-label>
-        <input matInput #datestart [defaultValue]="event?.dateStart" name="dateStart" type="datetime-local">
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-        <mat-label>Date finish:</mat-label>
-        <input matInput #datefinish [defaultValue]="event?.dateFinish" name="dateFinish" type="datetime-local">
-    </mat-form-field>
-
-    <button type="submit" mat-raised-button color="primary">
-        UPDATE
-    </button>
-
-</form>
+        <div style="margin-top: 25px; display: flex; flex-direction: row; justify-content: space-between;">
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext color="primary">Next</button>
+          </div>
+          <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
+      </div>
+      </mat-step>
+  
+    </mat-stepper>
+  </div>
+    

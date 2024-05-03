@@ -24,7 +24,7 @@ export interface EventInterface {
 //     Define your category options here
 // }
 
-interface Tag {
+export interface Tag {
     id?: number;
     name: string;
 }

@@ -72,33 +72,41 @@ export class EventService {
   }
 
   updateEvent(
-            id: string,
-            name: string,
-            description: string,
-            longitude: string,
-            latitude: string,
-            category: string,
-            tagNames: string[],
-            dateStart: string,
-            dateFinish: string,
-            meetingUrl: string,
-            type: string,
-            price: number
-    ) : Observable<EventInterface[]>{
+              id: string,
+              name: string,
+              description: string,
+              longitude: string,
+              latitude: string,
+              category: string,
+              tagNames: string[],
+              dateStart: string,
+              dateFinish: string,
+              timeStart: string,
+              timeFinish: string,
+              meetingUrl: string,
+              type: string,
+              price: number,
+              maxPeople: number,
+              images: Image[],
+              thumbnail: Image|null,
+  ) : Observable<EventInterface[]>{
 
       const body = {
         name: name,
         description: description,
-        maxPeople: 0,
+        maxPeople: maxPeople,
         longitude: longitude,
         latitude: latitude,
         category: category,
         tagsNames: tagNames,
         dateStart: dateStart,
         dateFinish: dateFinish,
+        timeStart: timeStart,
+        timeFinish: timeFinish,
         meetingUrl: meetingUrl,
         type: type,
-        price: price
+        price: price,
+        // thumbnail: thumbnail?.file
       };
 
       const headers = new HttpHeaders({
@@ -106,8 +114,9 @@ export class EventService {
         'Authorization': 'Bearer ' + localStorage.getItem('token'),
       });
 
+      console.log(body, id)
       return this.http.put<EventInterface[]>(`http://localhost:8081/api/events/${id}/update`, body, { headers: headers })
-      }
+  }
 
   getMyEvents() : Observable<EventInterface[]>{
     const headers = new HttpHeaders({
