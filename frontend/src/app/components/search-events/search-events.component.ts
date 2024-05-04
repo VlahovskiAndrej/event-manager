@@ -13,6 +13,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {} from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-search-events',
   standalone: true,
@@ -23,7 +24,9 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatIconModule,
     MatInputModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    RouterOutlet,
+    RouterLink,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',
@@ -117,4 +120,9 @@ export class SearchEventsComponent {
       this.category$.next(category)
     }
   }
+
+  onClickEvent(){
+    
+  }
+
 }

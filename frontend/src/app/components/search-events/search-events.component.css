@@ -56,4 +56,5 @@ app-event{
     margin-top: 30px;
     margin-right: 3.3%;
     border: 0.5px solid gainsboro;
+    cursor: pointer;
 }

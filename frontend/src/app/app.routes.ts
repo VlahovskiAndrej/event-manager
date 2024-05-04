@@ -8,6 +8,7 @@ import { UpdateEventComponent } from './components/update-event/update-event.com
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SearchTicketsComponent } from './components/search-tickets/search-tickets.component';
 import { MapComponent } from './components/map/map.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
 
 export const routes: Routes = [
     {
@@ -41,6 +42,10 @@ export const routes: Routes = [
     {
         path: 'near-me',
         component: MapComponent,
+    },
+    {
+        path: 'events/:id',
+        component: EventDetailsComponent,
     },
     {
         path: '**',

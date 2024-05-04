@@ -1,1 +1,42 @@
-<p>event-details works!</p>
+
+
+
+  <div id="grid" style="display: flex; justify-content: center;">
+    <div id="row1" style="width: 80%;" >
+        
+        <div id="image-container">
+            <img src="https://linkup.mk/storage/events/thumbnails/01HVMAWQ3YEYMPKGQ0B1AP63HK.jpg" alt="">
+            @if(event?.availableTickets == 0){
+                <button style="width: 100%; margin-top: 20px;" mat-flat-button color="primary" (click)="buyTicketDialog()" disabled>Buy Ticket</button>
+            }
+            @else{
+                <button style="width: 100%; margin-top: 20px;" mat-flat-button color="primary" (click)="buyTicketDialog()">Buy Ticket</button>
+            }
+        </div>
+
+        <div id="event-data">
+            <p style="background-color: rgb(247, 185, 185); text-align: center; border-radius: 10px; margin-top: 15px; margin-bottom: 0; display: inline-block; padding: 2px 8px;">{{event?.category}}</p>
+            <h1>{{event?.name}}</h1>
+
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
+            <p>{{event?.dateStart}}</p>
+            <p>{{event?.dateFinish}}</p>
+            <p>{{event?.timeStart}}</p>
+            <p>{{event?.timeFinish}}</p>
+
+
+            <p>{{event?.availableTickets}}</p>
+            <p>{{event?.price}}</p>
+            <p>{{event?.creator}}</p>
+
+            <p>{{event?.tags}}</p>
+            <p>{{event?.type}}</p>
+
+            <p>{{event?.description}}</p>
+            <p>{{event?.latitude}}</p>
+            <p>{{event?.longitude}}</p>
+            <p>{{event?.meetingUrl}}</p>
+        </div>
+
+    </div>
+  </div>

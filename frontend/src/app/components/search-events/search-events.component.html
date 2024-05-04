@@ -12,9 +12,9 @@
     </mat-form-field>
 
     <mat-form-field class="date-picker" appearance="outline">
-        <input matInput [matDatepicker]="picker" placeholder="To date">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <input matInput [matDatepicker]="picker2" placeholder="To date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field id="city-select" appearance="outline">
@@ -37,17 +37,9 @@
 
 <div id="events">
     @if (!loading){
-        <!-- <div class="event-card"> -->
             @for (e of events; track e.id){
-                <app-event [event]="e"></app-event>
+                <app-event routerLink="/events/{{e.id}}" [event]="e" (click)="onClickEvent()"></app-event>
             }
-        <!-- </div> -->
-        <!-- <h2>Recently added events</h2>
-        <div class="card-container">
-            @for (e of recentEvents; track e.id){
-                <app-event [event]="e"></app-event>
-            }
-        </div> -->
     }
     @else {
         <p id="loading-text">Loading...</p>
