@@ -1,27 +1,59 @@
-.card-container {
+/* .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 105px;
-    padding:50px;
+    padding: 50px;
     padding-top: 20px;
-}
+} */
 
-
-h2{
-    padding-left:50px;
-}
-
-.input-container, .options{
+.filter-container{
+    margin-top: 10px;
     display: flex;
-    justify-content: flex-start;
-    padding-top:20px;
-    padding-left:50px;
-    padding-bottom:15px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
+
+#search-bar {
+    width: 40%;
+}
+
+.date-picker{
+    width: 15%;
+}
+
+#city-select{
+    width: 10%;
+}
+
+#categories{
+    width: 80%;
+    display: flex;
+    margin-left: 10%;
+}
+
 mat-chip-listbox{
     display: flex;
     flex-direction: row;
     width: 150px;
+    /* margin: 0 2px; */
 }
 
+#events{
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+app-event{
+    width: 30%;
+    margin-top: 30px;
+    margin-right: 3.3%;
+    border: 0.5px solid gainsboro;
+}

@@ -6,9 +6,13 @@ import { EventComponent } from '../event/event.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input'
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
 
 import {} from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
+import { provideNativeDateAdapter } from '@angular/material/core';
 @Component({
   selector: 'app-search-events',
   standalone: true,
@@ -16,12 +20,23 @@ import { NgFor } from '@angular/common';
     NgFor,
     EventComponent,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',
   styleUrl: './search-events.component.css'
 })
 export class SearchEventsComponent {
+
+  cities: any[] = [
+    {value: 'skopje', viewValue: 'Skopje'},
+    {value: 'tetovo', viewValue: 'Tetovo'},
+    {value: 'veles', viewValue: 'Veles'},
+  ];
+
   events: EventInterface[] | undefined;
   recentEvents: EventInterface[] | undefined;
   allEvents: EventInterface[] | undefined;

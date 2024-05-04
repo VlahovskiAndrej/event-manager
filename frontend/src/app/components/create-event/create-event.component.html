@@ -8,14 +8,22 @@
       <form [formGroup]="firstFormGroup" class="create-form">
         <ng-template matStepLabel>Initial</ng-template>
 
+        <p style="color: rgb(75, 0, 146); font-weight: 500;">We are excited to assist you in planning and hosting your upcoming event.</p>
+
+        <p style="font-size: 14px;">Before creating an event, make sure to carefully gather key details such as the title, date, time, location, category, type and tags while considering factors like your target audience, budget, and any special requirements. This information will help you plan and promote to the intended audience so we can execute a successful event.</p>
+
         <mat-form-field class="full-width">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" placeholder="Event name" required>
+          <mat-label>Title</mat-label>
+          <input #title matInput formControlName="name" placeholder="Event title" maxlength="50" required>
+          <mat-hint>Clear and descriptive few words that capture the essence of your event.</mat-hint>
+          <mat-hint align="end">{{title.value.length}} / 50</mat-hint>
         </mat-form-field>
 
         <mat-form-field class="full-width">
           <mat-label>Description</mat-label>
-          <textarea style="height: 120px;" matInput formControlName="description" placeholder="Desc..." required></textarea>
+          <textarea #message style="height: 80px;" matInput formControlName="description" placeholder="Desc..." required></textarea>
+          <mat-hint align="start">Give us details about the event.</mat-hint>
+          <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
 
         <mat-form-field class="full-width">
@@ -25,11 +33,14 @@
               <mat-option [value]="category.value">{{category.viewValue}}</mat-option>
             }
           </mat-select>
+          
+          <mat-hint align="start">Set a category to help us promote your event to the right people.</mat-hint>
         </mat-form-field>
 
         <app-add-tags (tagsEvent)="addTag($event)"></app-add-tags>
+        
 
-        <div>
+        <div style="margin-top: 12px;">
           <button mat-raised-button matStepperNext color="primary">Next</button>
         </div>
 
@@ -39,14 +50,19 @@
     <!-- Location -->
     <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Location</ng-template>
+        <ng-template matStepLabel>Details</ng-template>
        
+        <p style="color: rgb(75, 0, 146); font-weight: 500;">Date, Time & Location</p>
+
+        <p style="font-size: 14px;">Including a date range and location to your event is essential for providing attendees with clear information about when and where the it will take place, helping them plan and participate effectively.</p>
+
         <mat-form-field class="full-width">
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate formControlName="dateStart" placeholder="Start date">
-            <input matEndDate formControlName="dateFinish" placeholder="End date">
+            <input matStartDate formControlName="dateStart" placeholder="5/1/2024">
+            <input matEndDate formControlName="dateFinish" placeholder="5/8/2024">
           </mat-date-range-input>
+          <mat-hint>Select a start and end date</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
 
@@ -61,9 +77,8 @@
           </div>
         </div>
         
-        
-
         <div class="full-width">
+          <mat-label>Event type:</mat-label>
           <mat-radio-group formControlName="type" color="primary">
             <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)">On-site</mat-radio-button>
             <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)" [checked]="isEditable">Virtual</mat-radio-button>
@@ -72,20 +87,26 @@
 
         @if(favoriteSeason == 'virtual'){
           <mat-form-field class="full-width">
-            <mat-label>Link to Google meet</mat-label>
+            <mat-label>URL</mat-label>
             <input matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
+            <mat-hint>Add your Google Map, or virtual (e.g. Zoom, Teams, Google Meet, etc.) link here.</mat-hint>
           </mat-form-field>
         }
         @else{
-        <mat-form-field class="coordinates">
-          <mat-label>Longitude</mat-label>
-          <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
-        </mat-form-field>
-
-        <mat-form-field class="coordinates">
-          <mat-label>Lattitude</mat-label>
-          <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
-        </mat-form-field>
+        <div id="coordinates-input" style="display: flex; flex-direction: row; justify-content: space-evenly; margin-bottom: 12px;">
+          <mat-form-field class="coordinates">
+            <mat-label>Longitude</mat-label>
+            <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
+            <mat-hint>East-west position on the Earth's surface</mat-hint>
+          </mat-form-field>
+  
+          <mat-form-field class="coordinates">
+            <mat-label>Lattitude</mat-label>
+            <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
+            <mat-hint>North-south position on the Earth's surface</mat-hint>
+          </mat-form-field>
+        </div>
+        
 
         <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
         }
@@ -102,6 +123,9 @@
     <mat-step>
       <ng-template matStepLabel>Images</ng-template>
 
+      <p style="color: rgb(75, 0, 146); font-weight: 500;">Thumbnail & images</p>
+      <p style="font-size: 14px;">Having thumbnails and images on an event post is crucial as they visually engage users, provide a glimpse of the event's atmosphere, and can significantly increase interest and attendance. High-quality visuals also help in branding, conveying key information, and creating a memorable impression, ultimately contributing to the success of the event.</p>
+
       <app-upload-images (imagesEvent)="addImages($event)"></app-upload-images>
 
       <div style="margin-top: 25px;">
@@ -115,18 +139,25 @@
         <form [formGroup]="thirdFormGroup" class="create-form">
           <ng-template matStepLabel>Tickets</ng-template>
 
+          <p style="color: rgb(75, 0, 146); font-weight: 500;">Tickets & price</p>
+
+          <p style="font-size: 14px;">Including the number of tickets available and the price on an event post is vital for transparency and convenience. It helps potential attendees gauge availability and affordability, making informed decisions about attending the event.</p>
+
+          <p style="font-size: 14px;">This step is <span style="color: rgb(75, 0, 146); font-weight: 500;">optional</span>. You can always change the price or issue more tickets after creating and promoting the event.</p>
+
           <mat-checkbox color="primary" (change)="onChangeFreeEnterance()">Free Enterance</mat-checkbox>
           <mat-form-field floatLabel="always" class="full-width">
             <mat-label>Price per ticket:</mat-label>
             <input matInput formControlName="price" placeholder="2.00" type="number">
             <span matTextPrefix>$&nbsp;</span>
+            <mat-hint>Set ticket prices based on event value, audience budget and competition for optimal sales and attendee satisfaction.</mat-hint>
           </mat-form-field>
 
           <mat-checkbox color="primary" (change)="onChangeUnlimitedTickets()">Unlimited Tickets</mat-checkbox>
           <mat-form-field class="full-width">
             <mat-label>Number of tickets:</mat-label>
             <input matInput formControlName="numberOfTickets" placeholder="20" type="number">
-
+            <mat-hint>Consider venue capacity and demand when determining the number of tickets to issue for your event.</mat-hint>
           </mat-form-field>
 
           <div>
@@ -139,7 +170,12 @@
     <!-- Done -->
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+
+      <p style="color: rgb(75, 0, 146); font-weight: 500;">You are now done.</p>
+
+      <p style="font-size: 14px;">Based on this information, we will proceed with creating and finalizing the event plan. Our team will ensure that everything is in place to make your event a memorable success. If there are any further details or adjustments needed, you can always come back.</p>
+
+      <p style="font-size: 14px;">Thank you for choosing us as your event management partner.</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-raised-button color="primary" (click)="createEvent()">Create Event</button>

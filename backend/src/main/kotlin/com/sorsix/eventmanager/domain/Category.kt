@@ -13,4 +13,7 @@ enum class Category(){
     RECREATION,
     CHARITY,
     NETWORKING
+
+//  TODO  TREBA DA IMA TOCNO 8
+
 }

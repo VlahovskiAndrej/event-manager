@@ -1,29 +1,56 @@
-<div class="input-container">
-    <input type="text" placeholder="Search..." #searchInput (input)="search(searchInput.value)">
+
+<div class="filter-container">
+    <mat-form-field id="search-bar" appearance="outline">
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search..." >
+    </mat-form-field>
+
+    <mat-form-field class="date-picker" appearance="outline">
+        <input matInput [matDatepicker]="picker" placeholder="From date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="date-picker" appearance="outline">
+        <input matInput [matDatepicker]="picker" placeholder="To date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field id="city-select" appearance="outline">
+        <mat-select placeholder="City">
+          @for (city of cities; track city) {
+            <mat-option [value]="city.value">{{city.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 </div>
 
-<div class="options">
-    @for(c of categories;track c){
+
+<div id="categories">
+    @for(c of categories; track c){
         <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal" aria-multiselectable="true">
             <mat-chip-option  (click)="filterByCategory(c)">{{c}}</mat-chip-option>
         </mat-chip-listbox>
     }
 </div>
 
-@if (!loading){
-    <h2>All events</h2>
-    <div class="card-container">
-        @for (e of events; track e.id){
-            <app-event [event]="e"></app-event>
-        }
-    </div>
-    <h2>Recently added events</h2>
-    <div class="card-container">
-        @for (e of recentEvents; track e.id){
-            <app-event [event]="e"></app-event>
-        }
-    </div>
-}
-@else {
-    <p id="loading-text">Loading...</p>
-}
+<div id="events">
+    @if (!loading){
+        <!-- <div class="event-card"> -->
+            @for (e of events; track e.id){
+                <app-event [event]="e"></app-event>
+            }
+        <!-- </div> -->
+        <!-- <h2>Recently added events</h2>
+        <div class="card-container">
+            @for (e of recentEvents; track e.id){
+                <app-event [event]="e"></app-event>
+            }
+        </div> -->
+    }
+    @else {
+        <p id="loading-text">Loading...</p>
+    }
+</div>
+

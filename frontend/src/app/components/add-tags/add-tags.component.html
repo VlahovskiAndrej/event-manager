@@ -15,6 +15,7 @@
         [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         (matChipInputTokenEnd)="add($event)"/>
+        <mat-hint align="start">Potential attendees can find your event easier by searching the keyword or recommending to simular events.</mat-hint>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         @for (fruit of filteredFruits | async; track fruit) {
           <mat-option [value]="fruit">{{fruit}}</mat-option>

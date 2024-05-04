@@ -7,6 +7,7 @@
   .full-width {
     width: 100%;
     margin: auto;
+    margin-bottom: 15px;
   }
 
   #desc{
@@ -52,4 +53,5 @@ mat-stepper{
 app-upload-images{
   margin-bottom: 25px;
 }
+
 
