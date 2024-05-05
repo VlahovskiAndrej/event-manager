@@ -16,7 +16,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { ImageUploadComponent } from '../upload-images/upload-images.component';
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from '../create-event-map/map.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -133,7 +133,7 @@ export class UpdateEventComponent implements OnInit{
   }
 
   showSuccessMessage(){
-    this.snackBar.open("Successfuly created event", '', {duration: 3000});
+    this.snackBar.open("Successfuly updated event", '', {duration: 3000});
   }
 
   createEvent() {
@@ -180,5 +180,11 @@ export class UpdateEventComponent implements OnInit{
     this.thumbnail = value.thumbnail
     console.log(this.images)
     console.log(this.thumbnail)
+  }
+
+  onDeleteEvent(id: number){
+    this.eventService.deleteEvent(id).subscribe(
+      () => location.href = 'events/my-events'
+    )
   }
 }

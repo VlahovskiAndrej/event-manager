@@ -1,23 +1,15 @@
-<h1>My Events</h1>
-<div class="input-container">
+<h1 style="text-align: center; margin-top: 25px;">My Events</h1>
+<!-- <div class="input-container">
     <input type="text" placeholder="Search..." #searchInput (input)="search(searchInput.value)">
-</div>
+</div> -->
 
-@if (!loading){
-
-    <!-- <p>{{events?.toString()}}</p> -->
-
-    @for (e of events; track e.id){
-        <app-event-my [event]="e"></app-event-my>
+<div id="my-events">
+    @if (!loading){
+        @for (e of events; track e.id){
+            <app-event-my routerLink="/events/my-events/{{e.id}}" [event]="e"></app-event-my>
+        }
     }
-
-    <!-- <div class="card-container">
-        <h2>{{events}}</h2>
-    </div> -->
-
-    <!-- <div *ngFor="let event of eventData">
-    </div>-->
-}
-@else {
-    <p id="loading-text">Loading...</p>
-}
+    @else {
+        <p id="loading-text">Loading...</p>
+    }
+</div>

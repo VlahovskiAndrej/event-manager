@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatChip } from '@angular/material/chips';
+import { CustomDatePipe } from '../../pipes/custom.datepipe';
 
 
 @Component({
@@ -20,6 +22,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatInputModule,
     RouterOutlet,
     RouterLink,
+    CustomDatePipe,
+    MatChip
   ],
   templateUrl: './event-my.component.html',
   styleUrl: './event-my.component.css'

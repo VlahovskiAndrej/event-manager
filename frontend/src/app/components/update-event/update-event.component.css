@@ -1,19 +1,13 @@
-.create-form {
-  /* min-width: 150px;
-  max-width: 500px; */
-  width: 100%;
-}
 
 .full-width {
   width: 100%;
   margin: auto;
+  margin-bottom: 18px;
 }
 
 #desc{
   height: 100px;
 }
-
-
 
 form{
 margin: auto;
@@ -26,30 +20,15 @@ width: 48%;
 margin: 0 5px;
 }
 
-
-mat-stepper{
-padding: 5px;
-padding-top: 10px;
-width: 60%;
-margin: auto;
-border-radius: 10px;
-}
-
-.stepper-container {
-/* background-image: url('https://as2.ftcdn.net/v2/jpg/05/70/24/67/1000_F_570246739_Kg1bu2gzoCYziBgt0KqKYi9HJPm8Ndqz.jpg'); */
-background-image: url('https://media.istockphoto.com/id/1406536433/vector/world-map-ripple-lines-abstract-background.jpg?s=612x612&w=0&k=20&c=NoGONKPG_iL38r10ieuFK-op_BATjjDilVLnMuF6z4k=');
-background-color: rgb(248, 237, 224);
-background-size: auto;
-/* background-position: center;  */
-/* height: 91%; */
-min-height: 91%;
-padding: 32px 0;
-margin: auto;
-/* background-repeat: no-repeat; Display the background image just once */
-/* background-size: cover; */
-}
-
 app-upload-images{
 margin-bottom: 25px;
 }
 
+p{
+  margin-top: 30px;
+}
+
+#update-event{
+  margin-bottom: 30px;
+  overflow: hidden;
+}

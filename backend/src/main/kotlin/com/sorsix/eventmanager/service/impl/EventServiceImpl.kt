@@ -108,6 +108,7 @@ class EventServiceImpl(
     override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
         val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)
         event.availableTickets += publishTicketsRequest.numberOfTickets
+        event.price = publishTicketsRequest.price
         return eventRepository.save(event)
     }
 

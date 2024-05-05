@@ -8,6 +8,7 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 import {MatDialogModule,   MatDialog,
   MatDialogRef} from '@angular/material/dialog';
 import { DialogBuyTicketComponent } from '../dialog-buy-ticket/dialog-buy-ticket.component';
+import { MapComponent } from '../create-event-map/map.component';
 
 
 @Component({
@@ -20,7 +21,8 @@ import { DialogBuyTicketComponent } from '../dialog-buy-ticket/dialog-buy-ticket
     MatIconModule,
     MatButtonModule,
     MatButton,
-    MatDialogModule
+    MatDialogModule,
+    MapComponent
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.css'

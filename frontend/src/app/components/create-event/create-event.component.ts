@@ -16,7 +16,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { ImageUploadComponent } from '../upload-images/upload-images.component';
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from '../create-event-map/map.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';

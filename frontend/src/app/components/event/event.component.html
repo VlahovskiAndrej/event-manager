@@ -9,20 +9,11 @@
       <mat-card-content>
         <p>{{event?.description}}</p>
         <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
-        <!--mat-card-subtitle>{{event?.review}}</mat-card-subtitle-->
         <mat-card-subtitle>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</mat-card-subtitle>
         @for (tag of event?.tags; track tag) {
           <mat-chip>{{tag.name}}</mat-chip>
         }
       </mat-card-content>
-      <mat-card-actions>
-      <!-- @if(event?.availableTickets == 0){
-          <button mat-flat-button color="primary" disabled>Buy Ticket</button>
-      }
-      @else{
-          <button mat-flat-button color="primary" (click)="buyTicket()">Buy Ticket</button>
-      } -->
-      </mat-card-actions>
     }
 </mat-card>
 

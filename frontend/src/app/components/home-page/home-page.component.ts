@@ -3,7 +3,7 @@ import { BestReviewedEventsComponent } from '../best-reviewed-events/best-review
 import { EventInterface } from '../../interfaces/event';
 import { EventService } from '../../services/event.service';
 import { MainSectionComponent } from '../main-section/main-section.component';
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from '../create-event-map/map.component';
 
 
 @Component({

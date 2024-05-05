@@ -121,8 +121,4 @@ export class SearchEventsComponent {
     }
   }
 
-  onClickEvent(){
-    
-  }
-
 }

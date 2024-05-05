@@ -7,8 +7,9 @@ import { SearchMyEventsComponent } from './components/search-my-events/search-my
 import { UpdateEventComponent } from './components/update-event/update-event.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SearchTicketsComponent } from './components/search-tickets/search-tickets.component';
-import { MapComponent } from './components/map/map.component';
+import { MapComponent } from './components/create-event-map/map.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
+import { EventMyDetailsComponent } from './components/event-my-details/event-my-details.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +47,10 @@ export const routes: Routes = [
     {
         path: 'events/:id',
         component: EventDetailsComponent,
+    },
+    {
+        path: 'events/my-events/:id',
+        component: EventMyDetailsComponent,
     },
     {
         path: '**',

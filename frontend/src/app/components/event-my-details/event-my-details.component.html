@@ -1,0 +1,37 @@
+<mat-tab-group>
+    <mat-tab backgroundColor="primary">
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">info</mat-icon>
+        Details
+      </ng-template>
+      <app-event-details></app-event-details>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">bar_charts</mat-icon>
+        Stats
+      </ng-template>
+      <app-event-stats></app-event-stats>
+    </mat-tab>
+  
+    <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">sell</mat-icon>
+          Tickets
+        </ng-template>
+        <app-add-tickets ></app-add-tickets>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">settings</mat-icon>
+        Update
+      </ng-template>
+  
+      <app-update-event></app-update-event>
+    </mat-tab>
+
+
+
+  </mat-tab-group>

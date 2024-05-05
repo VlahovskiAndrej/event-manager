@@ -38,7 +38,7 @@
 <div id="events">
     @if (!loading){
             @for (e of events; track e.id){
-                <app-event routerLink="/events/{{e.id}}" [event]="e" (click)="onClickEvent()"></app-event>
+                <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
             }
     }
     @else {

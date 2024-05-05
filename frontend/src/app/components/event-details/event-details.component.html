@@ -2,41 +2,84 @@
 
 
   <div id="grid" style="display: flex; justify-content: center;">
-    <div id="row1" style="width: 80%;" >
+    <div id="row1">
         
         <div id="image-container">
             <img src="https://linkup.mk/storage/events/thumbnails/01HVMAWQ3YEYMPKGQ0B1AP63HK.jpg" alt="">
             @if(event?.availableTickets == 0){
-                <button style="width: 100%; margin-top: 20px;" mat-flat-button color="primary" (click)="buyTicketDialog()" disabled>Buy Ticket</button>
+                <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()" disabled>Buy Ticket</button>
             }
             @else{
-                <button style="width: 100%; margin-top: 20px;" mat-flat-button color="primary" (click)="buyTicketDialog()">Buy Ticket</button>
+                <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()">Buy Ticket (${{event?.price}})</button>
             }
         </div>
 
         <div id="event-data">
             <p style="background-color: rgb(247, 185, 185); text-align: center; border-radius: 10px; margin-top: 15px; margin-bottom: 0; display: inline-block; padding: 2px 8px;">{{event?.category}}</p>
             <h1>{{event?.name}}</h1>
-
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
-            <p>{{event?.dateStart}}</p>
-            <p>{{event?.dateFinish}}</p>
-            <p>{{event?.timeStart}}</p>
-            <p>{{event?.timeFinish}}</p>
-
-
-            <p>{{event?.availableTickets}}</p>
-            <p>{{event?.price}}</p>
-            <p>{{event?.creator}}</p>
+            <p style="font-size: 20px;">{{event?.description}}</p>
 
             <p>{{event?.tags}}</p>
-            <p>{{event?.type}}</p>
-
-            <p>{{event?.description}}</p>
-            <p>{{event?.latitude}}</p>
-            <p>{{event?.longitude}}</p>
-            <p>{{event?.meetingUrl}}</p>
         </div>
 
     </div>
+
+    <div id="row2">
+
+
+
+        <div id="where">
+            <h3>Where?</h3>
+            <p>{{event?.type}}</p>
+            <p>{{event?.latitude}}</p>
+            <p>{{event?.longitude}}</p>
+            <p>{{event?.meetingUrl}}</p>
+            <!-- <app-map></app-map> -->
+            
+        </div>
+
+
+        <div id="when">
+            <h3>When?</h3>
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
+            <p>{{event?.dateStart}} - {{event?.dateFinish}} </p>
+            <p>{{event?.timeStart}} : {{event?.timeFinish}}</p>
+        </div>
+        
+    </div> <hr>
+
+    <div id="row3">
+        <h3>Additional info</h3>
+        <p>There isn't any additional info...</p>
+    </div> <hr>
+
+    <div id="row4">
+        <h3>Organized by</h3>
+        <p>{{event?.creator?.firstName}}</p>
+        <p>Contact: {{event?.creator?.username}}</p>
+    </div> <hr>
+
+    <div id="row5">
+        <h3>Refund policy</h3>
+        <p style="margin-bottom: 0; font-weight: 500;"> Cancellation by Attendee</p>
+        <p>
+            If you need to cancel your ticket purchase, please do so within [number of days] days of the event date to be eligible for a refund.
+            To cancel your ticket and request a refund, please contact us at [email address] or [phone number] with your order details.
+            Refunds are subject to approval and are typically processed within [number of days] days after receiving your cancellation request.
+            To be eligible for a refund, your ticket must be unused and in the same condition as when you received it.
+        </p>
+
+        <p style="margin-bottom: 0; font-weight: 500;"> Non refundable situations</p>
+        <p>
+             Please note that certain tickets or events may be non-refundable. Check the event details or terms and conditions for specific refund policies.
+            In the rare event that an event is canceled or rescheduled, you will be contacted regarding refund options. We strive to ensure fair resolutions for all attendees in such circumstances. 
+        </p>
+        <p style="margin-bottom: 0; font-weight: 500;"> Contact us</p>
+        <p> If you have any questions or need assistance with your ticket refund, please contact us at [email address] or [phone number].</p>
+    </div> <hr>
+
+    <div id="row6">
+        <h3>Related events</h3>
+    </div><hr>
+
   </div>

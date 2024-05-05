@@ -1,125 +1,106 @@
+<div id="update-event">
 
+  <form [formGroup]="firstFormGroup" class="create-form">
+      
+    <p style="  color: rgb(75, 0, 146); font-weight: 500; font-size: 18px; margin-top: 15px;">We are excited to assist you in updating your event details.</p>
 
-<div class="stepper-container">
+    <p style="font-size: 14px; margin-top: 10px; margin-bottom: 30px;">Before updating your event, ensure you review and gather any necessary changes or additions to the title, date, time, location, category, type, and tags. Consider your audience, budget adjustments, and any new requirements to enhance the event experience. This information will help us ensure your event continues to meet expectations and reaches its intended audience effectively.</p>
 
-    <mat-stepper linear #stepper>
-      <div>
-        <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
-      </div>
+    <mat-form-field class="full-width">
+      <mat-label>Title</mat-label>
+      <input #title [value]="event?.name" matInput formControlName="name" placeholder="Event title" maxlength="50" required>
+      <mat-hint>Clear and descriptive few words that capture the essence of your event.</mat-hint>
+      <mat-hint align="end">{{title.value.length}} / 50</mat-hint>
+    </mat-form-field>
 
-      <!-- Initial -->
-      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-        <form [formGroup]="firstFormGroup" class="create-form">
-          <ng-template matStepLabel>Initial</ng-template>
-  
-          <mat-form-field class="full-width">
-            <mat-label>Name</mat-label>
-            <input matInput [value]="event?.name" formControlName="name" placeholder="Event name">
-          </mat-form-field>
-  
-          <mat-form-field class="full-width">
-            <mat-label>Description</mat-label>
-            <textarea [value]="event?.description" style="height: 120px;" matInput formControlName="description" placeholder="Desc..."></textarea>
-          </mat-form-field>
-  
-          <mat-form-field class="full-width">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="category" [value]="event?.category">
-              @for (category of categories; track category) {
-                <mat-option [value]="category.value">{{category.viewValue}}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-  
-          <app-add-tags [editTags]="tags" (tagsEvent)="addTag($event)"></app-add-tags>
-  
-          <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <button mat-raised-button matStepperNext color="primary">Next</button>
-            <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
-          </div>
-  
-        </form>
-      </mat-step>
-  
-      <!-- Location -->
-      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Location</ng-template>
-         
-          <mat-form-field class="full-width">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-              <input [value]="event?.dateStart" matStartDate formControlName="dateStart" placeholder="Start date">
-              <input [value]="event?.dateFinish" matEndDate formControlName="dateFinish" placeholder="End date">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-  
-          </mat-form-field>
-  
-          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
-            <div style="display: flex; gap: 10px; align-items: center;">
-              <label style="font-size: 16px;">Daily time range:</label>
-              <input [value]="event?.timeStart" formControlName="timeStart" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
-              <label style="font-size: 16px;"> :</label>
-              <input [value]="event?.timeFinish" formControlName="timeFinish" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
-            </div>
-          </div>
-          
-          
-  
-          <div class="full-width">
-            <mat-radio-group formControlName="type" color="primary" [value]="event?.type">
-              <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)">On-site</mat-radio-button>
-              <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)" [checked]="isEditable">Virtual</mat-radio-button>
-            </mat-radio-group>
-          </div>
-  
-          @if(favoriteSeason == 'virtual'){
-            <mat-form-field class="full-width">
-              <mat-label>Link to Google meet</mat-label>
-              <input [value]="event?.meetingUrl" matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
-            </mat-form-field>
-          }
-          @else{
-          <mat-form-field class="coordinates">
-            <mat-label>Longitude</mat-label>
-            <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
-          </mat-form-field>
-  
-          <mat-form-field class="coordinates">
-            <mat-label>Lattitude</mat-label>
-            <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
-          </mat-form-field>
-  
-          <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
-          }
-  
-          <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-raised-button matStepperNext color="primary">Next</button>
-            </div>
-            <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
-        </div>
-        </form>
-      </mat-step>
-  
-      <!-- images -->
-      <mat-step>
-        <ng-template matStepLabel>Images</ng-template>
-  
-        <app-upload-images (imagesEvent)="addImages($event)"></app-upload-images>
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea #message [value]="event?.description" style="height: 80px;" matInput formControlName="description" placeholder="Desc..."></textarea>
+      <mat-hint align="start">Give us details about the event.</mat-hint>
+      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+    </mat-form-field>
 
-        <div style="margin-top: 25px; display: flex; flex-direction: row; justify-content: space-between;">
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button matStepperNext color="primary">Next</button>
-          </div>
-          <button mat-raised-button color="primary" (click)="createEvent()">Update Event</button>
-      </div>
-      </mat-step>
+    <mat-form-field class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" [value]="event?.category">
+        @for (category of categories; track category) {
+          <mat-option [value]="category.value">{{category.viewValue}}</mat-option>
+        }
+      </mat-select>
+      <mat-hint align="start">
+        Set a category to help us promote your event to the right people.
+      </mat-hint>
+    </mat-form-field>
+
+    <app-add-tags [editTags]="tags" (tagsEvent)="addTag($event)"></app-add-tags>
+
+  </form>
   
-    </mat-stepper>
-  </div>
+  <form [formGroup]="secondFormGroup">
+    <p style="color: rgb(75, 0, 146); font-weight: 500; font-size: 18px;">Date, Time & Location</p>
     
+    <mat-form-field class="full-width">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input [value]="event?.dateStart" matStartDate formControlName="dateStart" placeholder="Start date">
+        <input [value]="event?.dateFinish" matEndDate formControlName="dateFinish" placeholder="End date">
+      </mat-date-range-input>
+      <mat-hint>Select a start and end date</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+    </mat-form-field>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <label style="font-size: 16px;">Daily time range:</label>
+        <input [value]="event?.timeStart" formControlName="timeStart" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
+        <label style="font-size: 16px;"> :</label>
+        <input [value]="event?.timeFinish" formControlName="timeFinish" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" type="time">
+      </div>
+    </div>
+    
+    <div class="full-width">
+      <mat-label>Event type:</mat-label>
+      <mat-radio-group formControlName="type" color="primary">
+        <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)">On-site</mat-radio-button>
+        <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)">Virtual</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    @if(favoriteSeason == 'virtual'){
+      <mat-form-field class="full-width">
+        <mat-label>URL</mat-label>
+        <input [value]="event?.meetingUrl" matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
+        <mat-hint>Add your Google Map, or virtual (e.g. Zoom, Teams, Google Meet, etc.) link here.</mat-hint>
+      </mat-form-field>
+    }
+    @else{
+      <mat-form-field class="coordinates">
+        <mat-label>Longitude</mat-label>
+        <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
+        <mat-hint>East-west position on the Earth's surface</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="coordinates">
+        <mat-label>Lattitude</mat-label>
+        <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
+        <mat-hint>North-south position on the Earth's surface</mat-hint>
+      </mat-form-field>
+
+      <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
+    }
+  </form>
+
+  <p style="color: rgb(75, 0, 146); font-weight: 500; font-size: 18px;">Thumbnail & images</p>
+
+  <app-upload-images (imagesEvent)="addImages($event)"></app-upload-images>
+
+  <div style="margin-top: 25px; display: flex; flex-direction: row; justify-content:   flex-end; gap: 10px;">
+    <button mat-raised-button color="primary" (click)="createEvent()">
+      Update Event
+    </button>
+    <button mat-raised-button color="warn" (click)="onDeleteEvent(event?.id!!)">Delete event</button>
+  </div>
+
+</div>
