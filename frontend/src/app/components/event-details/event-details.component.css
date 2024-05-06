@@ -38,6 +38,8 @@ img{
     overflow: hidden;
 }
 
+
+
 #when{
     width: 50%;
 }
@@ -45,4 +47,24 @@ img{
 #where{
     width: 50%;
     margin-right: 40px;
+    margin-top: 20px;
 }
+
+#tags{
+    display: flex;
+    flex-direction: row;
+}
+
+#tags > p {
+    background-color: rgb(248, 248, 197);
+    margin: 0 3px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+ul > li{
+    margin-top: 15px;
+    text-align: justify;
+}
+

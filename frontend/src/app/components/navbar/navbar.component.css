@@ -10,3 +10,12 @@
      margin-bottom: 25px; 
 } */
 
+mat-icon{
+    font-size: 55px;
+}
+
+#logout-btn{
+    background-color: red;
+    color: whitesmoke;
+    border-radius: 5px;
+}

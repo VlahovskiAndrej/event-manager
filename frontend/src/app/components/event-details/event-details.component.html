@@ -9,7 +9,10 @@
             @if(event?.availableTickets == 0){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()" disabled>Buy Ticket</button>
             }
-            @else{
+            @else if (event?.price == 0){
+                <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()">Get Ticket (FREE)</button>
+            }
+            @else {
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()">Buy Ticket (${{event?.price}})</button>
             }
         </div>
@@ -19,31 +22,73 @@
             <h1>{{event?.name}}</h1>
             <p style="font-size: 20px;">{{event?.description}}</p>
 
-            <p>{{event?.tags}}</p>
+            <div id="tags">
+                @for (tag of event?.tags; track tag.id) {
+                    <p>#{{tag.name}}</p>
+                }
+            </div>
+            
         </div>
 
     </div>
 
     <div id="row2">
 
-
-
         <div id="where">
-            <h3>Where?</h3>
-            <p>{{event?.type}}</p>
-            <p>{{event?.latitude}}</p>
-            <p>{{event?.longitude}}</p>
-            <p>{{event?.meetingUrl}}</p>
-            <!-- <app-map></app-map> -->
+            @if (event?.latitude != null && event?.longitude != null &&
+            event?.latitude != "" && event?.longitude != ""){
+                <app-event-details-map [longitude]="event?.longitude" [latitude]="event?.latitude" ></app-event-details-map>
+            }
+            @else if(event?.meetingUrl != null){
+                
+                <h6 style="margin-top: 25px;">ONLINE event! Here's what to expect:</h6>
+                <ul>
+                    <li>Accessible Online Platform: The event will be hosted virtually, providing you with the convenience of attending from anywhere.</li>
+                    <li>Personalized Credentials: Upon ticket purchase, you'll receive your unique username and password for exclusive access.</li>
+                    <li>Secure Your Spot: Don't miss out! Get your tickets now and prepare for an immersive online experience.</li>
+                </ul>
+            }
             
         </div>
 
 
         <div id="when">
-            <h3>When?</h3>
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
-            <p>{{event?.dateStart}} - {{event?.dateFinish}} </p>
-            <p>{{event?.timeStart}} : {{event?.timeFinish}}</p>
+            <h3 style="margin-bottom: 20px;">When?</h3>
+            <p style="display: flex; gap: 5px; margin-left: 20px;">
+                <mat-icon aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
+                <span>{{event?.dateStart}} - {{event?.dateFinish}} </span>
+            </p>
+
+            <p style="display: flex; gap: 5px; margin-left: 20px;">
+                <mat-icon aria-label="Example home icon" fontIcon="schedule"></mat-icon>
+                <span>{{event?.timeStart}} : {{event?.timeFinish}}</span>
+            </p>
+
+            <h3 style="margin-bottom: 20px; margin-top: 55px;">Where?</h3>
+            
+            
+            <p style="display: flex; gap: 5px; margin-left: 20px;">
+                <mat-icon aria-label="Example home icon" fontIcon="apartment"></mat-icon>
+                @if(event?.latitude != null && event?.longitude != null &&
+                event?.latitude != "" && event?.longitude != ""){
+                    <span>Skopje, Macedonia</span>
+                }@else{
+                    <span>  <a href="">Google meet</a> or <a href="">Zoom</a></span>
+                }
+                
+            </p>
+
+            <p style="display: flex; gap: 5px; margin-left: 20px;">
+                <mat-icon aria-label="Example home icon" fontIcon="location_on"></mat-icon>
+                
+                @if(event?.latitude != null && event?.longitude != null &&
+                event?.latitude != "" && event?.longitude != ""){
+                    <span>{{event?.longitude}}, {{event?.latitude}}</span>
+                }@else{
+                    <span>ONLINE, You can be where you want!</span>
+                }
+                
+            </p>
         </div>
         
     </div> <hr>
@@ -54,9 +99,16 @@
     </div> <hr>
 
     <div id="row4">
-        <h3>Organized by</h3>
-        <p>{{event?.creator?.firstName}}</p>
-        <p>Contact: {{event?.creator?.username}}</p>
+        <h3 style="margin-bottom: 20px;">Organized by</h3>
+        <p style="display: flex; gap: 5px; margin-left: 20px;">
+            <mat-icon aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+            <span>{{event?.creator?.firstName}}</span>
+        </p>
+
+        <p style="display: flex; gap: 5px; margin-left: 20px;">
+            <mat-icon aria-label="Example home icon" fontIcon="mail"></mat-icon>
+            <span>{{event?.creator?.username}}</span>
+        </p>
     </div> <hr>
 
     <div id="row5">

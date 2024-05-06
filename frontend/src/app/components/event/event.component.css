@@ -1,5 +1,6 @@
 .example-card{
     width: 380px;
+    overflow: hidden;
 }
 
 mat-chip{

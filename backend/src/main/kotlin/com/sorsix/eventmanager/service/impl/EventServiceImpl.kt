@@ -99,7 +99,7 @@ class EventServiceImpl(
         val user: User? = authService.getUserByJwtToken(request)
         if (event.availableTickets >= num){
             event.availableTickets -= num
-            (1 .. num).map { ticketRepository.save(Ticket(0, 5.0, event, user!!)) }
+            (1 .. num).map { ticketRepository.save(Ticket(0, event.price, event, user!!)) }
         }
 
         return eventRepository.save(event)

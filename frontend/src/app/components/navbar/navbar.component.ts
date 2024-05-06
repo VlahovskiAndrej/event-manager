@@ -5,6 +5,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { DialogAccountDetailsComponent } from '../dialog-account-details/dialog-account-details.component';
+import { DialogSettingsComponent } from '../dialog-settings/dialog-settings.component';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +19,10 @@ import { AuthService } from '../../services/auth.service';
     MatMenuModule,
     RouterOutlet,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    MatDialogModule,
+    DialogAccountDetailsComponent,
+    DialogSettingsComponent
 ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -26,11 +32,28 @@ export class NavbarComponent{
   username: string | null = localStorage.getItem('username')
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ){}
 
   logout() {
     this.authService.logout()
   } 
+
+  openAccountDetailsDialog() {
+    const dialogRef = this.dialog.open(DialogAccountDetailsComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openSettingsDialog() {
+    const dialogRef = this.dialog.open(DialogSettingsComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   
 }

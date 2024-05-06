@@ -1,0 +1,11 @@
+
+<div id="near-me">
+    <div id="event-list">
+        <h2>Events near me</h2>
+        @for(e of events; track e.id){
+            <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
+            <p style="align-self: flex-end; margin-right: 10px;">Distance: <span><b>{{calculateDistance(e)}} km </b> </span></p>
+        }
+    </div>
+    <div id="map"></div>
+</div>

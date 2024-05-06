@@ -22,14 +22,32 @@
       <mat-hint>Set ticket prices based on event value, audience budget and competition for optimal sales and attendee satisfaction.</mat-hint>
     </mat-form-field>
 
+    <!-- <button mat-raised-button color="primary" (click)="onSetSamePrice()">Same Price</button> -->
+
+
+    <mat-checkbox color="primary" (change)="onChangeDontIssueMore()">Don't issue more tickets</mat-checkbox>
     <mat-form-field class="full-width">
-      <mat-label>Number of tickets:</mat-label>
+      <mat-label>Issue more tickets:</mat-label>
       <input matInput formControlName="numberOfTickets" placeholder="20" type="number">
       <mat-hint>Consider venue capacity and demand when determining the number of tickets to issue for your event.</mat-hint>
     </mat-form-field>
 
     <div>
-      <button mat-raised-button color="primary" (click)="issueTickets()">Issue Tickets</button>
+
+    <!-- @if(this.ticketsFormGroup.get('numberOfTickets')?.value != '' && this.ticketsFormGroup.get('price')?.value != '' && 
+    this.ticketsFormGroup.get('numberOfTickets')?.value != null && this.ticketsFormGroup.get('price')?.value != null){
+        <button mat-raised-button color="primary" (click)="issueTickets()">Issue {{this.ticketsFormGroup.get('numberOfTickets')?.value}} and change price to ${{this.ticketsFormGroup.get('price')?.value}} </button>
+    }
+    @else if (this.ticketsFormGroup.get('numberOfTickets')?.value != '') {
+        <button mat-raised-button color="primary" (click)="issueTickets()">Issue {{this.ticketsFormGroup.get('numberOfTickets')?.value}} with same price </button>
+    }@else if (this.ticketsFormGroup.get('price')?.value != ''){
+        <button mat-raised-button color="primary" (click)="issueTickets()">Change price to ${{this.ticketsFormGroup.get('price')?.value}}</button>
+    }@else {
+        <p>Nuli</p>
+    } -->
+
+    <button mat-raised-button color="primary" (click)="issueTickets()">Push Ticket Changes</button>
+
     </div>
 
   </form>

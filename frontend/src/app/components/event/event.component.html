@@ -10,9 +10,9 @@
         <p>{{event?.description}}</p>
         <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
         <mat-card-subtitle>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</mat-card-subtitle>
-        @for (tag of event?.tags; track tag) {
+        <!-- @for (tag of event?.tags; track tag) {
           <mat-chip>{{tag.name}}</mat-chip>
-        }
+        } -->
       </mat-card-content>
     }
 </mat-card>

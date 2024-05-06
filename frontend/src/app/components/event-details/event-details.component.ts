@@ -9,6 +9,7 @@ import {MatDialogModule,   MatDialog,
   MatDialogRef} from '@angular/material/dialog';
 import { DialogBuyTicketComponent } from '../dialog-buy-ticket/dialog-buy-ticket.component';
 import { MapComponent } from '../create-event-map/map.component';
+import { EventDetailsMapComponent } from '../event-details-map/event-details-map.component';
 
 
 @Component({
@@ -22,7 +23,8 @@ import { MapComponent } from '../create-event-map/map.component';
     MatButtonModule,
     MatButton,
     MatDialogModule,
-    MapComponent
+    MapComponent,
+    EventDetailsMapComponent
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.css'

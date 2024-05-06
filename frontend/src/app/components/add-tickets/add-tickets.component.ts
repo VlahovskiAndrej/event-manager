@@ -50,11 +50,10 @@ import { EventInterface } from '../../interfaces/event';
 })
 export class AddTicketsComponent implements OnInit{
 
-  // @Input() id: number|null = null
   event: EventInterface|null = null
 
   isFreeEnterance: boolean = false
-  // isEditable = true;
+  isDontIssueMore: boolean = false
 
   constructor(private _formBuilder: FormBuilder, private eventService: EventService, private route: ActivatedRoute, private router: Router){}
 
@@ -83,9 +82,30 @@ export class AddTicketsComponent implements OnInit{
     
 }
 
+onSetSamePrice(){
+  this.ticketsFormGroup.get('price')?.setValue(this.event?.price.toString()!!)
+}
+
+
+onChangeDontIssueMore(){
+  if(!this.isDontIssueMore){
+    this.ticketsFormGroup.get('numberOfTickets')?.disable()
+    this.isDontIssueMore = true
+  }
+  else{
+    this.ticketsFormGroup.get('numberOfTickets')?.enable()
+    this.isDontIssueMore = false
+  }
+
+}
+
+
   issueTickets(){
     this.eventService.publishTickets(this.event?.id!!, this.ticketsFormGroup.get('price')?.value!!, this.ticketsFormGroup.get('numberOfTickets')?.value!!).subscribe(
       () => this.ngOnInit()
     )
   }
+
+
+
 }

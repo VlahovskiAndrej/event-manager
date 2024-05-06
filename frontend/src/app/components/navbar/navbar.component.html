@@ -25,11 +25,22 @@
         </mat-menu>
 
         <a mat-button routerLink="/near-me">Near me</a>
-        <a mat-button routerLink="/tickets">Tickets</a>
+        
         <a id="username" mat-button>{{username}}</a>
-        <a mat-button (click)="logout()"> 
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="exit_to_app"></mat-icon> 
+        <a mat-button [matMenuTriggerFor]="beforeMenu"> 
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon> 
         </a>
+        <mat-menu style="margin-bottom: 0;" #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="openAccountDetailsDialog()">Account</button>
+            <button mat-menu-item routerLink="/tickets">My Tickets</button>
+            <button id="logout-btn" mat-menu-item (click)="logout()">
+                Logout
+            </button>
+        </mat-menu>
+        <a id="settings" mat-button (click)="openSettingsDialog()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings"></mat-icon> 
+        </a>
+
     }
 
     

@@ -10,6 +10,7 @@ import { SearchTicketsComponent } from './components/search-tickets/search-ticke
 import { MapComponent } from './components/create-event-map/map.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventMyDetailsComponent } from './components/event-my-details/event-my-details.component';
+import { NearMeMapComponent } from './components/near-me-map/near-me-map.component';
 
 export const routes: Routes = [
     {
@@ -42,7 +43,7 @@ export const routes: Routes = [
     },
     {
         path: 'near-me',
-        component: MapComponent,
+        component: NearMeMapComponent,
     },
     {
         path: 'events/:id',
