@@ -32,6 +32,8 @@
     "leaflet": "^1.9.4",
     "mdb-angular-ui-kit": "^6.0.0",
     "ngx-apexcharts": "^0.4.12",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.16.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.3"

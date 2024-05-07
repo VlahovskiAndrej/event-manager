@@ -133,4 +133,9 @@ class EventServiceImpl(
         return eventRepository.findAllEventsByCategory(category)
     }
 
+    override fun getRelatedEvents(eventId: Long): List<Event> {
+        val event: Event = eventRepository.findById(eventId).orElse(null)
+        return eventRepository.getRelatedEvents(event)
+    }
+
 }

@@ -6,6 +6,7 @@ import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.service.EventService
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -85,5 +86,11 @@ class EventController(
     fun getEventsByCategory(@RequestParam category: Category) : ResponseEntity<List<Event>>{
         return ResponseEntity.ok(eventService.filterByCategory(category))
     }
+
+    @GetMapping("/{id}/related")
+    fun getRelatedEvents(@PathVariable id: Long): ResponseEntity<List<Event>>{
+        return ResponseEntity.ok(eventService.getRelatedEvents(id))
+    }
+
 
 }

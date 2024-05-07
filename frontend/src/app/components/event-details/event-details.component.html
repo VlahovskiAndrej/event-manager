@@ -132,6 +132,13 @@
 
     <div id="row6">
         <h3>Related events</h3>
+
+        <div id="related-events">
+            @for (e of relatedEvents; track e.id) {
+                <app-event [event]="e"></app-event>
+            }
+        </div>
+        
     </div><hr>
 
   </div>

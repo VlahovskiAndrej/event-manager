@@ -15,7 +15,6 @@ interface EventService {
 
     fun getEventById(id: Long): Event?
 
-
     fun deleteEvent(id: Long)
 
     fun updateEvent(id: Long, eventRequest: EventRequest) : Event
@@ -33,6 +32,8 @@ interface EventService {
     fun getAllCategories() : List<Category>
 
     fun filterByCategory(category: Category) : List<Event>
+
+    fun getRelatedEvents(eventId: Long): List<Event>
 
 
 

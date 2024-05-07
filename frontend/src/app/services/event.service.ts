@@ -168,5 +168,15 @@ export class EventService {
     return this.http.get<string[]>(`http://localhost:8081/api/events/categories`)
   }
 
+  getRelatedEvents(id: number | undefined): Observable<EventInterface[]>{
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+
+    return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/${id}/related`, {headers: headers})
+  }
+
 
 }

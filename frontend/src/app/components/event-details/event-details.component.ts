@@ -10,6 +10,7 @@ import {MatDialogModule,   MatDialog,
 import { DialogBuyTicketComponent } from '../dialog-buy-ticket/dialog-buy-ticket.component';
 import { MapComponent } from '../create-event-map/map.component';
 import { EventDetailsMapComponent } from '../event-details-map/event-details-map.component';
+import { EventComponent } from '../event/event.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { EventDetailsMapComponent } from '../event-details-map/event-details-map
     MatButton,
     MatDialogModule,
     MapComponent,
-    EventDetailsMapComponent
+    EventDetailsMapComponent,
+    EventComponent
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.css'
@@ -32,6 +34,7 @@ import { EventDetailsMapComponent } from '../event-details-map/event-details-map
 export class EventDetailsComponent implements OnInit{
 
   event: EventInterface|null = null
+  relatedEvents: EventInterface[] = []
   id: string|undefined
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog){}
@@ -42,6 +45,10 @@ export class EventDetailsComponent implements OnInit{
       (e) => {
         this.event = e
       }
+    )
+
+    this.eventService.getRelatedEvents(id).subscribe(
+      (e) => this.relatedEvents = e
     )
   }
 
