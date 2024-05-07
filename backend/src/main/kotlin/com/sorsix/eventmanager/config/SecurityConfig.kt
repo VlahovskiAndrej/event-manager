@@ -31,10 +31,11 @@ data class SecurityConfig (
                         "/api/events",
                         "/api/auth/**",
                         "/api/events/search",
-                        "api/events/recents",
+                        "/api/events/recents",
                         "/api/events/{id}",
                         "/api/events/categories",
-                        "/api/events/filteredByCategory"
+                        "/api/events/filteredByCategory",
+                        "/api/events/image/{id}"
                     )
                     .permitAll()
                     .anyRequest()

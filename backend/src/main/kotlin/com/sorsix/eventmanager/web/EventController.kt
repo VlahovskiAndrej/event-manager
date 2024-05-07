@@ -2,28 +2,27 @@ package com.sorsix.eventmanager.web
 
 import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
+import com.sorsix.eventmanager.domain.Image
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
+import com.sorsix.eventmanager.domain.request.ThumbnailRequest
 import com.sorsix.eventmanager.service.EventService
+import com.sorsix.eventmanager.service.ImageService
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
+
 
 @RestController
 @RequestMapping("/api/events")
 @CrossOrigin("*")
 class EventController(
-    val eventService: EventService
+    val eventService: EventService,
+    val imageService: ImageService
 ) {
 
     @GetMapping("")
@@ -40,6 +39,29 @@ class EventController(
     fun createEvent(@RequestBody eventRequest: EventRequest, request: HttpServletRequest) : ResponseEntity<Event>{
         return ResponseEntity.ok(eventService.createEvent(eventRequest, request))
     }
+
+    @PostMapping("/upload")
+//    fun uploadImage(@RequestParam("file") file: MultipartFile): ResponseEntity<String> {
+    fun uploadImage(@ModelAttribute req: ThumbnailRequest): ResponseEntity<String> {
+        val imageName: String = req.file.originalFilename ?: "image"
+        val contentType: String = req.file.contentType ?: "image/jpeg"
+        val imageData : ByteArray = req.file.bytes
+        val savedImage = imageService.saveImage(imageName, contentType, imageData)
+        return ResponseEntity.ok("${savedImage.id}")
+    }
+
+    @GetMapping("/image/{id}")
+    fun getImageById(@PathVariable id: Long): ResponseEntity<Any> {
+        val image: Image? = imageService.getImageById(id)
+        if (image != null) {
+            val headers: HttpHeaders = HttpHeaders()
+            headers.contentType = (MediaType.parseMediaType(image.contentType))
+            return ResponseEntity<Any>(image.data, headers, HttpStatus.OK)
+        } else {
+            return ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
 
     @DeleteMapping("/{id}/delete")
     fun deleteEventById(@PathVariable id: Long) : ResponseEntity<Any>{

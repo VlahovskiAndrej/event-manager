@@ -1,19 +1,18 @@
 package com.sorsix.eventmanager.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 
 @Entity
+@Table(name = "images")
 data class Image(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
 
-    val url: String,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
 
-    @ManyToOne
-    val event: Event
-){}
+    val name: String,
+
+    val contentType: String,
+
+    @Lob
+    val data: ByteArray
+)

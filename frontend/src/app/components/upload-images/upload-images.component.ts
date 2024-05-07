@@ -49,11 +49,6 @@ export class ImageUploadComponent {
     
   }
 
-
-  // removeImage(index: number): void {
-  //   this.images.splice(index, 1);
-  // }
-
   removeImage(image: Image): void {
     this.images.splice(this.images.indexOf(image), 1);
     this.imagesEvent.emit({'images': this.images, 'thumbnail': this.thumbnail})

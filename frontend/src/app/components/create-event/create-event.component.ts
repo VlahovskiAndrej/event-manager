@@ -124,7 +124,7 @@ export class CreateEventComponent{
         Number.parseFloat(this.thirdFormGroup.value.price!!),
         Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!),
         this.images,
-        this.thumbnail
+        this.thumbnail?.file!!
       )
       .subscribe(
         (response) => {
@@ -133,6 +133,10 @@ export class CreateEventComponent{
           this.showSuccessMessage()
         }
       )
+
+      // this.eventService.uploadThumbnail(this.thumbnail?.file!!).subscribe(
+      //   res => console.log(res)
+      // )
   }
 
   onChangeType(value: string){

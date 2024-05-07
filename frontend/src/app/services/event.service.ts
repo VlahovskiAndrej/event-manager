@@ -28,6 +28,25 @@ export class EventService {
     return this.http.get<EventInterface[]>(`http://localhost:8081/api/events/filteredByCategory?category=${category}`)
   }
 
+
+  uploadThumbnail(file: File){
+    const headers = new HttpHeaders({
+      
+     'Content-Type': 'application/json',
+      // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // const body = {file: file}
+
+    console.log('sending req with file: ' + file.name)
+
+    return this.http.post<String>(`http://localhost:8081/api/events/upload`, formData)
+  }
+
   createEvent(name: string,
               description: string,
               longitude: string,
@@ -43,7 +62,7 @@ export class EventService {
               price: number,
               maxPeople: number,
               images: Image[],
-              thumbnail: Image|null,
+              thumbnail: File|null,
               ) : Observable<EventInterface[]>{
     const body = {
       name: name,
@@ -60,11 +79,11 @@ export class EventService {
       meetingUrl: meetingUrl,
       type: type,
       price: price,
-      // thumbnail: thumbnail?.file
+      // thumbnail: thumbnail
     };
 
     const headers = new HttpHeaders({
-      // 'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
 
