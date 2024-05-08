@@ -30,7 +30,8 @@
 <div id="categories">
     @for(c of categories; track c){
         <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal" aria-multiselectable="true">
-            <mat-chip-option  (click)="filterByCategory(c)">{{c}}</mat-chip-option>
+            <mat-chip-option (click)="filterByCategory(c)"
+            [class.active]="selectedCategories.includes(c)">{{c}}</mat-chip-option>
         </mat-chip-listbox>
     }
 </div>
