@@ -12,11 +12,10 @@ import com.sorsix.eventmanager.repository.EventRepository
 import com.sorsix.eventmanager.repository.TicketRepository
 import com.sorsix.eventmanager.service.EventService
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.core.io.ByteArrayResource
 import org.springframework.stereotype.Service
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
 
@@ -122,7 +121,7 @@ class EventServiceImpl(
     }
 
     override fun getRecentlyAddedEvents(): List<Event> {
-        return eventRepository.findAllByDateStartAfter(LocalDateTime.of(2024, Month.JANUARY, 1, 0, 0))
+        return eventRepository.findAllByDateStartAfter(LocalDate.of(2024, Month.MARCH, 1))
     }
 
     override fun getAllCategories(): List<Category> {
@@ -136,6 +135,18 @@ class EventServiceImpl(
     override fun getRelatedEvents(eventId: Long): List<Event> {
         val event: Event = eventRepository.findById(eventId).orElse(null)
         return eventRepository.getRelatedEvents(event)
+    }
+
+    override fun filterByDateStart(start: LocalDate): List<Event> {
+        return eventRepository.findAllByDateStartAfter(start)
+    }
+
+    override fun filterByDateFinish(finish: LocalDate): List<Event> {
+        return eventRepository.findAllByDateFinishBefore(finish)
+    }
+
+    override fun filterByDateStartedAndDateFinished(started: LocalDate, finished: LocalDate): List<Event> {
+        return eventRepository.findAllByDateStartAfterAndDateFinishBefore(started,finished)
     }
 
 }

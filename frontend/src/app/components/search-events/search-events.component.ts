@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, mergeMap, switchMap, tap } from 'rxjs';
 import { EventInterface } from '../../interfaces/event';
 import { EventComponent } from '../event/event.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 import { } from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
@@ -23,10 +24,11 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
     MatChipsModule,
     MatIconModule,
     MatInputModule,
+    MatButtonModule,
     MatDatepickerModule,
     MatSelectModule,
     RouterOutlet,
-    RouterLink,
+    RouterLink
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',
@@ -52,9 +54,12 @@ export class SearchEventsComponent {
   //ako ne filtrirame od backend za kategorii moze da se izbrise ova
   category$ = new BehaviorSubject<string | null>(null);
 
+  date$ = new BehaviorSubject<any>("");
+
   loading: boolean = true;
 
   //clicked: boolean = false;
+
 
   constructor(private eventService: EventService) { }
 
@@ -63,8 +68,8 @@ export class SearchEventsComponent {
     this.eventService.getEvents()
       .subscribe(
         events => {
-          this.events = events
-          this.allEvents = events
+          this.events = events.sort((a, b) => (a.category.localeCompare(b.category)))
+          this.allEvents = events.sort((a, b) => (a.category.localeCompare(b.category)))
           this.loading = false
         }
       );
@@ -96,6 +101,17 @@ export class SearchEventsComponent {
       }
     );
 
+    this.date$.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap((date) => this.eventService.filterByDate(date))
+    ).subscribe(
+      result => {
+        this.events = result
+        this.loading = false
+      }
+    )
+
     // this.category$.pipe(
     //   debounceTime(400),
     //   distinctUntilChanged(),
@@ -123,13 +139,14 @@ export class SearchEventsComponent {
   //     this.category$.next(category)
   //   }
   // }
+
   filterByCategory(category: string) {
     if (this.selectedCategories.includes(category)) {
       this.selectedCategories = this.selectedCategories.filter(c => c !== category);
     } else {
       this.selectedCategories.push(category);
     }
-    
+
     if (this.selectedCategories.length === 0) {
       this.events = this.allEvents
     }
@@ -139,5 +156,26 @@ export class SearchEventsComponent {
       )
     }
   }
+
+  filterByDate(date: any) {
+    if (!date || !date._model || !date._model.selection) {
+      console.error("Invalid date object:", date);
+      return; // Handle the error appropriately
+    }
+
+    const returned: string[] = [date._model.selection.start,date._model.selection.end]
+
+    // console.log(date._model.selection.start)
+    // console.log(date)
+    // console.log(date._model.selection.end)
+    // console.log(returned)
+    this.date$.next(returned)
+  }
+
+  //TODO
+  applyCombinedFilter(events: EventInterface[]) {
+
+  }
+
 
 }
