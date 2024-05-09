@@ -2,6 +2,7 @@ package com.sorsix.eventmanager.web
 
 import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
+import com.sorsix.eventmanager.domain.Image
 import com.sorsix.eventmanager.domain.Thumbnail
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
@@ -14,6 +15,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.sql.Blob
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -79,9 +81,13 @@ class EventController(
     @GetMapping("/{id}/images")
     fun getImagesByEventId(@PathVariable id: Long): ResponseEntity<Any>{
 
-        //TODO
+        val images: List<Image> = imageService.findAllByEvent(id);
+        val imagesData: String = images.joinToString(",")
 
-        return ResponseEntity.ok("")
+        val headers: HttpHeaders = HttpHeaders()
+
+
+        return ResponseEntity<Any>(imagesData, headers, HttpStatus.OK)
     }
 
 

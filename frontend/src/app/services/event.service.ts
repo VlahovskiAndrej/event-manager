@@ -59,6 +59,14 @@ export class EventService {
   }
 
 
+  getImages(id: number): Observable<string>{
+    return this.http.get<string>(`http://localhost:8081/api/events/${id}/images`, {
+      params: {
+        id,
+      },
+      // responseType: 'blob',
+    })
+  }
 
   getThumbnail(id: number): Observable<Blob>{
     return this.http.get(`http://localhost:8081/api/events/image/${id}`, {

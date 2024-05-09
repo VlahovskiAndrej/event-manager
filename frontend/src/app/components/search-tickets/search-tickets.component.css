@@ -1,12 +1,38 @@
-table {
-    border-collapse: collapse;
-    margin: 30px;
-}
+  table {
+    width: 100%;
+  }
 
-table, th, td {
-    border: 1px solid black;
-}
+  #container{
+    margin: 1% 0;
+    margin-left: 5%;
+    width: 90%;
+  }
 
-td{
-    padding: 10px;
-}
+  #download-icon{
+    cursor: pointer;
+  }
+
+  #text-dot-red{
+    color: red;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  #text-dot-green{
+    color: rgb(72, 161, 72);
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  td{
+    text-align: center;
+    /* display: flex;    */
+    justify-content: center;
+    /* flex-direction: row; */
+  }
+
+  th{
+    text-align: center;
+  }

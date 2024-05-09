@@ -172,7 +172,7 @@ export class SearchEventsComponent {
     this.date$.next(returned)
   }
 
-  //TODO
+  // TODO
   applyCombinedFilter(events: EventInterface[]) {
 
   }

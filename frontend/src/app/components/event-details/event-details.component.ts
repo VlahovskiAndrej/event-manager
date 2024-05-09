@@ -37,6 +37,7 @@ export class EventDetailsComponent implements OnInit{
   relatedEvents: EventInterface[] = []
   thumbnail: File|null = null
   thumbnailUrl: any
+  images: any[] = []
   id: string|undefined
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog){}
@@ -58,7 +59,16 @@ export class EventDetailsComponent implements OnInit{
         const blob = new Blob([response], { type: 'image/jpeg' });
         this.thumbnailUrl = URL.createObjectURL(blob)
       },
+    )
 
+    this.eventService.getImages(id).subscribe(
+      (responses: string) => {
+        const response: any[] = responses.split(',')
+        for (let r of responses){
+          const blob = new Blob([r], { type: 'image/jpeg' });
+          this.images.push(URL.createObjectURL(blob))
+        }
+      },
     )
 
   }

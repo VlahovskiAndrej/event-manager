@@ -7,5 +7,5 @@ import com.sorsix.eventmanager.domain.Thumbnail
 interface ImageService{
     fun saveImage(event: Event, name: String, contentType: String, data: ByteArray): Image
 
-    fun getImagesByEventId(id: Long): List<Image>
+    fun findAllByEvent(id: Long): List<Image>
 }
