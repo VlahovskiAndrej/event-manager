@@ -4,13 +4,14 @@ import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
+import com.sorsix.eventmanager.domain.request.ThumbnailRequest
 import jakarta.servlet.http.HttpServletRequest
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 interface EventService {
 
-    fun createEvent(eventRequest: EventRequest, request: HttpServletRequest): Event
+    fun createEvent(eventRequest: ThumbnailRequest, request: HttpServletRequest) : Event
 
     fun getEvents(): List<Event>
 

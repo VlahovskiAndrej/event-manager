@@ -16,14 +16,14 @@ data class EventRequest(
 
     val description: String,
 
-    val maxPeople: Int, /* number of Tickets */
+    val maxPeople: String, /* number of Tickets */
 
     val longitude: String,
     val latitude: String,
 
     val category: Category,
 
-    val tagsNames: List<String>,
+    val tagsNames: String,
 
     val dateStart: LocalDate,
 
@@ -37,7 +37,7 @@ data class EventRequest(
 
     val type: String,
 
-    val price: Double,
+    val price: String,
 
 //    val thumbnail: MultipartFile
 )

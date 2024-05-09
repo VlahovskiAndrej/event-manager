@@ -35,6 +35,8 @@ export class EventDetailsComponent implements OnInit{
 
   event: EventInterface|null = null
   relatedEvents: EventInterface[] = []
+  thumbnail: File|null = null
+  thumbnailUrl: any
   id: string|undefined
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog){}
@@ -50,15 +52,24 @@ export class EventDetailsComponent implements OnInit{
     this.eventService.getRelatedEvents(id).subscribe(
       (e) => this.relatedEvents = e
     )
+
+    this.eventService.getThumbnail(id).subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'image/jpeg' });
+        this.thumbnailUrl = URL.createObjectURL(blob)
+      },
+
+    )
+
   }
 
   buyTicketDialog(): void {
     console.log(this.route.snapshot.params['id'])
-    this.dialog.open(DialogBuyTicketComponent, { 
+    this.dialog.open(DialogBuyTicketComponent, {
       data: {
         id: this.route.snapshot.params['id'],
-        
-      } 
+
+      }
     }).afterClosed().subscribe(
       () => this.ngOnInit()
     )

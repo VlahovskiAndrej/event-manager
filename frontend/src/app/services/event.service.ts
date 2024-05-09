@@ -34,7 +34,7 @@ export class EventService {
   //TODO : eden filter za data
 
   filterByDateStarted(started: string): Observable<EventInterface[]> {
-    
+
     return this.http.get<EventInterface[]>(`${this.url}/filteredByDateStarted?started=${started}`)
   }
 
@@ -54,71 +54,78 @@ export class EventService {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
     const day = date.getDate().toString().padStart(2, '0');
-  
+
     return `${year}-${month}-${day}`;
   }
 
 
 
-  uploadThumbnail(file: File) {
-    const headers = new HttpHeaders({
-
-      'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
-    });
-
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    // const body = {file: file}
-
-    console.log('sending req with file: ' + file.name)
-
-    return this.http.post<String>(`${this.url}/upload`, formData)
+  getThumbnail(id: number): Observable<Blob>{
+    return this.http.get(`http://localhost:8081/api/events/image/${id}`, {
+      params: {
+        id,
+      },
+      responseType: 'blob',
+    }
+)
   }
 
-  createEvent(name: string,
-    description: string,
-    longitude: string,
-    latitude: string,
-    category: string,
-    tagNames: string[],
-    dateStart: string,
-    dateFinish: string,
-    timeStart: string,
-    timeFinish: string,
-    meetingUrl: string,
-    type: string,
-    price: number,
-    maxPeople: number,
-    images: Image[],
-    thumbnail: File | null,
-  ): Observable<EventInterface[]> {
-    const body = {
-      name: name,
-      description: description,
-      maxPeople: maxPeople,
-      longitude: longitude,
-      latitude: latitude,
-      category: category,
-      tagsNames: tagNames,
-      dateStart: dateStart,
-      dateFinish: dateFinish,
-      timeStart: timeStart,
-      timeFinish: timeFinish,
-      meetingUrl: meetingUrl,
-      type: type,
-      price: price,
-      // thumbnail: thumbnail
-    };
+  uploadThumbnail(formData: FormData){
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+    //  'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
 
-    return this.http.post<EventInterface[]>(`${this.url}/create`, body, { headers: headers })
+    return this.http.post<String>(`http://localhost:8081/api/events/upload`, formData, {headers: headers})
+  }
+
+  createEvent(
+              formData: FormData
+              // name: string,
+              // description: string,
+              // longitude: string,
+              // latitude: string,
+              // category: string,
+              // tagNames: string,
+              // dateStart: string,
+              // dateFinish: string,
+              // timeStart: string,
+              // timeFinish: string,
+              // meetingUrl: string,
+              // type: string,
+              // price: number,
+              // maxPeople: number,
+              // images: Image[],
+              // thumbnail: File|null,
+              ) : Observable<EventInterface[]>{
+    // const body = {
+    //   name: name,
+    //   description: description,
+    //   maxPeople: maxPeople,
+    //   longitude: longitude,
+    //   latitude: latitude,
+    //   category: category,
+    //   tagsNames: tagNames,
+    //   dateStart: dateStart,
+    //   dateFinish: dateFinish,
+    //   timeStart: timeStart,
+    //   timeFinish: timeFinish,
+    //   meetingUrl: meetingUrl,
+    //   type: type,
+    //   price: price,
+    //   // thumbnail: thumbnail
+    // };
+
+    const headers = new HttpHeaders({
+      // 'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+
+    // console.log(formData.get('maxPeople'))
+    // console.log(formData.get(''))
+
+    return this.http.post<EventInterface[]>(`http://localhost:8081/api/events/create`, formData, { headers: headers })
   }
 
   updateEvent(

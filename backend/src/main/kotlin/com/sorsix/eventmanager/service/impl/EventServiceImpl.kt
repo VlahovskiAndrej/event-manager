@@ -7,6 +7,7 @@ import com.sorsix.eventmanager.domain.Tag
 import com.sorsix.eventmanager.domain.Ticket
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
+import com.sorsix.eventmanager.domain.request.ThumbnailRequest
 import com.sorsix.eventmanager.domain.user.User
 import com.sorsix.eventmanager.repository.EventRepository
 import com.sorsix.eventmanager.repository.TicketRepository
@@ -28,35 +29,25 @@ class EventServiceImpl(
 
     private val root: Path = Paths.get("upload")
 
-    override fun createEvent(eventRequest: EventRequest, request: HttpServletRequest): Event {
+    override fun createEvent(eventRequest: ThumbnailRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
-
-//        val eventPathSlug = eventRequest.name.lowercase().replace(" ", "_")
-//        val pathToUpload = Files.createDirectory(root.resolve(eventPathSlug))
-//        val multipartFile = CommonsMultipartFile(
-//            ByteArrayResource(request.thumbnail.fileContent),
-//            request.thumbnail.fileName
-//        )
-//
-//        Files.copy(eventRequest.thumbnail.inputStream, pathToUpload.resolve("thumbnail.jpeg"))
-//        val thumbnailPath = pathToUpload.resolve("thumbnail.jpeg").toAbsolutePath().toString()
-
 
         return eventRepository.save(Event(
             id = 0,
             name = eventRequest.name,
             description = eventRequest.description,
-            availableTickets = eventRequest.maxPeople,
+            availableTickets =  eventRequest.maxPeople.toInt(),
             longitude = eventRequest.longitude,
             latitude = eventRequest.latitude,
             dateFinish = eventRequest.dateFinish,
             dateStart = eventRequest.dateStart,
             timeStart = eventRequest.timeStart,
             timeFinish = eventRequest.timeFinish,
-            tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
+//            tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
+            tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) } .toMutableList(),
             category = eventRequest.category,
             type = eventRequest.type,
-            price = eventRequest.price,
+            price = eventRequest.price.toDouble(),
             meetingUrl = eventRequest.meetingUrl,
             creator=user!!,
 //            thumbnailUrl = thumbnailPath,
@@ -80,7 +71,7 @@ class EventServiceImpl(
         event.name = eventRequest.name
         event.description = eventRequest.description
         event.category = eventRequest.category
-        event.tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList()
+        event.tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) } .toMutableList()
         event.latitude = eventRequest.latitude
         event.longitude = eventRequest.longitude
         event.dateStart = eventRequest.dateStart
@@ -88,7 +79,7 @@ class EventServiceImpl(
         event.timeStart = eventRequest.timeStart
         event.timeFinish = eventRequest.timeFinish
         event.type = eventRequest.type
-        event.price = eventRequest.price
+        event.price = eventRequest.price.toDouble()
         event.meetingUrl = eventRequest.meetingUrl
         return eventRepository.save(event)
     }

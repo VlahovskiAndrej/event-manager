@@ -16,8 +16,10 @@ interface Image {
   styleUrl: './upload-images.component.css'
 })
 export class ImageUploadComponent {
+
   thumbnail: Image|null = null
   images: Image[] = [];
+
   @Output() imagesEvent = new EventEmitter<{'images':Image[], 'thumbnail': Image|null}>();
 
   onFilesSelected(event: any): void {
@@ -46,7 +48,7 @@ export class ImageUploadComponent {
         };
         reader.readAsDataURL(file);
     }
-    
+
   }
 
   removeImage(image: Image): void {

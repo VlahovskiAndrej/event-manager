@@ -2,16 +2,16 @@ package com.sorsix.eventmanager.web
 
 import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
-import com.sorsix.eventmanager.domain.Image
+import com.sorsix.eventmanager.domain.Thumbnail
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.domain.request.ThumbnailRequest
 import com.sorsix.eventmanager.service.EventService
 import com.sorsix.eventmanager.service.ImageService
+import com.sorsix.eventmanager.service.ThumbnailService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter
 @CrossOrigin("*")
 class EventController(
     val eventService: EventService,
+    val thumbnailService: ThumbnailService,
     val imageService: ImageService
 ) {
 
@@ -36,31 +37,51 @@ class EventController(
         return eventService.getEventById(id)
     }
 
-    @PostMapping("/create")
-    fun createEvent(@RequestBody eventRequest: EventRequest, request: HttpServletRequest): ResponseEntity<Event> {
-        return ResponseEntity.ok(eventService.createEvent(eventRequest, request))
-    }
+//    @PostMapping("/create")
+//    fun createEvent(@ModelAttribute eventRequest: EventRequest, request: HttpServletRequest) : ResponseEntity<Event>{
+//        return ResponseEntity.ok(eventService.createEvent(eventRequest, request))
+//    }
 
     @PostMapping("/upload")
-//    fun uploadImage(@RequestParam("file") file: MultipartFile): ResponseEntity<String> {
-    fun uploadImage(@ModelAttribute req: ThumbnailRequest): ResponseEntity<String> {
+    fun uploadImage(@ModelAttribute req: ThumbnailRequest, request: HttpServletRequest): ResponseEntity<Event> {
+
+        val event: Event = eventService.createEvent(req, request)
+
         val imageName: String = req.file.originalFilename ?: "image"
         val contentType: String = req.file.contentType ?: "image/jpeg"
-        val imageData: ByteArray = req.file.bytes
-        val savedImage = imageService.saveImage(imageName, contentType, imageData)
-        return ResponseEntity.ok("${savedImage.id}")
+        val imageData : ByteArray = req.file.bytes
+        thumbnailService.saveThumbnail(event.id, imageName, contentType, imageData)
+
+        for (file in req.files){
+            imageService.saveImage(
+                event,
+                file.originalFilename ?: "image",
+                file.contentType ?: "image/jpeg",
+                file.bytes)
+        }
+
+        println(req)
+        return ResponseEntity.ok(event)
     }
 
     @GetMapping("/image/{id}")
-    fun getImageById(@PathVariable id: Long): ResponseEntity<Any> {
-        val image: Image? = imageService.getImageById(id)
+    fun getThumbnailById(@PathVariable id: Long): ResponseEntity<Any> {
+        val image: Thumbnail? = thumbnailService.getThumbnailById(id)
         if (image != null) {
             val headers: HttpHeaders = HttpHeaders()
-            headers.contentType = (MediaType.parseMediaType(image.contentType))
+//            headers.contentType = (MediaType.parseMediaType(image.contentType))
             return ResponseEntity<Any>(image.data, headers, HttpStatus.OK)
         } else {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
+    }
+
+    @GetMapping("/{id}/images")
+    fun getImagesByEventId(@PathVariable id: Long): ResponseEntity<Any>{
+
+        //TODO
+
+        return ResponseEntity.ok("")
     }
 
 

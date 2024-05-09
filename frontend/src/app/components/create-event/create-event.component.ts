@@ -26,8 +26,8 @@ import { Image } from '../../interfaces/image';
   selector: 'app-create-event',
   standalone: true,
   imports: [
-    FormsModule, 
-    MatFormFieldModule, 
+    FormsModule,
+    MatFormFieldModule,
     MatInputModule,
     MatButton,
     MatChipsModule,
@@ -55,7 +55,8 @@ export class CreateEventComponent{
   isUnlimitedTickets: boolean = false
   longitude: number|undefined
   lattitude: number|undefined
-  images: Image[] = []
+  // images: Image[] = []
+  images: File[] = []
   thumbnail: Image|null = null
 
   categories = [
@@ -88,8 +89,8 @@ export class CreateEventComponent{
   });
 
   thirdFormGroup = this._formBuilder.group({
-     price: ['', Validators.nullValidator],
-     numberOfTickets: ['', Validators.nullValidator],
+     price: ['0', Validators.nullValidator],
+     numberOfTickets: ['0', Validators.nullValidator],
   });
 
   isEditable = true;
@@ -108,35 +109,90 @@ export class CreateEventComponent{
   }
 
   createEvent() {
-      this.eventService.createEvent(
-        this.firstFormGroup.value.name!!, 
-        this.firstFormGroup.value.description!!, 
-        this.longitude ? this.longitude.toString() : '',
-        this.lattitude ? this.lattitude.toString() : '',
-        this.firstFormGroup.value.category!!, 
-        this.tags, 
-        this.secondFormGroup.value.dateStart!!, 
-        this.secondFormGroup.value.dateFinish!!, 
-        this.secondFormGroup.value.timeStart!!,
-        this.secondFormGroup.value.timeFinish!!,
-        this.secondFormGroup.value.meetingUrl!!,
-        this.secondFormGroup.value.type!!,
-        Number.parseFloat(this.thirdFormGroup.value.price!!),
-        Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!),
-        this.images,
-        this.thumbnail?.file!!
-      )
-      .subscribe(
-        (response) => {
-          console.log(response)
+
+    // const formData = new FormData();
+    // formData.append('name', this.firstFormGroup.value.name!!);
+    // formData.append('description', this.firstFormGroup.value.description!!);
+    // formData.append('longitude',  this.longitude ? this.longitude.toString() : '');
+    // formData.append('lattitude',  this.lattitude ? this.lattitude.toString() : '');
+    // formData.append('category', this.firstFormGroup.value.category!!);
+    // formData.append('tagsNames', this.tags.join(","));
+    // formData.append('dateStart', this.secondFormGroup.value.dateStart!!);
+    // formData.append('dateFinish', this.secondFormGroup.value.dateFinish!!);
+    // formData.append('timeFinish', this.secondFormGroup.value.timeFinish!!);
+    // formData.append('timeStart', this.secondFormGroup.value.timeStart!!);
+    // formData.append('meetingUrl', this.secondFormGroup.value.meetingUrl!!);
+    // formData.append('type', this.secondFormGroup.value.type!!);
+    // formData.append('price', this.thirdFormGroup.value.price!!);
+    // formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
+    // formData.append('type', this.secondFormGroup.value.type!!);
+
+    // formData.append('images', this.images.join(','));
+    // formData.append('thumbnail', this.thumbnail?.file!!);
+
+
+      // this.eventService.createEvent(
+      //   formData
+      //   // this.firstFormGroup.value.name!!,
+      //   // this.firstFormGroup.value.description!!,
+      //   // this.longitude ? this.longitude.toString() : '',
+      //   // this.lattitude ? this.lattitude.toString() : '',
+      //   // this.firstFormGroup.value.category!!,
+      //   // this.tags.join(","),
+      //   // this.secondFormGroup.value.dateStart!!,
+      //   // this.secondFormGroup.value.dateFinish!!,
+      //   // this.secondFormGroup.value.timeStart!!,
+      //   // this.secondFormGroup.value.timeFinish!!,
+      //   // this.secondFormGroup.value.meetingUrl!!,
+      //   // this.secondFormGroup.value.type!!,
+      //   // Number.parseFloat(this.thirdFormGroup.value.price!!),
+      //   // Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!),
+      //   // this.images,
+      //   // this.thumbnail?.file!!
+      // )
+      // .subscribe(
+      //   (response) => {
+      //     console.log(response)
+      //     this.router.navigate(['events'])
+      //     this.showSuccessMessage()
+      //   }
+      // )
+
+
+      const formData = new FormData();
+      formData.append('file', this.thumbnail?.file!!)
+      formData.append('name', this.firstFormGroup.value.name!!)
+      formData.append('description', this.firstFormGroup.value.description!!);
+      formData.append('longitude',  this.longitude ? this.longitude.toString() : '');
+      formData.append('latitude',  this.lattitude ? this.lattitude.toString() : '');
+      formData.append('category', this.firstFormGroup.value.category!!);
+      formData.append('tagsNames', this.tags.join(","));
+
+      const dateStartModified = new Date(this.secondFormGroup.value.dateStart!!);
+      const dateFinishModified = new Date(this.secondFormGroup.value.dateFinish!!);
+
+      formData.append('dateStart', dateStartModified.toString().split(' 00:00')[0]);
+      formData.append('dateFinish', dateFinishModified.toString().split(' 00:00')[0]);
+
+      formData.append('timeFinish', this.secondFormGroup.value.timeFinish!!);
+      formData.append('timeStart', this.secondFormGroup.value.timeStart!!);
+      formData.append('meetingUrl', this.secondFormGroup.value.meetingUrl!!);
+      formData.append('price', this.thirdFormGroup.value.price!!);
+      formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
+      formData.append('type', this.secondFormGroup.value.type!!);
+      for (let img of this.images) {
+        // console.log(img.name)
+        formData.append('files', img);
+      }
+
+
+
+      this.eventService.uploadThumbnail(formData).subscribe(
+        res => {
           this.router.navigate(['events'])
           this.showSuccessMessage()
         }
       )
-
-      // this.eventService.uploadThumbnail(this.thumbnail?.file!!).subscribe(
-      //   res => console.log(res)
-      // )
   }
 
   onChangeType(value: string){
@@ -150,10 +206,14 @@ export class CreateEventComponent{
   }
 
   addImages(value: {'images':Image[], 'thumbnail': Image|null}){
-    this.images = value.images
+    for(let image of value.images){
+      this.images.push(image.file)
+      console.log("added Image: " + image.file.name)
+    }
     this.thumbnail = value.thumbnail
-    console.log(this.images)
-    console.log(this.thumbnail)
+
+    console.log("Images: " + value.images.toString())
+    console.log("Thumbnail: " + value.thumbnail?.toString())
   }
 
   onChangeFreeEnterance(){
@@ -167,8 +227,8 @@ export class CreateEventComponent{
     else{
       this.thirdFormGroup.get('price')?.enable()
       this.isFreeEnterance = false
-    } 
-      
+    }
+
   }
 
   onChangeUnlimitedTickets(){
@@ -180,7 +240,7 @@ export class CreateEventComponent{
       this.thirdFormGroup.get('numberOfTickets')?.enable()
       this.isUnlimitedTickets = false
     }
-      
+
   }
 
 }

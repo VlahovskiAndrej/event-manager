@@ -3,9 +3,12 @@
 
   <div id="grid" style="display: flex; justify-content: center;">
     <div id="row1">
-        
+
+        <!-- <img [src]="thumbnailUrl" type="image/jpeg" [width]="200" /> -->
+
         <div id="image-container">
-            <img src="https://linkup.mk/storage/events/thumbnails/01HVMAWQ3YEYMPKGQ0B1AP63HK.jpg" alt="">
+            <img [src]="thumbnailUrl" type="image/jpeg" />
+            <!-- <img src="https://linkup.mk/storage/events/thumbnails/01HVMAWQ3YEYMPKGQ0B1AP63HK.jpg" alt=""> -->
             @if(event?.availableTickets == 0){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()" disabled>Buy Ticket</button>
             }
@@ -27,7 +30,7 @@
                     <p>#{{tag.name}}</p>
                 }
             </div>
-            
+
         </div>
 
     </div>
@@ -40,7 +43,7 @@
                 <app-event-details-map [longitude]="event?.longitude" [latitude]="event?.latitude" ></app-event-details-map>
             }
             @else if(event?.meetingUrl != null){
-                
+
                 <h6 style="margin-top: 25px;">ONLINE event! Here's what to expect:</h6>
                 <ul>
                     <li>Accessible Online Platform: The event will be hosted virtually, providing you with the convenience of attending from anywhere.</li>
@@ -48,7 +51,7 @@
                     <li>Secure Your Spot: Don't miss out! Get your tickets now and prepare for an immersive online experience.</li>
                 </ul>
             }
-            
+
         </div>
 
 
@@ -65,8 +68,8 @@
             </p>
 
             <h3 style="margin-bottom: 20px; margin-top: 55px;">Where?</h3>
-            
-            
+
+
             <p style="display: flex; gap: 5px; margin-left: 20px;">
                 <mat-icon aria-label="Example home icon" fontIcon="apartment"></mat-icon>
                 @if(event?.latitude != null && event?.longitude != null &&
@@ -75,22 +78,22 @@
                 }@else{
                     <span>  <a href="">Google meet</a> or <a href="">Zoom</a></span>
                 }
-                
+
             </p>
 
             <p style="display: flex; gap: 5px; margin-left: 20px;">
                 <mat-icon aria-label="Example home icon" fontIcon="location_on"></mat-icon>
-                
+
                 @if(event?.latitude != null && event?.longitude != null &&
                 event?.latitude != "" && event?.longitude != ""){
                     <span>{{event?.longitude}}, {{event?.latitude}}</span>
                 }@else{
                     <span>ONLINE, You can be where you want!</span>
                 }
-                
+
             </p>
         </div>
-        
+
     </div> <hr>
 
     <div id="row3">
@@ -124,7 +127,7 @@
         <p style="margin-bottom: 0; font-weight: 500;"> Non refundable situations</p>
         <p>
              Please note that certain tickets or events may be non-refundable. Check the event details or terms and conditions for specific refund policies.
-            In the rare event that an event is canceled or rescheduled, you will be contacted regarding refund options. We strive to ensure fair resolutions for all attendees in such circumstances. 
+            In the rare event that an event is canceled or rescheduled, you will be contacted regarding refund options. We strive to ensure fair resolutions for all attendees in such circumstances.
         </p>
         <p style="margin-bottom: 0; font-weight: 500;"> Contact us</p>
         <p> If you have any questions or need assistance with your ticket refund, please contact us at [email address] or [phone number].</p>
@@ -138,7 +141,7 @@
                 <app-event [event]="e"></app-event>
             }
         </div>
-        
+
     </div><hr>
 
   </div>

@@ -14,5 +14,8 @@ data class Image(
     val contentType: String,
 
     @Lob
-    val data: ByteArray
+    val data: ByteArray,
+
+    @ManyToOne
+    val event: Event
 )
