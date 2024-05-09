@@ -68,6 +68,15 @@ export class EventService {
     })
   }
 
+  // getImagesByEventId(eventId: number): Observable<Blob[]> {
+  //   return this.http.get<Blob[]>(`http://localhost:8081/api/events/${eventId}/images`, {
+  //     params: {
+  //       id: eventId.toString(), // Convert eventId to string
+  //     },
+  //     // responseType: 'arraybuffer', // Set responseType to 'arraybuffer' for binary data
+  //   });
+  // }
+
   getThumbnail(id: number): Observable<Blob>{
     return this.http.get(`http://localhost:8081/api/events/image/${id}`, {
       params: {

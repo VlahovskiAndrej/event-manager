@@ -3,6 +3,7 @@ package com.sorsix.eventmanager.web
 import com.sorsix.eventmanager.config.AuthService
 import com.sorsix.eventmanager.domain.request.LoginRequest
 import com.sorsix.eventmanager.domain.request.RegisterRequest
+import com.sorsix.eventmanager.domain.request.UpdateUserRequest
 import com.sorsix.eventmanager.domain.response.AuthResponse
 import com.sorsix.eventmanager.domain.user.User
 import jakarta.servlet.http.HttpServletRequest
@@ -29,5 +30,11 @@ class AuthController(
     @GetMapping("/user-details")
     fun getUserByJwtToken(request: HttpServletRequest) : ResponseEntity<User>{
        return ResponseEntity.ok(authService.getUserByJwtToken(request))
+    }
+
+    @PostMapping("/update")
+    fun updateUser(@RequestBody updateUserRequest: UpdateUserRequest, request: HttpServletRequest) : ResponseEntity<User>{
+        println(updateUserRequest)
+        return ResponseEntity.ok(authService.updateUser(updateUserRequest, request))
     }
 }

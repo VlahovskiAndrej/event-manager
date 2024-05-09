@@ -1,12 +1,16 @@
 <h2 mat-dialog-title>Settings</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Develop across all platforms</h3>
-  <p>Learn one way to build applications with Angular and reuse your code and abilities to build
-    apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
-
+  <mat-slide-toggle style="margin-top: 10px;" checked color="primary" name="enableWifi">Enable Wifi</mat-slide-toggle>
+  <mat-slide-toggle checked color="primary" name="acceptTerms">Enable sound</mat-slide-toggle>
+  <mat-slide-toggle checked color="primary" name="acceptTerms">Accept Terms of Service</mat-slide-toggle>
+  <mat-slide-toggle checked color="primary" name="enableWifi">Receive notifications</mat-slide-toggle>
+  <mat-slide-toggle checked color="primary" name="enableWifi">Receive emails</mat-slide-toggle>
+  <mat-slide-toggle color="primary" name="enableWifi">Data Backup</mat-slide-toggle>
+  <mat-slide-toggle checked color="primary" name="enableWifi">Location Services</mat-slide-toggle>
+  <mat-slide-toggle color="primary" name="enableWifi">Use my data for marketing puproses</mat-slide-toggle>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save changes</button>
+  <button mat-dialog-close mat-raised-button color="primary" >Save changes</button>
+  <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

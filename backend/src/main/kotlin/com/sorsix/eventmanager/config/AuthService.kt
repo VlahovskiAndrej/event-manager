@@ -2,6 +2,7 @@ package com.sorsix.eventmanager.config
 
 import com.sorsix.eventmanager.domain.request.LoginRequest
 import com.sorsix.eventmanager.domain.request.RegisterRequest
+import com.sorsix.eventmanager.domain.request.UpdateUserRequest
 import com.sorsix.eventmanager.domain.response.AuthResponse
 import com.sorsix.eventmanager.domain.user.Role
 import com.sorsix.eventmanager.domain.user.User
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.ModelAttribute
 import kotlin.math.log
 
 @Service
@@ -58,5 +60,27 @@ class AuthService(
         val username: String = jwtService.extractUsername(authHeader)
         val user: User? =  userRepository.findByEmail(username)
         return user
+    }
+
+    fun updateUser(updateUserRequest: UpdateUserRequest, request: HttpServletRequest): User? {
+        val user: User? = getUserByJwtToken(request)
+
+        if (updateUserRequest.currentPassword != ""){
+            authenticationManager.authenticate(
+                UsernamePasswordAuthenticationToken(
+                    updateUserRequest.email,
+                    updateUserRequest.currentPassword
+                )
+            )
+        }
+
+        if (user != null){
+            user.firstName = updateUserRequest.firstName
+            user.lastName = updateUserRequest.lastName
+
+            return userRepository.save(user)
+        }
+
+        return null
     }
 }

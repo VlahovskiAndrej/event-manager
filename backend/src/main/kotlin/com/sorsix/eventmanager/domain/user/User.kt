@@ -12,13 +12,13 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val firstName: String,
+    var firstName: String,
 
-    val lastName: String,
+    var lastName: String,
 
     private val email: String,
 
-    private val password: String,
+    private var password: String,
 
     @Enumerated(EnumType.STRING)
     val role: Role
