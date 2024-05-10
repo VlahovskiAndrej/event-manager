@@ -87,7 +87,11 @@ class AuthService(
 
     fun removeUser(request: HttpServletRequest): Unit{
         val user: User? = getUserByJwtToken(request)
-        if (user != null)
-            userRepository.deleteById(user.id)
+        if (user != null){
+            user.deleteUser()
+            userRepository.save(user)
+        }
+
+//            userRepository.deleteById(user.id)
     }
 }

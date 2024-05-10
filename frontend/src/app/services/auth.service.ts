@@ -41,7 +41,7 @@ export class AuthService {
     localStorage.removeItem('username')
     location.href = '/login'
     // this.router.navigate(['login'])
-  }
+  }   
 
   getLoggedUser(): Observable<User>{
     const headers = new HttpHeaders({

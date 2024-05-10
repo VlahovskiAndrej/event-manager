@@ -21,7 +21,9 @@ data class User(
     private var password: String,
 
     @Enumerated(EnumType.STRING)
-    val role: Role
+    val role: Role,
+
+    var enabled: Boolean = true
 
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -37,23 +39,27 @@ data class User(
     }
 
     override fun isAccountNonExpired(): Boolean {
-        return true
+        return enabled
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return true
+        return enabled
     }
 
     override fun isCredentialsNonExpired(): Boolean {
-        return true
+        return enabled
     }
 
     override fun isEnabled(): Boolean {
-        return true
+        return enabled
     }
 
     fun changePassword(password: String): Unit{
         this.password = password
+    }
+
+    fun deleteUser(){
+        this.enabled = false
     }
 
 
