@@ -51,4 +51,10 @@ data class User(
     override fun isEnabled(): Boolean {
         return true
     }
+
+    fun changePassword(password: String): Unit{
+        this.password = password
+    }
+
+
 }

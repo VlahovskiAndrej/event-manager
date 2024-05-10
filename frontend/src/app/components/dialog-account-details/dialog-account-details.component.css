@@ -12,3 +12,7 @@
     width: 100%;
 }
 
+.green-snackbar {
+    background-color: green;
+    color: white;
+  }

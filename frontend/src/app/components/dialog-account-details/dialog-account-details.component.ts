@@ -7,6 +7,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-dialog-account-details',
@@ -17,6 +19,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     MatExpansionModule,
+    MatSnackBarModule
   ],
   templateUrl: './dialog-account-details.component.html',
   styleUrl: './dialog-account-details.component.css'
@@ -32,7 +35,7 @@ export class DialogAccountDetailsComponent implements OnInit{
   lastNameDissabled = true
 
 
-  constructor(private authService: AuthService,  private _formBuilder: FormBuilder){}
+  constructor(private authService: AuthService,  private _snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     this.authService.getLoggedUser().subscribe(
@@ -42,6 +45,10 @@ export class DialogAccountDetailsComponent implements OnInit{
       } 
         
     )
+  }
+  
+ openSnackBar() {
+    this._snackBar.open("Successfuly updated user!", '', {duration: 1000, panelClass: ['green-snackbar']})
   }
 
 
@@ -74,7 +81,7 @@ export class DialogAccountDetailsComponent implements OnInit{
       this.authService.updateUser(formData).subscribe(
         u =>{
           this.user = u
-          console.log("Successfuly updated user!")
+          this.openSnackBar()
         } 
           
       )

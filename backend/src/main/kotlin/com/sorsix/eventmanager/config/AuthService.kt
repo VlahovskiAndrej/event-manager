@@ -72,6 +72,7 @@ class AuthService(
                     updateUserRequest.currentPassword
                 )
             )
+            user?.changePassword(passwordEncoder.encode(updateUserRequest.newPassword))
         }
 
         if (user != null){
