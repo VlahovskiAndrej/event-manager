@@ -37,4 +37,9 @@ class AuthController(
         println(updateUserRequest)
         return ResponseEntity.ok(authService.updateUser(updateUserRequest, request))
     }
+
+    @DeleteMapping("/remove")
+    fun deleteAccount(request: HttpServletRequest): ResponseEntity<Any>{
+        return ResponseEntity.ok(authService.removeUser(request))
+    }
 }

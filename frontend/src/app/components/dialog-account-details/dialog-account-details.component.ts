@@ -8,6 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -47,10 +48,9 @@ export class DialogAccountDetailsComponent implements OnInit{
     )
   }
   
- openSnackBar() {
-    this._snackBar.open("Successfuly updated user!", '', {duration: 1000, panelClass: ['green-snackbar']})
+ openSnackBar(text: string) {
+    this._snackBar.open(text, '', {duration: 1000, panelClass: ['green-snackbar']})
   }
-
 
   onClickFirstName(){
     this.firstNameDissabled = !this.firstNameDissabled
@@ -81,10 +81,19 @@ export class DialogAccountDetailsComponent implements OnInit{
       this.authService.updateUser(formData).subscribe(
         u =>{
           this.user = u
-          this.openSnackBar()
+          this.openSnackBar("Successfuly updated user!")
         } 
           
       )
     }
+  }
+
+  onDeleteAccount(){
+    this.authService.deleteUser().subscribe(
+      () =>{
+        this.authService.logout()
+        this.openSnackBar("Successfuly deleted user!")
+      } 
+    )
   }
 }
