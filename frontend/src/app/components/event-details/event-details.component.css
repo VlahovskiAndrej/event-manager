@@ -3,6 +3,8 @@
     /* height: 365px; */
     /* border: 1px solid rgb(133, 133, 133); */
     margin-right: 30px;
+    /* border-radius: 15px; */
+    overflow: hidden;
 }
 
 #event-data{
@@ -76,4 +78,9 @@ ul > li{
     justify-content: space-between;
     flex-direction: row;
 
+}
+
+app-image-galery{
+    border: 15px;
+    height: 500px;
 }

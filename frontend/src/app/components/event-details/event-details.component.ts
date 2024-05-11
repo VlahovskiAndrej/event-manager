@@ -11,6 +11,7 @@ import { DialogBuyTicketComponent } from '../dialog-buy-ticket/dialog-buy-ticket
 import { MapComponent } from '../create-event-map/map.component';
 import { EventDetailsMapComponent } from '../event-details-map/event-details-map.component';
 import { EventComponent } from '../event/event.component';
+import { ImageGalleryComponent } from '../image-galery/image-galery.component';
 
 
 @Component({
@@ -26,7 +27,8 @@ import { EventComponent } from '../event/event.component';
     MatDialogModule,
     MapComponent,
     EventDetailsMapComponent,
-    EventComponent
+    EventComponent,
+    ImageGalleryComponent
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.css'
@@ -37,8 +39,9 @@ export class EventDetailsComponent implements OnInit{
   relatedEvents: EventInterface[] = []
   thumbnail: File|null = null
   thumbnailUrl: any
-  images: any[] = []
+  imagesUrl: any[] = []
   id: string|undefined
+  hasMoreImages = true
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog){}
 
@@ -58,19 +61,20 @@ export class EventDetailsComponent implements OnInit{
       (response: any) => {
         const blob = new Blob([response], { type: 'image/jpeg' });
         this.thumbnailUrl = URL.createObjectURL(blob)
+        this.imagesUrl.push(this.thumbnailUrl)
       },
     )
 
-    this.eventService.getImages(id).subscribe(
-      (responses: string) => {
-        const response: any[] = responses.split(',')
-        for (let r of responses){
-          const blob = new Blob([r], { type: 'image/jpeg' });
-          this.images.push(URL.createObjectURL(blob))
+    for(let i=0; i<5; i++)
+      this.eventService.getImages(id, i).subscribe({
+        next: (response: any) => {
+          const blob = new Blob([response], { type: 'image/jpeg' });
+          this.imagesUrl.push(URL.createObjectURL(blob))
+        },
+        error: (e: any) => {
+          () => console.log("greska")
         }
-      },
-    )
-
+      })
   }
 
   buyTicketDialog(): void {

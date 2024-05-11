@@ -32,6 +32,9 @@ class EventServiceImpl(
     override fun createEvent(eventRequest: ThumbnailRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
 
+//        val tags: List<String>;
+//        if (eventRequest.tagsNames == "") tags =
+
         return eventRepository.save(Event(
             id = 0,
             name = eventRequest.name,

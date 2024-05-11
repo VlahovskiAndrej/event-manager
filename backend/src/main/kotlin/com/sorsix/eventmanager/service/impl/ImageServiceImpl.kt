@@ -19,8 +19,8 @@ class ImageServiceImpl (
     }
 
     override fun findAllByEvent(id: Long): List<Image> {
-        val event: Event = eventRepository.findById(id).orElse(null)
-        return imageRepository.findAllByEvent(event)
+//        val event: Event = eventRepository.findById(id).orElse(null)
+        return imageRepository.findImagesByEventId(id)
     }
 
 }

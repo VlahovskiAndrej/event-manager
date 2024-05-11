@@ -4,11 +4,13 @@
   <div id="grid" style="display: flex; justify-content: center;">
     <div id="row1">
 
-        <!-- <img [src]="images[0]" type="image/jpeg" [width]="200" /> -->
+        <!-- <img [src]="imagesUrl[0]" type="image/jpeg" [width]="200" /> -->
 
         <div id="image-container">
-            <img [src]="thumbnailUrl" type="image/jpeg" />
+            <!-- <img [src]="thumbnailUrl" type="image/jpeg" /> -->
             <!-- <img src="https://linkup.mk/storage/events/thumbnails/01HVMAWQ3YEYMPKGQ0B1AP63HK.jpg" alt=""> -->
+            <app-image-galery [slides]="imagesUrl"></app-image-galery>
+
             @if(event?.availableTickets == 0){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()" disabled>Buy Ticket</button>
             }
