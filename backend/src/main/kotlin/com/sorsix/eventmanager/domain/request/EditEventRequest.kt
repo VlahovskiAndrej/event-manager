@@ -4,13 +4,14 @@ import com.sorsix.eventmanager.domain.Category
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
-data class ThumbnailRequest(
-    val file: MultipartFile,
 
-    val files: List<MultipartFile>,
+data class EditEventRequest(
+
+//    val file: MultipartFile,
+
+//    val files: List<MultipartFile>,
 
     val name: String,
     val description: String,
@@ -33,8 +34,7 @@ data class ThumbnailRequest(
 
     val type: String,
 
-    val price: Double,
+//    val price: Double,
 
-    val maxPeople: Int, /* number of Tickets */
-
+//    val maxPeople: Int, /* number of Tickets */
 )

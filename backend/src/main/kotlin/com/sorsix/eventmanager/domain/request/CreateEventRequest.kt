@@ -1,32 +1,27 @@
 package com.sorsix.eventmanager.domain.request
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.sorsix.eventmanager.domain.Category
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
-import java.util.Objects
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
+data class CreateEventRequest(
+    val file: MultipartFile,
 
-data class EventRequest(
+    val files: List<MultipartFile>,
 
     val name: String,
-
     val description: String,
-
-    val maxPeople: String, /* number of Tickets */
-
     val longitude: String,
     val latitude: String,
-
     val category: Category,
-
     val tagsNames: String,
 
+    @DateTimeFormat(pattern = "EEE MMM dd yyyy")
     val dateStart: LocalDate,
 
+    @DateTimeFormat(pattern = "EEE MMM dd yyyy")
     val dateFinish: LocalDate,
 
     var timeStart: LocalTime,
@@ -37,7 +32,8 @@ data class EventRequest(
 
     val type: String,
 
-    val price: String,
+    val price: Double,
 
-//    val thumbnail: MultipartFile
+    val maxPeople: Int, /* number of Tickets */
+
 )

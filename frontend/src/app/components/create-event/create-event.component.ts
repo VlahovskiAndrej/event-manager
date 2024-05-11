@@ -181,13 +181,12 @@ export class CreateEventComponent{
       formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
       formData.append('type', this.secondFormGroup.value.type!!);
       for (let img of this.images) {
-        // console.log(img.name)
         formData.append('files', img);
       }
 
 
 
-      this.eventService.uploadThumbnail(formData).subscribe(
+      this.eventService.createEvent(formData).subscribe(
         res => {
           this.router.navigate(['events'])
           this.showSuccessMessage()
@@ -207,8 +206,8 @@ export class CreateEventComponent{
 
   addImages(value: {'images':Image[], 'thumbnail': Image|null}){
     for(let image of value.images){
-      this.images.push(image.file)
-      console.log("added Image: " + image.file.name)
+      this.images.push(image.file!!)
+      console.log("added Image: " + image.file!!.name)
     }
     this.thumbnail = value.thumbnail
 

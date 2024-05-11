@@ -5,9 +5,9 @@ import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.Tag
 import com.sorsix.eventmanager.domain.Ticket
-import com.sorsix.eventmanager.domain.request.EventRequest
+import com.sorsix.eventmanager.domain.request.EditEventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
-import com.sorsix.eventmanager.domain.request.ThumbnailRequest
+import com.sorsix.eventmanager.domain.request.CreateEventRequest
 import com.sorsix.eventmanager.domain.user.User
 import com.sorsix.eventmanager.repository.EventRepository
 import com.sorsix.eventmanager.repository.TicketRepository
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.Month
 
 @Service
@@ -29,7 +28,7 @@ class EventServiceImpl(
 
     private val root: Path = Paths.get("upload")
 
-    override fun createEvent(eventRequest: ThumbnailRequest, request: HttpServletRequest): Event {
+    override fun createEvent(eventRequest: CreateEventRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
 
 //        val tags: List<String>;
@@ -69,21 +68,21 @@ class EventServiceImpl(
         eventRepository.deleteById(id)
     }
 
-    override fun updateEvent(id: Long, eventRequest: EventRequest): Event {
+    override fun updateEvent(id: Long, editEventRequest: EditEventRequest): Event {
         val event: Event = eventRepository.findById(id).orElse(null)
-        event.name = eventRequest.name
-        event.description = eventRequest.description
-        event.category = eventRequest.category
-        event.tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) }.toMutableList()
-        event.latitude = eventRequest.latitude
-        event.longitude = eventRequest.longitude
-        event.dateStart = eventRequest.dateStart
-        event.dateFinish = eventRequest.dateFinish
-        event.timeStart = eventRequest.timeStart
-        event.timeFinish = eventRequest.timeFinish
-        event.type = eventRequest.type
-        event.price = eventRequest.price.toDouble()
-        event.meetingUrl = eventRequest.meetingUrl
+        event.name = editEventRequest.name
+        event.description = editEventRequest.description
+        event.category = editEventRequest.category
+        event.tags = editEventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) }.toMutableList()
+        event.latitude = editEventRequest.latitude
+        event.longitude = editEventRequest.longitude
+        event.dateStart = editEventRequest.dateStart
+        event.dateFinish = editEventRequest.dateFinish
+        event.timeStart = editEventRequest.timeStart
+        event.timeFinish = editEventRequest.timeFinish
+        event.type = editEventRequest.type
+//        event.price = editEventRequest.price.toDouble()
+        event.meetingUrl = editEventRequest.meetingUrl
         return eventRepository.save(event)
     }
 

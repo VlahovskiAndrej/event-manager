@@ -4,10 +4,9 @@ import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.Image
 import com.sorsix.eventmanager.domain.Thumbnail
-import com.sorsix.eventmanager.domain.wrapper.CategoryInput
-import com.sorsix.eventmanager.domain.request.EventRequest
+import com.sorsix.eventmanager.domain.request.EditEventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
-import com.sorsix.eventmanager.domain.request.ThumbnailRequest
+import com.sorsix.eventmanager.domain.request.CreateEventRequest
 import com.sorsix.eventmanager.service.EventService
 import com.sorsix.eventmanager.service.ImageService
 import com.sorsix.eventmanager.service.ThumbnailService
@@ -16,7 +15,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.sql.Blob
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -46,7 +44,7 @@ class EventController(
 //    }
 
     @PostMapping("/upload")
-    fun uploadImage(@ModelAttribute req: ThumbnailRequest, request: HttpServletRequest): ResponseEntity<Event> {
+    fun uploadImage(@ModelAttribute req: CreateEventRequest, request: HttpServletRequest): ResponseEntity<Event> {
 
         val event: Event = eventService.createEvent(req, request)
 
@@ -66,6 +64,29 @@ class EventController(
 
         println(req)
         return ResponseEntity.ok(event)
+    }
+
+    @PostMapping("/upload/update")
+    fun updateUploadImage(@ModelAttribute req: EditEventRequest, request: HttpServletRequest): ResponseEntity<String> {
+
+//        val event: Event = eventService.createEvent(req, request)
+//
+//        val imageName: String = req.file.originalFilename ?: "image"
+//        val contentType: String = req.file.contentType ?: "image/jpeg"
+//        val imageData: ByteArray = req.file.bytes
+//        thumbnailService.saveThumbnail(event.id, imageName, contentType, imageData)
+//
+//        for (file in req.files) {
+//            imageService.saveImage(
+//                event,
+//                file.originalFilename ?: "image",
+//                file.contentType ?: "image/jpeg",
+//                file.bytes
+//            )
+//        }
+//
+        println(req)
+        return ResponseEntity.ok("")
     }
 
     @GetMapping("/image/{id}")
@@ -98,10 +119,10 @@ class EventController(
         return ResponseEntity.ok(eventService.deleteEvent(id))
     }
 
-    @PutMapping("/{id}/update")
-    fun updateEventById(@PathVariable id: Long, @RequestBody eventRequest: EventRequest): ResponseEntity<Any> {
-        return ResponseEntity.ok(eventService.updateEvent(id, eventRequest))
-    }
+//    @PutMapping("/{id}/update")
+//    fun updateEventById(@PathVariable id: Long, @RequestBody eventRequest: EventRequest): ResponseEntity<Any> {
+//        return ResponseEntity.ok(eventService.updateEvent(id, eventRequest))
+//    }
 
     @PutMapping("/publish")
     fun publishTicketsForEventId(

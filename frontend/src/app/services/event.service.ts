@@ -61,15 +61,6 @@ export class EventService {
     )
   }
 
-  // getImagesByEventId(eventId: number): Observable<Blob[]> {
-  //   return this.http.get<Blob[]>(`http://localhost:8081/api/events/${eventId}/images`, {
-  //     params: {
-  //       id: eventId.toString(), // Convert eventId to string
-  //     },
-  //     // responseType: 'arraybuffer', // Set responseType to 'arraybuffer' for binary data
-  //   });
-  // }
-
   getThumbnail(id: number): Observable<Blob>{
     return this.http.get(`http://localhost:8081/api/events/image/${id}`, {
       params: {
@@ -80,7 +71,7 @@ export class EventService {
     )
   }
 
-  uploadThumbnail(formData: FormData) {
+  createEvent(formData: FormData) {
 
     const headers = new HttpHeaders({
       //  'Content-Type': 'application/json',
@@ -90,100 +81,78 @@ export class EventService {
     return this.http.post<String>(`http://localhost:8081/api/events/upload`, formData, { headers: headers })
   }
 
-  createEvent(
-    formData: FormData
-    // name: string,
-    // description: string,
-    // longitude: string,
-    // latitude: string,
-    // category: string,
-    // tagNames: string,
-    // dateStart: string,
-    // dateFinish: string,
-    // timeStart: string,
-    // timeFinish: string,
-    // meetingUrl: string,
-    // type: string,
-    // price: number,
-    // maxPeople: number,
-    // images: Image[],
-    // thumbnail: File|null,
-  ): Observable<EventInterface[]> {
-    // const body = {
-    //   name: name,
-    //   description: description,
-    //   maxPeople: maxPeople,
-    //   longitude: longitude,
-    //   latitude: latitude,
-    //   category: category,
-    //   tagsNames: tagNames,
-    //   dateStart: dateStart,
-    //   dateFinish: dateFinish,
-    //   timeStart: timeStart,
-    //   timeFinish: timeFinish,
-    //   meetingUrl: meetingUrl,
-    //   type: type,
-    //   price: price,
-    //   // thumbnail: thumbnail
-    // };
+
+
+  updateEvent(formData: FormData) {
 
     const headers = new HttpHeaders({
-      // 'Content-Type': 'application/json',
+      //  'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
 
-    // console.log(formData.get('maxPeople'))
-    // console.log(formData.get(''))
+   
+    console.log("file: " + formData.get('files'))
+    console.log("type: " + formData.get('type'))
+    console.log("meetingUrl: " + formData.get('meetingUrl'))
+    console.log("timeStart: " + formData.get('timeStart'))
+    console.log("dateStart: " + formData.get('dateStart'))
+    console.log("tagsNames: " + formData.get('tagsNames'))
+    console.log("category: " + formData.get('category'))
+    console.log("longitude: " + formData.get('longitude'))
 
-    return this.http.post<EventInterface[]>(`http://localhost:8081/api/events/create`, formData, { headers: headers })
+
+
+
+    return this.http.post<String>(`http://localhost:8081/api/events/upload/update`, formData, { headers: headers })
   }
 
-  updateEvent(
-    id: string,
-    name: string,
-    description: string,
-    longitude: string,
-    latitude: string,
-    category: string,
-    tagNames: string[],
-    dateStart: string,
-    dateFinish: string,
-    timeStart: string,
-    timeFinish: string,
-    meetingUrl: string,
-    type: string,
-    price: number,
-    maxPeople: number,
-    images: Image[],
-    thumbnail: Image | null,
-  ): Observable<EventInterface[]> {
 
-    const body = {
-      name: name,
-      description: description,
-      maxPeople: maxPeople,
-      longitude: longitude,
-      latitude: latitude,
-      category: category,
-      tagsNames: tagNames,
-      dateStart: dateStart,
-      dateFinish: dateFinish,
-      timeStart: timeStart,
-      timeFinish: timeFinish,
-      meetingUrl: meetingUrl,
-      type: type,
-      price: price,
-      // thumbnail: thumbnail?.file
-    };
+  // updateEvent(
+  //   id: string,
+  //   name: string,
+  //   description: string,
+  //   longitude: string,
+  //   latitude: string,
+  //   category: string,
+  //   tagNames: string[],
+  //   dateStart: string,
+  //   dateFinish: string,
+  //   timeStart: string,
+  //   timeFinish: string,
+  //   meetingUrl: string,
+  //   type: string,
+  //   price: number,
+  //   maxPeople: number,
+  //   images: Image[],
+  //   thumbnail: Image | null,
+  // ): Observable<EventInterface[]> {
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
-    });
+  //   const body = {
+  //     name: name,
+  //     description: description,
+  //     maxPeople: maxPeople,
+  //     longitude: longitude,
+  //     latitude: latitude,
+  //     category: category,
+  //     tagsNames: tagNames,
+  //     dateStart: dateStart,
+  //     dateFinish: dateFinish,
+  //     timeStart: timeStart,
+  //     timeFinish: timeFinish,
+  //     meetingUrl: meetingUrl,
+  //     type: type,
+  //     price: price,
+  //     // thumbnail: thumbnail?.file
+  //   };
 
-    console.log(body, id)
-    return this.http.put<EventInterface[]>(`${this.url}/${id}/update`, body, { headers: headers })
-  }
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer ' + localStorage.getItem('token'),
+  //   });
+
+  //   console.log(body, id)
+  //   return this.http.put<EventInterface[]>(`${this.url}/${id}/update`, body, { headers: headers })
+  // }
 
   getMyEvents(): Observable<EventInterface[]> {
     const headers = new HttpHeaders({

@@ -2,16 +2,15 @@ package com.sorsix.eventmanager.service
 
 import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
-import com.sorsix.eventmanager.domain.request.EventRequest
+import com.sorsix.eventmanager.domain.request.EditEventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
-import com.sorsix.eventmanager.domain.request.ThumbnailRequest
+import com.sorsix.eventmanager.domain.request.CreateEventRequest
 import jakarta.servlet.http.HttpServletRequest
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 interface EventService {
 
-    fun createEvent(eventRequest: ThumbnailRequest, request: HttpServletRequest) : Event
+    fun createEvent(eventRequest: CreateEventRequest, request: HttpServletRequest) : Event
 
     fun getEvents(): List<Event>
 
@@ -19,7 +18,7 @@ interface EventService {
 
     fun deleteEvent(id: Long)
 
-    fun updateEvent(id: Long, eventRequest: EventRequest): Event
+    fun updateEvent(id: Long, editEventRequest: EditEventRequest): Event
 
     fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest): Event?
 

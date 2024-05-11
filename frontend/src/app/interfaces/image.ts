@@ -1,4 +1,4 @@
 export interface Image {
     url: string | ArrayBuffer;
-    file: File;
+    file: File|undefined;
   }

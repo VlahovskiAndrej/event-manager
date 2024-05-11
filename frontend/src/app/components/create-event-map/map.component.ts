@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -13,6 +13,8 @@ export class MapComponent implements OnInit {
   marker: L.Marker|any;
   lat: any
   lng: any
+  @Input() editLon: string|undefined
+  @Input() editLat: string|undefined
   @Output() longitudeEvent = new EventEmitter<any>();
 
   constructor() { }
@@ -29,6 +31,14 @@ export class MapComponent implements OnInit {
     }).addTo(this.map);
 
     this.map.on('click', this.onMapClick.bind(this));
+
+    if (this.editLat != undefined && this.editLon != undefined){
+      this.marker = L.marker([Number.parseFloat(this.editLat!!), Number.parseFloat(this.editLon!!)]).addTo(this.map)
+      // this.lat = Number.parseFloat(this.editLat!!).toFixed(4);
+      // this.lng = Number.parseFloat(this.editLon!!).toFixed(4);
+      // this.longitudeEvent.emit({'lng' : this.lng, 'lat': this.lat})
+    }
+
   }
 
   private onMapClick(e: L.LeafletMouseEvent) {

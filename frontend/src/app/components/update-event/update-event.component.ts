@@ -52,13 +52,13 @@ import { EventInterface } from '../../interfaces/event';
 })
 export class UpdateEventComponent implements OnInit{
  
-  favoriteSeason: string = 'virtual';
+  type: string = 'virtual';
   isChecked: boolean = false
   isFreeEnterance: boolean = false
   isUnlimitedTickets: boolean = false
   longitude: number|undefined
   lattitude: number|undefined
-  images: Image[] = []
+  images: File[] = []
   thumbnail: Image|null = null
   event: EventInterface|null = null
 
@@ -123,6 +123,37 @@ export class UpdateEventComponent implements OnInit{
 
       }
     )
+
+
+    // this.eventService.getThumbnail(id).subscribe(
+    //   (t) => {
+    //     const blob = new Blob([t], { type: 'image/jpeg' });
+    //     this.thumbnail = {
+    //       url: URL.createObjectURL(blob),
+    //       file: undefined
+    //     } 
+    //   } 
+      
+    // )
+
+    // for(let i=0; i<5; i++)
+    //   this.eventService.getImages(id, i).subscribe({
+    //     next: (response: any) => {
+    //       const blob = new Blob([response], { type: 'image/jpeg' });
+    //       this.images.push(
+    //         {
+    //           url: URL.createObjectURL(blob),
+    //           file: undefined
+    //         }
+    //       )
+    //       this.imagesEvent.emit({'images': this.images, 'thumbnail': this.thumbnail})
+    //     }
+    //   })
+
+
+
+
+    this.type = 'virtual'
 }
 
 
@@ -137,37 +168,44 @@ export class UpdateEventComponent implements OnInit{
   }
 
   createEvent() {
-      this.eventService.updateEvent(
-        this.route.snapshot.params['id'],
-        this.firstFormGroup.value.name!!, 
-        this.firstFormGroup.value.description!!, 
-        this.longitude ? this.longitude.toString() : '',
-        this.lattitude ? this.lattitude.toString() : '',
-        this.firstFormGroup.value.category!!, 
-        this.tags, 
-        this.secondFormGroup.value.dateStart!!, 
-        this.secondFormGroup.value.dateFinish!!, 
-        this.secondFormGroup.value.timeStart!!,
-        this.secondFormGroup.value.timeFinish!!,
-        this.secondFormGroup.value.meetingUrl!!,
-        this.secondFormGroup.value.type!!,
-        Number.parseFloat('0.0'),
-        Number.parseFloat('0'),
-        this.images,
-        this.thumbnail
-      )
-      .subscribe(
-        (response) => {
-          console.log(response)
-          this.router.navigate(['events'])
-          this.showSuccessMessage()
-        }
-      )
+
+    const formData = new FormData();
+    // formData.append('file', this.thumbnail?.file!!)
+    formData.append('name', this.firstFormGroup.value.name!!)
+    formData.append('description', this.firstFormGroup.value.description!!);
+    formData.append('longitude',  this.longitude ? this.longitude.toString() : '');
+    formData.append('latitude',  this.lattitude ? this.lattitude.toString() : '');
+    formData.append('category', this.firstFormGroup.value.category!!);
+    formData.append('tagsNames', this.tags.join(","));
+
+    const dateStartModified = new Date(this.secondFormGroup.value.dateStart!!);
+    const dateFinishModified = new Date(this.secondFormGroup.value.dateFinish!!);
+
+    const regex = / (\d{1,2}:\d{2}:\d{2})/;
+    formData.append('dateStart', dateStartModified.toString().split(regex)[0]);
+    formData.append('dateFinish', dateFinishModified.toString().split(regex)[0]);
+
+    formData.append('timeFinish', this.secondFormGroup.value.timeFinish!!);
+    formData.append('timeStart', this.secondFormGroup.value.timeStart!!);
+    formData.append('meetingUrl', this.secondFormGroup.value.meetingUrl!!);
+    formData.append('type', this.secondFormGroup.value.type!!);
+    // for (let img of this.images) {
+    //   formData.append('files', img);
+    // }
+
+
+
+    this.eventService.updateEvent(formData).subscribe(
+      res => {
+        this.router.navigate(['events'])
+        this.showSuccessMessage()
+      }
+    )
   }
 
   onChangeType(value: string){
-    this.favoriteSeason = value
-    console.log(this.favoriteSeason)
+    this.type = value
+    console.log(this.type)
   }
 
   addCoordinates(value: {'lng': string, 'lat': string}){
@@ -176,7 +214,10 @@ export class UpdateEventComponent implements OnInit{
   }
 
   addImages(value: {'images':Image[], 'thumbnail': Image|null}){
-    this.images = value.images
+    for(let image of value.images){
+      this.images.push(image.file!!)
+      console.log("added Image: " + image.file!!.name)
+    }
     this.thumbnail = value.thumbnail
     console.log(this.images)
     console.log(this.thumbnail)

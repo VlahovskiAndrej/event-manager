@@ -64,11 +64,11 @@
       <mat-label>Event type:</mat-label>
       <mat-radio-group formControlName="type" color="primary">
         <mat-radio-button #input2 name="on-site" value="on-site" (change)="onChangeType(input2.value)">On-site</mat-radio-button>
-        <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)">Virtual</mat-radio-button>
+        <mat-radio-button #input1 value="virtual" (change)="onChangeType(input1.value)" checked>Virtual</mat-radio-button>
       </mat-radio-group>
     </div>
 
-    @if(favoriteSeason == 'virtual'){
+    @if(type == 'virtual'){
       <mat-form-field class="full-width">
         <mat-label>URL</mat-label>
         <input [value]="event?.meetingUrl" matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
@@ -76,25 +76,25 @@
       </mat-form-field>
     }
     @else{
-      <mat-form-field class="coordinates">
+      <mat-form-field class="coordinates" floatLabel="always">
         <mat-label>Longitude</mat-label>
-        <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
+        <input matInput [value]="longitude" formControlName="longitude" [placeholder]="event?.longitude!=undefined ? event?.longitude!! : ''">
         <mat-hint>East-west position on the Earth's surface</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="coordinates">
+      <mat-form-field class="coordinates" floatLabel="always">
         <mat-label>Lattitude</mat-label>
-        <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
+        <input matInput  [value]="lattitude" formControlName="lattitude" [placeholder]="event?.latitude!=undefined ? event?.latitude!! : ''">
         <mat-hint>North-south position on the Earth's surface</mat-hint>
       </mat-form-field>
 
-      <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
+      <app-map [editLon]="event?.longitude" [editLat]="event?.latitude" (longitudeEvent)="addCoordinates($event)"></app-map>
     }
   </form>
 
   <p style="color: rgb(75, 0, 146); font-weight: 500; font-size: 18px;">Thumbnail & images</p>
 
-  <app-upload-images (imagesEvent)="addImages($event)"></app-upload-images>
+  <app-upload-images [edit]="'yes'" (imagesEvent)="addImages($event)"></app-upload-images>
 
   <div style="margin-top: 25px; display: flex; flex-direction: row; justify-content:   flex-end; gap: 10px;">
     <button mat-raised-button color="primary" (click)="createEvent()">
