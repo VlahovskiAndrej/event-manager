@@ -43,5 +43,9 @@ interface EventService {
 
     fun filterByDateStartedAndDateFinished(started: LocalDate, finished: LocalDate): List<Event>
 
+    fun filterByCategories(categories: List<Category>) : List<Event>
+
+    fun filter(query: String?, started:LocalDate?, finished: LocalDate?, categoryNames: List<Category>?) : List<Event>
+
 
 }

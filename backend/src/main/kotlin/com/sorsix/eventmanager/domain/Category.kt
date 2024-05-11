@@ -11,8 +11,7 @@ enum class Category(){
     SOCIAL,
     CULTURAL,
     RECREATION,
-    CHARITY,
-    NETWORKING
+    ALL
 
 //  TODO  TREBA DA IMA TOCNO 8
 

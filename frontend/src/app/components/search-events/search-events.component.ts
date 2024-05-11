@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, mergeMap, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, debounceTime, distinctUntilChanged, mergeMap, switchMap, tap } from 'rxjs';
 import { EventInterface } from '../../interfaces/event';
 import { EventComponent } from '../event/event.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -15,6 +15,7 @@ import { } from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 @Component({
   selector: 'app-search-events',
   standalone: true,
@@ -51,15 +52,9 @@ export class SearchEventsComponent {
 
   query$: Subject<string> = new Subject();
 
-  //ako ne filtrirame od backend za kategorii moze da se izbrise ova
-  category$ = new BehaviorSubject<string | null>(null);
-
   date$ = new BehaviorSubject<any>("");
 
   loading: boolean = true;
-
-  //clicked: boolean = false;
-
 
   constructor(private eventService: EventService) { }
 
@@ -86,59 +81,31 @@ export class SearchEventsComponent {
       .subscribe(
         categories => {
           this.categories = categories
-          console.log(categories)
         }
       )
 
-    this.query$.pipe(
+
+    combineLatest([this.query$, this.date$]).pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap(query => this.eventService.search(query))
+      switchMap(([query, date]) =>
+        this.eventService.getFilteredResults(
+          query,
+          date,
+          this.selectedCategories
+        )
+      )
     ).subscribe(
       result => {
-        this.events = result
-        this.loading = false
+        this.events = result;
+        this.loading = false;
       }
     );
-
-    this.date$.pipe(
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap((date) => this.eventService.filterByDate(date))
-    ).subscribe(
-      result => {
-        this.events = result
-        this.loading = false
-      }
-    )
-
-    // this.category$.pipe(
-    //   debounceTime(400),
-    //   distinctUntilChanged(),
-    //   switchMap(category => this.eventService.filterByCategory(category!!))
-    //   ).subscribe(
-    //     result => {
-    //       this.events = result
-    //       this.loading = false
-    //       //this.clicked = true
-    //     }
-    // );
-
   }
 
   search(query: string) {
     this.query$.next(query);
   }
-
-  // filterByCategory(category: string){
-  //   if(this.category$.value === category){
-  //     // this.clicked = false
-  //      this.events = this.allEvents
-  //   }
-  //   else {
-  //     this.category$.next(category)
-  //   }
-  // }
 
   filterByCategory(category: string) {
     if (this.selectedCategories.includes(category)) {
@@ -146,30 +113,20 @@ export class SearchEventsComponent {
     } else {
       this.selectedCategories.push(category);
     }
+    if (this.selectedCategories.includes("ALL"))
+      this.selectedCategories = this.selectedCategories.filter(c => c !== "ALL");
 
-    if (this.selectedCategories.length === 0) {
-      this.events = this.allEvents
-    }
-    else {
-      this.events = this.allEvents?.filter(event =>
-        this.selectedCategories.includes(event.category)
-      )
-    }
+    this.updateFilteredResults();
+  }
+
+  updateFilteredResults() {
+    this.loading = true;
+    this.query$.next(this.query$.toString())
   }
 
   filterByDate(date: any) {
-    if (!date || !date._model || !date._model.selection) {
-      console.error("Invalid date object:", date);
-      return; // Handle the error appropriately
-    }
-
-    const returned: string[] = [date._model.selection.start,date._model.selection.end]
-
-    // console.log(date._model.selection.start)
-    // console.log(date)
-    // console.log(date._model.selection.end)
-    // console.log(returned)
-    this.date$.next(returned)
+    const returned: string[] = [date._model.selection.start, date._model.selection.end]
+    this.date$.next(returned);
   }
 
   // TODO

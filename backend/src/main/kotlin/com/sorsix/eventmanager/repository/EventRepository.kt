@@ -17,6 +17,11 @@ interface EventRepository : JpaRepository<Event, Long>{
     fun findEventsByCreator(creator: User?): List<Event>
     fun findAllEventsByCategory(category : Category) : List<Event>
 
+    fun findAllEventsByCategoryIn(categories: List<Category>): List<Event>
+
+    fun findAllByNameContainingIgnoreCaseAndDateStartAfterAndDateFinishBeforeAndCategoryIn
+                (query: String?, started:LocalDate?, finished: LocalDate?, categoryNames: List<Category>?): List<Event>
+
     @Query("select distinct e.category from Event e")
     fun findAllCategories() : List<Category>
 

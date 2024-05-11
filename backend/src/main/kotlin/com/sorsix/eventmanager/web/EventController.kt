@@ -4,6 +4,7 @@ import com.sorsix.eventmanager.domain.Category
 import com.sorsix.eventmanager.domain.Event
 import com.sorsix.eventmanager.domain.Image
 import com.sorsix.eventmanager.domain.Thumbnail
+import com.sorsix.eventmanager.domain.wrapper.CategoryInput
 import com.sorsix.eventmanager.domain.request.EventRequest
 import com.sorsix.eventmanager.domain.request.PublishTicketsRequest
 import com.sorsix.eventmanager.domain.request.ThumbnailRequest
@@ -51,15 +52,16 @@ class EventController(
 
         val imageName: String = req.file.originalFilename ?: "image"
         val contentType: String = req.file.contentType ?: "image/jpeg"
-        val imageData : ByteArray = req.file.bytes
+        val imageData: ByteArray = req.file.bytes
         thumbnailService.saveThumbnail(event.id, imageName, contentType, imageData)
 
-        for (file in req.files){
+        for (file in req.files) {
             imageService.saveImage(
                 event,
                 file.originalFilename ?: "image",
                 file.contentType ?: "image/jpeg",
-                file.bytes)
+                file.bytes
+            )
         }
 
         println(req)
@@ -79,7 +81,7 @@ class EventController(
     }
 
     @GetMapping("/{id}/images")
-    fun getImagesByEventId(@PathVariable id: Long): ResponseEntity<Any>{
+    fun getImagesByEventId(@PathVariable id: Long): ResponseEntity<Any> {
 
         val images: List<Image> = imageService.findAllByEvent(id)
         if (images.isNotEmpty()) {
@@ -137,12 +139,18 @@ class EventController(
 
     @GetMapping("/categories")
     fun getAllCategories(): ResponseEntity<List<Category>> {
-        return ResponseEntity.ok(eventService.getAllCategories())
+        return ResponseEntity.ok(eventService.getAllCategories().dropLast(0))
     }
 
     @GetMapping("/filteredByCategory")
     fun getEventsByCategory(@RequestParam category: Category): ResponseEntity<List<Event>> {
         return ResponseEntity.ok(eventService.filterByCategory(category))
+    }
+
+    @GetMapping("/filteredByCategories")
+    fun getEventsByCategories(@RequestParam categories: List<Category>): ResponseEntity<List<Event>> {
+
+        return ResponseEntity.ok(eventService.filterByCategories(categories))
     }
 
     @GetMapping("/{id}/related")
@@ -167,8 +175,57 @@ class EventController(
     ): ResponseEntity<List<Event>> {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-        return ResponseEntity.ok(eventService.filterByDateStartedAndDateFinished(
-            LocalDate.parse(started,formatter), LocalDate.parse(finished,formatter)))
+        return ResponseEntity.ok(
+            eventService.filterByDateStartedAndDateFinished(
+                LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter)
+            )
+        )
+    }
+
+    @GetMapping("/filteredResults")
+    fun filtered(
+        @RequestParam(required = false) query: String,
+        @RequestParam(required = false) started: String,
+        @RequestParam(required = false) finished: String,
+        @RequestParam(required = false) categories: List<Category>
+    ): ResponseEntity<List<Event>> {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+        if(categories[0].toString() == "ALL"){
+            return ResponseEntity.ok(
+                eventService.filter(
+                    query,
+                    LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), eventService.getAllCategories()
+                )
+            )
+        }
+        return ResponseEntity.ok(
+            eventService.filter(
+                query,
+                LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), categories
+            )
+        )
+//        when(categories){
+//            is CategoryInput.AllCategories ->{
+//                return ResponseEntity.ok(
+//                    eventService.filter(
+//                        query,
+//                        LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), eventService.getAllCategories()
+//                    )
+//                )
+//            }
+//            is CategoryInput.CategoryList ->{
+//                return ResponseEntity.ok(
+//                    eventService.filter(
+//                        query,
+//                        LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), categories.categories
+//                    )
+//                )
+//            }
+//            else ->{
+//                return ResponseEntity.badRequest().build()
+//            }
+//        }
     }
 
 

@@ -5,23 +5,6 @@
         <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search..." >
     </mat-form-field>
 
-    <!--mat-form-field class="date-picker" appearance="outline">
-        <input matInput [matDatepicker]="picker" placeholder="From date">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker>
-            <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply  (click)="filterByDateStarted(picker)">Apply</button>
-            </mat-datepicker-actions>
-        </mat-datepicker>
-    </mat-form-field -
-
-    <mat-form-field class="date-picker" appearance="outline">
-        <input matInput [matDatepicker]="picker2" placeholder="To date">
-        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-    </mat-form-field-->
-
     <mat-form-field class="date-picker" appearance="outline">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input [rangePicker]="picker">
@@ -35,8 +18,6 @@
                 <button mat-raised-button color="primary" matDatepickerApply (click)="filterByDate(picker)">Apply</button>
             </mat-datepicker-actions>
         </mat-date-range-picker>
-      
-     
       </mat-form-field>
 
     <mat-form-field id="city-select" appearance="outline">
@@ -66,6 +47,9 @@
     }
     @else {
         <p id="loading-text">Loading...</p>
+    }
+    @if(events?.length==0 && !loading){
+        <p>There are no found events with the given filter</p>
     }
 </div>
 

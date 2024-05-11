@@ -25,7 +25,7 @@ class EventServiceImpl(
     val eventRepository: EventRepository,
     val ticketRepository: TicketRepository,
     val authService: AuthService
-) : EventService{
+) : EventService {
 
     private val root: Path = Paths.get("upload")
 
@@ -36,7 +36,7 @@ class EventServiceImpl(
             id = 0,
             name = eventRequest.name,
             description = eventRequest.description,
-            availableTickets =  eventRequest.maxPeople.toInt(),
+            availableTickets = eventRequest.maxPeople.toInt(),
             longitude = eventRequest.longitude,
             latitude = eventRequest.latitude,
             dateFinish = eventRequest.dateFinish,
@@ -44,12 +44,12 @@ class EventServiceImpl(
             timeStart = eventRequest.timeStart,
             timeFinish = eventRequest.timeFinish,
 //            tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
-            tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) } .toMutableList(),
+            tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) }.toMutableList(),
             category = eventRequest.category,
             type = eventRequest.type,
             price = eventRequest.price.toDouble(),
             meetingUrl = eventRequest.meetingUrl,
-            creator=user!!,
+            creator = user!!,
 //            thumbnailUrl = thumbnailPath,
         ))
     }
@@ -71,7 +71,7 @@ class EventServiceImpl(
         event.name = eventRequest.name
         event.description = eventRequest.description
         event.category = eventRequest.category
-        event.tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) } .toMutableList()
+        event.tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) }.toMutableList()
         event.latitude = eventRequest.latitude
         event.longitude = eventRequest.longitude
         event.dateStart = eventRequest.dateStart
@@ -87,15 +87,15 @@ class EventServiceImpl(
     override fun buyTicket(id: Long, num: Int, request: HttpServletRequest): Event? {
         val event: Event = eventRepository.findById(id).orElse(null)
         val user: User? = authService.getUserByJwtToken(request)
-        if (event.availableTickets >= num){
+        if (event.availableTickets >= num) {
             event.availableTickets -= num
-            (1 .. num).map { ticketRepository.save(Ticket(0, event.price, event, user!!)) }
+            (1..num).map { ticketRepository.save(Ticket(0, event.price, event, user!!)) }
         }
 
         return eventRepository.save(event)
     }
 
-    override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest) : Event? {
+    override fun publishTicketsForEventId(publishTicketsRequest: PublishTicketsRequest): Event? {
         val event: Event = eventRepository.findById(publishTicketsRequest.eventId).orElse(null)
         event.availableTickets += publishTicketsRequest.numberOfTickets
         event.price = publishTicketsRequest.price
@@ -137,7 +137,26 @@ class EventServiceImpl(
     }
 
     override fun filterByDateStartedAndDateFinished(started: LocalDate, finished: LocalDate): List<Event> {
-        return eventRepository.findAllByDateStartAfterAndDateFinishBefore(started,finished)
+        return eventRepository.findAllByDateStartAfterAndDateFinishBefore(started, finished)
+    }
+
+    override fun filterByCategories(categories: List<Category>): List<Event> {
+        return eventRepository.findAllEventsByCategoryIn(categories)
+    }
+
+    override fun filter(
+        query: String?,
+        started: LocalDate?,
+        finished: LocalDate?,
+        categoryNames: List<Category>?
+    ): List<Event> {
+        return eventRepository
+            .findAllByNameContainingIgnoreCaseAndDateStartAfterAndDateFinishBeforeAndCategoryIn(
+                query,
+                started,
+                finished,
+                categoryNames
+            )
     }
 
 }

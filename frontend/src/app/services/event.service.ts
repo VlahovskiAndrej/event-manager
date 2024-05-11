@@ -21,35 +21,28 @@ export class EventService {
     return this.http.get<EventInterface[]>(`${this.url}/recents`)
   }
 
-  search(query: string): Observable<EventInterface[]> {
-    return this.http.get<EventInterface[]>(`${this.url}/search?query=${query}`)
+
+  getFilteredResults(query: string, date: string[], categories: string[]) {
+    if (query == "[object Object]") {
+      query = ""
+    }
+
+    if (date.includes("")) {
+      var started: string = "1970-01-01"
+      var finished: string = "2026-01-01"
+    }
+    else {
+      var started: string = this.convertDateFormat(date[0])
+      var finished: string = this.convertDateFormat(date[1])
+    }
+    if (categories.length != 0) categories = categories.filter(x => x != "ALL")
+    if (categories.length == 0 || categories.includes("")) categories.push("ALL")
+
+    return this.http.get<EventInterface[]>(`${this.url}/filteredResults?query=${query}&started=${started}&finished=${finished}&categories=${categories.join(',')}`)
   }
 
-  filterByCategory(category: string): Observable<EventInterface[]> {
-    if (category == null) return this.getEvents()
-    return this.http.get<EventInterface[]>(`${this.url}/filteredByCategory?category=${category}`)
-  }
 
-  //prv test dali raboti
-  //TODO : eden filter za data
-
-  filterByDateStarted(started: string): Observable<EventInterface[]> {
-
-    return this.http.get<EventInterface[]>(`${this.url}/filteredByDateStarted?started=${started}`)
-  }
-
-
-  filterByDate(date: string[]): Observable<EventInterface[]> {
-    if (date === null || !date) return this.getEvents()
-
-    const started : string = this.convertDateFormat(date[0])
-    const finished : string = this.convertDateFormat(date[1])
-
-    if (finished === null || finished==="1970-01-01") return this.filterByDateStarted(started)
-    return this.http.get<EventInterface[]>(`${this.url}/filteredByDate?started=${started}&finished=${finished}`)
-  }
-
-  convertDateFormat(inputDate : string) {
+  convertDateFormat(inputDate: string) {
     const date = new Date(inputDate);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
@@ -84,38 +77,38 @@ export class EventService {
       },
       responseType: 'blob',
     }
-)
+    )
   }
 
-  uploadThumbnail(formData: FormData){
+  uploadThumbnail(formData: FormData) {
 
     const headers = new HttpHeaders({
-    //  'Content-Type': 'application/json',
+      //  'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     });
 
-    return this.http.post<String>(`http://localhost:8081/api/events/upload`, formData, {headers: headers})
+    return this.http.post<String>(`http://localhost:8081/api/events/upload`, formData, { headers: headers })
   }
 
   createEvent(
-              formData: FormData
-              // name: string,
-              // description: string,
-              // longitude: string,
-              // latitude: string,
-              // category: string,
-              // tagNames: string,
-              // dateStart: string,
-              // dateFinish: string,
-              // timeStart: string,
-              // timeFinish: string,
-              // meetingUrl: string,
-              // type: string,
-              // price: number,
-              // maxPeople: number,
-              // images: Image[],
-              // thumbnail: File|null,
-              ) : Observable<EventInterface[]>{
+    formData: FormData
+    // name: string,
+    // description: string,
+    // longitude: string,
+    // latitude: string,
+    // category: string,
+    // tagNames: string,
+    // dateStart: string,
+    // dateFinish: string,
+    // timeStart: string,
+    // timeFinish: string,
+    // meetingUrl: string,
+    // type: string,
+    // price: number,
+    // maxPeople: number,
+    // images: Image[],
+    // thumbnail: File|null,
+  ): Observable<EventInterface[]> {
     // const body = {
     //   name: name,
     //   description: description,
