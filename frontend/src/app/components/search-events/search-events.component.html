@@ -1,55 +1,61 @@
-
 <div class="filter-container">
+
     <mat-form-field id="search-bar" appearance="outline">
         <mat-icon matPrefix>search</mat-icon>
-        <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search..." >
+        <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
     </mat-form-field>
 
     <mat-form-field class="date-picker" appearance="outline">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate formControlName="start" placeholder="Start date">
-          <input matEndDate formControlName="end" placeholder="End date">
+            <input matStartDate formControlName="start" #startDateInput placeholder="Start date">
+            <input matEndDate formControlName="end" #endDateInput placeholder="End date">
         </mat-date-range-input>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker>
             <mat-datepicker-actions>
                 <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply (click)="filterByDate(picker)">Apply</button>
+                <button mat-raised-button color="primary" matDatepickerApply
+                    (click)="filterByDate(picker)">Apply</button>
             </mat-datepicker-actions>
         </mat-date-range-picker>
-      </mat-form-field>
+    </mat-form-field>
 
     <mat-form-field id="city-select" appearance="outline">
         <mat-select placeholder="City">
-          @for (city of cities; track city) {
+            @for (city of cities; track city) {
             <mat-option [value]="city.value">{{city.viewValue}}</mat-option>
-          }
+            }
         </mat-select>
-      </mat-form-field>
+    </mat-form-field>
+
+    <button mat-fab extended color="primary" id="clear-filter" (click)="clearFilter()">
+        <mat-icon>clear-filter</mat-icon>
+        Clear Filters
+    </button>
 </div>
 
 
 <div id="categories">
     @for(c of categories; track c){
-        <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal" aria-multiselectable="true">
-            <mat-chip-option (click)="filterByCategory(c)"
+    <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal"
+        aria-multiselectable="true">
+        <mat-chip-option (click)="filterByCategory(c)"
             [class.active]="selectedCategories.includes(c)">{{c}}</mat-chip-option>
-        </mat-chip-listbox>
+    </mat-chip-listbox>
     }
 </div>
 
 <div id="events">
     @if (!loading){
-            @for (e of events; track e.id){
-                <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
-            }
+    @for (e of events; track e.id){
+    <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
+    }
     }
     @else {
-        <p id="loading-text">Loading...</p>
+    <p id="loading-text">Loading...</p>
     }
     @if(events?.length==0 && !loading){
-        <p>There are no found events with the given filter</p>
+    <p>There are no found events with the given filter</p>
     }
 </div>
-

@@ -1,10 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { BehaviorSubject, Subject, combineLatest, debounceTime, distinctUntilChanged, mergeMap, switchMap, tap } from 'rxjs';
 import { EventInterface } from '../../interfaces/event';
 import { EventComponent } from '../event/event.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input'
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,8 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { } from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import {  RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-search-events',
   standalone: true,
@@ -29,8 +27,7 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
     MatDatepickerModule,
     MatSelectModule,
     RouterOutlet,
-    RouterLink
-  ],
+    RouterLink  ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',
   styleUrl: './search-events.component.css'
@@ -54,7 +51,14 @@ export class SearchEventsComponent {
 
   date$ = new BehaviorSubject<any>("");
 
+  dateFilter: boolean = false;
   loading: boolean = true;
+
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('startDateInput') startDateInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('endDateInput') endDateInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('date') dateInput!: ElementRef<HTMLInputElement>;
+
 
   constructor(private eventService: EventService) { }
 
@@ -83,7 +87,6 @@ export class SearchEventsComponent {
           this.categories = categories
         }
       )
-
 
     combineLatest([this.query$, this.date$]).pipe(
       debounceTime(400),
@@ -126,13 +129,25 @@ export class SearchEventsComponent {
 
   filterByDate(date: any) {
     const returned: string[] = [date._model.selection.start, date._model.selection.end]
+    console.log("raboti")
+    console.log(returned)
     this.date$.next(returned);
   }
 
-  // TODO
-  applyCombinedFilter(events: EventInterface[]) {
+  clearFilter() {
+
+    this.searchInput.nativeElement.value = '';
+    this.searchInput.nativeElement.placeholder='Search...';
+
+      this.startDateInput.nativeElement.value = '';
+      this.endDateInput.nativeElement.value = '';
+
+    this.date$.next("");
+
+    this.selectedCategories = [];
+
+    this.filterByCategory("ALL");
 
   }
-
 
 }
