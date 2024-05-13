@@ -12,13 +12,14 @@
   
       <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
         <mat-label>Card number</mat-label>
+        <mat-icon matPrefix fontIcon="credit_card"></mat-icon>
         <input matInput>
       </mat-form-field>
   
       <div style="display: flex; flex-direction: row; justify-content: space-around;">
         <mat-form-field style="width: 48%;" appearance="outline" class="example-full-width" floatLabel="always">
           <mat-label>Expiry date</mat-label>
-          <input matInput>
+          <input type="date" matInput>
         </mat-form-field>
   
         <mat-form-field style="width: 48%;" appearance="outline" class="example-full-width" floatLabel="always">
@@ -75,6 +76,7 @@
       <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
         <mat-label>COUPON</mat-label>
         <input #coupon (input)="onChangeCoupon(coupon.value)" matInput>
+        <mat-icon matPrefix fontIcon="local_activity"></mat-icon>
         <mat-hint style="color: red;">{{errorCoupon}}</mat-hint>
       </mat-form-field>
   
@@ -84,7 +86,7 @@
         <span style="margin: 0; font-size: 12px;">{{event?.price!!}}$</span>
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0;">
-        <p style=" vertical-align: bottom; margin: 0;">* {{numberOfTickets}} </p>
+        <p style=" vertical-align: bottom; margin: 0;">x {{numberOfTickets}} </p>
         
         <span style="margin: 0;">{{event?.price!! * numberOfTickets}}$</span>
       </div>

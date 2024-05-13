@@ -14,6 +14,9 @@ import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../interfaces/event';
 import {MatInputModule} from '@angular/material/input';
 import { UpperCasePipe } from '@angular/common';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+
 
 
 @Component({
@@ -26,7 +29,9 @@ import { UpperCasePipe } from '@angular/common';
      MatDialogTitle,
      MatDialogContent,
      MatInputModule,
-     UpperCasePipe
+     UpperCasePipe,
+     MatFormFieldModule,
+     MatIcon
     ],
   templateUrl: './dialog-buy-ticket.component.html',
   styleUrl: './dialog-buy-ticket.component.css'
@@ -76,6 +81,9 @@ export class DialogBuyTicketComponent implements OnInit{
   }
 
   onChangeNumberOfTickets(value: string){
-    this.numberOfTickets = Number.parseInt(value)
+    if (value != "")
+      this.numberOfTickets = Number.parseInt(value)
+    else
+      this.numberOfTickets = 0
   }
 }
