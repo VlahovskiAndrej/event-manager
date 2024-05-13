@@ -12,27 +12,45 @@ import {MatButtonModule} from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../interfaces/event';
+import {MatInputModule} from '@angular/material/input';
+import { UpperCasePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-dialog-buy-ticket',
   standalone: true,
   imports: [
-    MatButtonModule, 
-    MatDialogActions, 
+    MatButtonModule,
+    MatDialogActions,
     MatDialogClose,
-     MatDialogTitle, 
+     MatDialogTitle,
      MatDialogContent,
+     MatInputModule,
+     UpperCasePipe
     ],
   templateUrl: './dialog-buy-ticket.component.html',
   styleUrl: './dialog-buy-ticket.component.css'
 })
-export class DialogBuyTicketComponent{
+export class DialogBuyTicketComponent implements OnInit{
 
-  event: EventInterface|undefined 
+  event: EventInterface|undefined
+  price: number = 0
+  discountPrice = 0
+  numberOfTickets = 1
+  errorCoupon: string = ""
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ){}
+
+  ngOnInit(): void {
+    this.eventService.getEventById(this.data.id).subscribe(
+      e => {
+        this.event = e
+        this.price = e.price
+      }
+    )
+  }
 
   buyTicket(){
     // console.log(this.data)
@@ -40,5 +58,24 @@ export class DialogBuyTicketComponent{
       e => this.event = e
     )
     this.dialog.closeAll()
+  }
+
+
+  onChangeCoupon(value: string){
+    if (this.event?.price != undefined && value.toUpperCase() == 'ANDREJ10'){
+      this.discountPrice = 10
+      this.price = this.event?.price!! - this.discountPrice
+      this.errorCoupon = ""
+    }
+    else{
+      this.price = this.event?.price!!
+      this.discountPrice = 0
+      this.errorCoupon = "Invalid coupon name!"
+    }
+
+  }
+
+  onChangeNumberOfTickets(value: string){
+    this.numberOfTickets = Number.parseInt(value)
   }
 }

@@ -110,55 +110,6 @@ export class CreateEventComponent{
 
   createEvent() {
 
-    // const formData = new FormData();
-    // formData.append('name', this.firstFormGroup.value.name!!);
-    // formData.append('description', this.firstFormGroup.value.description!!);
-    // formData.append('longitude',  this.longitude ? this.longitude.toString() : '');
-    // formData.append('lattitude',  this.lattitude ? this.lattitude.toString() : '');
-    // formData.append('category', this.firstFormGroup.value.category!!);
-    // formData.append('tagsNames', this.tags.join(","));
-    // formData.append('dateStart', this.secondFormGroup.value.dateStart!!);
-    // formData.append('dateFinish', this.secondFormGroup.value.dateFinish!!);
-    // formData.append('timeFinish', this.secondFormGroup.value.timeFinish!!);
-    // formData.append('timeStart', this.secondFormGroup.value.timeStart!!);
-    // formData.append('meetingUrl', this.secondFormGroup.value.meetingUrl!!);
-    // formData.append('type', this.secondFormGroup.value.type!!);
-    // formData.append('price', this.thirdFormGroup.value.price!!);
-    // formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
-    // formData.append('type', this.secondFormGroup.value.type!!);
-
-    // formData.append('images', this.images.join(','));
-    // formData.append('thumbnail', this.thumbnail?.file!!);
-
-
-      // this.eventService.createEvent(
-      //   formData
-      //   // this.firstFormGroup.value.name!!,
-      //   // this.firstFormGroup.value.description!!,
-      //   // this.longitude ? this.longitude.toString() : '',
-      //   // this.lattitude ? this.lattitude.toString() : '',
-      //   // this.firstFormGroup.value.category!!,
-      //   // this.tags.join(","),
-      //   // this.secondFormGroup.value.dateStart!!,
-      //   // this.secondFormGroup.value.dateFinish!!,
-      //   // this.secondFormGroup.value.timeStart!!,
-      //   // this.secondFormGroup.value.timeFinish!!,
-      //   // this.secondFormGroup.value.meetingUrl!!,
-      //   // this.secondFormGroup.value.type!!,
-      //   // Number.parseFloat(this.thirdFormGroup.value.price!!),
-      //   // Number.parseFloat(this.thirdFormGroup.value.numberOfTickets!!),
-      //   // this.images,
-      //   // this.thumbnail?.file!!
-      // )
-      // .subscribe(
-      //   (response) => {
-      //     console.log(response)
-      //     this.router.navigate(['events'])
-      //     this.showSuccessMessage()
-      //   }
-      // )
-
-
       const formData = new FormData();
       formData.append('file', this.thumbnail?.file!!)
       formData.append('name', this.firstFormGroup.value.name!!)
@@ -180,11 +131,10 @@ export class CreateEventComponent{
       formData.append('price', this.thirdFormGroup.value.price!!);
       formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
       formData.append('type', this.secondFormGroup.value.type!!);
+
       for (let img of this.images) {
         formData.append('files', img);
       }
-
-
 
       this.eventService.createEvent(formData).subscribe(
         res => {
@@ -227,7 +177,6 @@ export class CreateEventComponent{
       this.thirdFormGroup.get('price')?.enable()
       this.isFreeEnterance = false
     }
-
   }
 
   onChangeUnlimitedTickets(){
@@ -239,7 +188,5 @@ export class CreateEventComponent{
       this.thirdFormGroup.get('numberOfTickets')?.enable()
       this.isUnlimitedTickets = false
     }
-
   }
-
 }

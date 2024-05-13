@@ -1,5 +1,7 @@
 .example-card{
-    width: 380px;
+    /* width: 292px; */
+    width: 100%;
+
     overflow: hidden;
 }
 
@@ -8,5 +10,6 @@ mat-chip{
 }
 
 img{
-    height: 200px;
+    height: 270px;
+    width: 100%;
 }

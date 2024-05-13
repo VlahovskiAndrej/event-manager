@@ -209,11 +209,13 @@ class EventController(
     ): ResponseEntity<List<Event>> {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-        if(categories[0].toString() == "ALL"){
+        if (categories[0].toString() == "ALL") {
             return ResponseEntity.ok(
                 eventService.filter(
                     query,
-                    LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), eventService.getAllCategories()
+                    LocalDate.parse(started, formatter),
+                    LocalDate.parse(finished, formatter),
+                    eventService.getAllCategories()
                 )
             )
         }
@@ -223,27 +225,6 @@ class EventController(
                 LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), categories
             )
         )
-//        when(categories){
-//            is CategoryInput.AllCategories ->{
-//                return ResponseEntity.ok(
-//                    eventService.filter(
-//                        query,
-//                        LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), eventService.getAllCategories()
-//                    )
-//                )
-//            }
-//            is CategoryInput.CategoryList ->{
-//                return ResponseEntity.ok(
-//                    eventService.filter(
-//                        query,
-//                        LocalDate.parse(started, formatter), LocalDate.parse(finished, formatter), categories.categories
-//                    )
-//                )
-//            }
-//            else ->{
-//                return ResponseEntity.badRequest().build()
-//            }
-//        }
     }
 
 

@@ -15,7 +15,7 @@ import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import {  RouterLink, RouterOutlet } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NgxPaginationModule, PaginationService } from 'ngx-pagination';
+// import { NgxPaginationModule, PaginationService } from 'ngx-pagination';
 import { Events } from 'leaflet';
 @Component({
   selector: 'app-search-events',
@@ -31,7 +31,7 @@ import { Events } from 'leaflet';
     MatPaginator,
     MatSelectModule,
     RouterOutlet,
-    NgxPaginationModule,
+    // NgxPaginationModule,
     RouterLink
     ],
   providers: [provideNativeDateAdapter()],

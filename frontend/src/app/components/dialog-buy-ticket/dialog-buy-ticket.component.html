@@ -1,9 +1,119 @@
-<h2 mat-dialog-title>Buy Ticket</h2>
+<h2 mat-dialog-title>Payment details</h2>
 <mat-dialog-content>
-  Are you sure you like to buy Ticket?
-</mat-dialog-content>
+
+  <div id="payment-details">
+    <div id="content">
+      <h5>Payment method</h5>
+
+      <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+        <mat-label>Card name</mat-label>
+        <input matInput>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+        <mat-label>Card number</mat-label>
+        <input matInput>
+      </mat-form-field>
+  
+      <div style="display: flex; flex-direction: row; justify-content: space-around;">
+        <mat-form-field style="width: 48%;" appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>Expiry date</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field style="width: 48%;" appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>CVC</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+  
+  
+      <h5>Billing address</h5>
+      <div style="display: flex; flex-direction: row; gap: 10px;">
+        <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>Address 1</mat-label>
+          <input matInput>
+        </mat-form-field>
     
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button [mat-dialog-close]="event?.availableTickets" (click)="buyTicket()">Yes</button>
+        <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>Address 2 (optional)</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+      
+  
+      <div class="wrapper" style="display: flex; flex-direction: row; gap: 10px;">
+        <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>Zip code</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>City</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+          <mat-label>Country</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+    </div>
+    
+  </div>
+
+  <div id="order-summary">
+
+    <div id="content">
+      <h5>Order summary</h5>
+
+      <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+        <mat-label>Number of tickets</mat-label>
+        <input type="number" min="1" value="1" #numOfTickets matInput (input)="onChangeNumberOfTickets(numOfTickets.value)">
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
+        <mat-label>COUPON</mat-label>
+        <input #coupon (input)="onChangeCoupon(coupon.value)" matInput>
+        <mat-hint style="color: red;">{{errorCoupon}}</mat-hint>
+      </mat-form-field>
+  
+      <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0;">
+        <p style=" vertical-align: bottom; margin: 0;">{{event?.name}} </p>
+        
+        <span style="margin: 0; font-size: 12px;">{{event?.price!!}}$</span>
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0;">
+        <p style=" vertical-align: bottom; margin: 0;">* {{numberOfTickets}} </p>
+        
+        <span style="margin: 0;">{{event?.price!! * numberOfTickets}}$</span>
+      </div>
+      <hr style="margin: 10px;">
+      @if (coupon.value != ''){
+  
+        <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0; padding-bottom: 0;">
+          <p><span id="coupon">{{coupon.value | uppercase}}</span></p>
+          <span>- {{discountPrice}}$</span>
+        </div>
+  
+        <h4 style=" margin: 0;">Total: {{event?.price!! * numberOfTickets - discountPrice}}$</h4>
+      }
+      @else {
+        <h4 style=" margin: 0;">Total: {{event?.price!! * numberOfTickets}}$</h4>
+      }
+  
+      <button style="width: 100%;" mat-raised-button color="primary" [mat-dialog-close]="event?.availableTickets" (click)="buyTicket()">Place order</button>
+      
+      <div id="payments-images" style="display: flex; justify-content: center;">
+        <img style="width: 50%; margin-top: 10px; align-self: center;" src="assets/payments.png" alt="sliki payments.png">
+      </div>
+    </div>
+
+    
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button color="warn" mat-raised-button mat-dialog-close>Cancel</button>
+  <!-- <button mat-raised-button [mat-dialog-close]="event?.availableTickets" (click)="buyTicket()">Place order</button> -->
 </mat-dialog-actions>

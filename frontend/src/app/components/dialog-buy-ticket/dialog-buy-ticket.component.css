@@ -1,0 +1,37 @@
+mat-dialog-content{
+    display: flex;
+    flex-direction: row;
+    /* gap: 10px; */
+    justify-content: space-evenly;
+}
+
+#payment-details{
+    width: 50%;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#order-summary{
+    width: 50%;
+    margin-top: 1px;
+    /* border: 1px solid black; */
+}
+
+#content{
+    width: 80%;
+    margin-left: 10%;
+    /* padding-top: 15px; */
+    /* overflow: hidden; */
+}
+
+.example-full-width{
+    width: 100%;
+}
+
+#coupon{
+    border-radius: 10px;
+    padding: 2px 8px;
+    background-color: rgb(247, 185, 185);
+}
