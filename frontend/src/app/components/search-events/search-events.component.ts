@@ -14,6 +14,9 @@ import { } from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import {  RouterLink, RouterOutlet } from '@angular/router';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NgxPaginationModule, PaginationService } from 'ngx-pagination';
+import { Events } from 'leaflet';
 @Component({
   selector: 'app-search-events',
   standalone: true,
@@ -25,12 +28,15 @@ import {  RouterLink, RouterOutlet } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
+    MatPaginator,
     MatSelectModule,
     RouterOutlet,
-    RouterLink  ],
+    NgxPaginationModule,
+    RouterLink
+    ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',
-  styleUrl: './search-events.component.css'
+  styleUrls: ['./search-events.component.css']
 })
 export class SearchEventsComponent {
 
@@ -53,6 +59,10 @@ export class SearchEventsComponent {
 
   dateFilter: boolean = false;
   loading: boolean = true;
+
+  pageEvent: PageEvent | undefined;
+
+
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   @ViewChild('startDateInput') startDateInput!: ElementRef<HTMLInputElement>;
@@ -149,5 +159,7 @@ export class SearchEventsComponent {
     this.filterByCategory("ALL");
 
   }
+
+
 
 }

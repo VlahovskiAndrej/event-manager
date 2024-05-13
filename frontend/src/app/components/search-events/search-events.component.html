@@ -48,14 +48,20 @@
 
 <div id="events">
     @if (!loading){
-    @for (e of events; track e.id){
-    <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
-    }
+        @for (e of events!; track e.id){
+        <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
+        }
     }
     @else {
-    <p id="loading-text">Loading...</p>
+    <div class="spinner"></div>
     }
     @if(events?.length==0 && !loading){
     <p>There are no found events with the given filter</p>
     }
 </div>
+
+@if(!loading){
+<mat-paginator [length]="events?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 100]"
+    (page)="pageEvent = $event">
+</mat-paginator>
+}
