@@ -8,6 +8,6 @@ import { DatePipe } from '@angular/common';
 export class CustomDatePipe extends DatePipe implements PipeTransform {
 
     override transform(value: any, args?: any): any {
-        return super.transform(value, "EEEE d MMMM y h:mm a");
+        return super.transform(value, "EEE d MMM ");
     }
 }

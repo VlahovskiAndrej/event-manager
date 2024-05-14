@@ -5,6 +5,11 @@ import {MatButton} from '@angular/material/button';
 import {MatChipsModule} from '@angular/material/chips';
 import { CustomDatePipe } from '../../pipes/custom.datepipe';
 import { EventService } from '../../services/event.service';
+import { MatIcon } from '@angular/material/icon';
+import { UpperCasePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { MatCommonModule } from '@angular/material/core';
+
 
 
 @Component({
@@ -13,8 +18,12 @@ import { EventService } from '../../services/event.service';
   imports: [
     MatCardModule,
     MatButton,
+    MatCommonModule,
+    MatIcon,
     MatChipsModule,
-    CustomDatePipe
+    CustomDatePipe,
+    UpperCasePipe,
+    DatePipe    
   ],
   templateUrl: './event.component.html',
   styleUrl: './event.component.css'
@@ -25,6 +34,8 @@ export class EventComponent implements OnInit{
   @Input() showDetails : boolean = true;
   thumbnailUrl: any
 
+  today = new Date()
+
   constructor(private eventService: EventService){}
 
   ngOnInit(): void {
@@ -32,6 +43,7 @@ export class EventComponent implements OnInit{
       (response: any) => {
         const blob = new Blob([response], { type: 'image/jpeg' });
         this.thumbnailUrl = URL.createObjectURL(blob)
+
       }
     )
   }

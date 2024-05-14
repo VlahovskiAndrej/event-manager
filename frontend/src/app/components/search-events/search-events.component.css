@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.main{
+    background-color: rgba(241, 255, 219, 0.9);
+}
+
 #search-bar {
     width: 40%;
 }
@@ -46,13 +50,14 @@ mat-chip-listbox{
     justify-content: start;
     flex-direction: row;
     flex-wrap: wrap;
+    border: none;
 }
 
 app-event{
     width: 24%;
     margin-top: 30px;
     margin-right: 1%;
-    border: 0.5px solid gainsboro;
+    /* border: 0.5px solid gainsboro; */
     cursor: pointer;
 }
 

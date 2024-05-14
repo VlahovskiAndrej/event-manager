@@ -4,15 +4,36 @@
       <mat-card-subtitle>{{event?.category}}</mat-card-subtitle>
 
     </mat-card-header>
+    <mat-card-content>
+      <!-- @for (tag of event?.tags; track tag) {
+        <mat-chip>{{tag.name}}</mat-chip>
+      }  -->
+
+    </mat-card-content>
     <img mat-card-image [src]="thumbnailUrl">
     @if(showDetails){
       <mat-card-content>
-        <p>{{event?.description}}</p>
-        <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
-        <mat-card-subtitle>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</mat-card-subtitle>
-        <!-- @for (tag of event?.tags; track tag) {
-          <mat-chip>{{tag.name}}</mat-chip>
+        <mat-card-subtitle><mat-icon color="primary">local_activity </mat-icon><span>{{event?.availableTickets}} avaliable tickets</span> </mat-card-subtitle>
+        <mat-card-subtitle> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span></mat-card-subtitle>
+        <mat-card-subtitle> <mat-icon color="primary">schedule</mat-icon> <span> {{event?.timeStart?.toString()?.substring(0,5) }} - {{event?.timeFinish?.toString()?.substring(0,5)}}</span></mat-card-subtitle>
+        <mat-card-subtitle id="tip"> <mat-icon color="primary">room</mat-icon> <span>{{event?.type | uppercase }}</span>  </mat-card-subtitle>
+
+        <!-- @if(today.getTime() > event?.dateStart?.getTime()){
+          <button mat-raised-button extended disabled>
+            <mat-icon>event_busy</mat-icon>
+            Past Event
+          </button> 
         } -->
+        <!-- @else{
+          <button mat-raised-button extended color="primary">
+            <mat-icon>event_available</mat-icon>
+            See Details
+          </button> 
+        } -->
+        <button mat-raised-button extended color="primary">
+          <mat-icon>event_available</mat-icon>
+          See Details
+        </button> 
       </mat-card-content>
     }
 </mat-card>
