@@ -4,13 +4,22 @@ import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../interfaces/event';
 import { EventComponent } from '../event/event.component';
 import { RouterLink } from '@angular/router';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-near-me-map',
   standalone: true,
   imports: [
     EventComponent,
-    RouterLink
+    RouterLink,
+    MatFormField,
+    MatIcon,
+    MatInput,
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatIconModule
   ],
   templateUrl: './near-me-map.component.html',
   styleUrl: './near-me-map.component.css'
@@ -135,5 +144,8 @@ private deg2rad(deg: number) {
   return deg * (Math.PI / 180);
 }
 
+search(value: string){
+
+}
 
 }

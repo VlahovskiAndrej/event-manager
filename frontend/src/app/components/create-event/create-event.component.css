@@ -38,7 +38,8 @@ mat-stepper{
 
 .stepper-container {
   /* background-image: url('https://as2.ftcdn.net/v2/jpg/05/70/24/67/1000_F_570246739_Kg1bu2gzoCYziBgt0KqKYi9HJPm8Ndqz.jpg'); */
-  background-image: url('https://media.istockphoto.com/id/1406536433/vector/world-map-ripple-lines-abstract-background.jpg?s=612x612&w=0&k=20&c=NoGONKPG_iL38r10ieuFK-op_BATjjDilVLnMuF6z4k=');
+  /* background-image: url('https://media.istockphoto.com/id/1406536433/vector/world-map-ripple-lines-abstract-background.jpg?s=612x612&w=0&k=20&c=NoGONKPG_iL38r10ieuFK-op_BATjjDilVLnMuF6z4k='); */
+  background-image: url('https://vectormap.net/wp-content/uploads/2022/09/skopje_macedonia_map_vector_gvl17b_ai_10_ai_pdf_2.jpg');
   background-color: rgb(248, 237, 224);
   background-size: auto;
   /* background-position: center;  */

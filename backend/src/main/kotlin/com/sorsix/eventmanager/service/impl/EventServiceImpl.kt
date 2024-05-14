@@ -12,6 +12,7 @@ import com.sorsix.eventmanager.domain.user.User
 import com.sorsix.eventmanager.repository.EventRepository
 import com.sorsix.eventmanager.repository.TicketRepository
 import com.sorsix.eventmanager.service.EventService
+import com.sorsix.eventmanager.service.TagService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Service
 import java.nio.file.Path
@@ -23,7 +24,8 @@ import java.time.Month
 class EventServiceImpl(
     val eventRepository: EventRepository,
     val ticketRepository: TicketRepository,
-    val authService: AuthService
+    val authService: AuthService,
+    val tagService: TagService
 ) : EventService {
 
     private val root: Path = Paths.get("upload")
@@ -31,8 +33,11 @@ class EventServiceImpl(
     override fun createEvent(eventRequest: CreateEventRequest, request: HttpServletRequest): Event {
         val user: User? = authService.getUserByJwtToken(request)
 
-//        val tags: List<String>;
-//        if (eventRequest.tagsNames == "") tags =
+        val newTags: List<Tag>;
+        eventRequest.tagsNames
+            .split(',')
+            .forEach { tn ->  }
+
 
         return eventRepository.save(Event(
             id = 0,
@@ -45,8 +50,12 @@ class EventServiceImpl(
             dateStart = eventRequest.dateStart,
             timeStart = eventRequest.timeStart,
             timeFinish = eventRequest.timeFinish,
-//            tags = eventRequest.tagsNames.map { tn -> Tag(tn) }.toMutableList(),
-            tags = eventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) }.toMutableList(),
+//
+            tags = eventRequest.tagsNames
+                .split(',')
+                .map { tn -> tagService.createTag(tn.trim()) }
+                .toMutableList(),
+
             category = eventRequest.category,
             type = eventRequest.type,
             price = eventRequest.price.toDouble(),

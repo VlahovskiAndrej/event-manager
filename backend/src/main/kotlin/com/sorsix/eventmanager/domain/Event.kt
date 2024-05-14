@@ -17,6 +17,7 @@ data class Event(
 
     var name: String,
 
+    @Column(length = 550)
     var description: String,
 
     var availableTickets: Int,

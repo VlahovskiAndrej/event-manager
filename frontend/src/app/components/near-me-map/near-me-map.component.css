@@ -19,6 +19,10 @@
     overflow: scroll;
 }
 
+#event-content{
+  width: 90%;
+}
+
 .custom-popup {
     padding: 10px;
     background-color: #fff;

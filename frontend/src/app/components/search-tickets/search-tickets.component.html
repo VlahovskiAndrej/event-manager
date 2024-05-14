@@ -1,6 +1,6 @@
 
       <div class="mat-elevation-z8" id="container">
-        <h1 style="margin-left: 25px;">Reserved Tickets</h1>
+        <h1 style="margin-left: 25px; padding-top: 15px;">Reserved Tickets</h1>
 
         <table mat-table [dataSource]="dataSource">
       
@@ -59,7 +59,8 @@
       
         <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                        showFirstLastButtons
-                       aria-label="Select page of ticket elements">
+                       aria-label="Select page of ticket elements"
+                       style="border-radius: 15px;">
         </mat-paginator>
       </div>
       

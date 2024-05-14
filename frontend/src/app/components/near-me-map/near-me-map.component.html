@@ -1,11 +1,37 @@
 
 <div id="near-me">
+
     <div id="event-list">
         <h2>Events near me</h2>
-        @for(e of events; track e.id){
-            <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
-            <p style="align-self: flex-end; margin-right: 10px;">Distance: <span><b>{{calculateDistance(e)}} km </b> </span></p>
-        }
+        <div id="event-content">
+            <mat-form-field id="search-bar" appearance="outline" style="width: 100%;">
+                <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
+                <mat-icon matPrefix fontIcon="search"></mat-icon>
+            </mat-form-field>
+
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <mat-form-field id="max-distance" appearance="outline" style="width: 40%;" floatLabel="always">
+                    <mat-label>Max distance</mat-label>
+                    <input type="number" matInput #searchInput (input)="search(searchInput.value)" placeholder="100">
+                    <mat-icon matPrefix>assistant_direction</mat-icon>
+                    <span matTextSuffix>km.</span>
+                </mat-form-field>
+
+                <mat-form-field id="max-distance" appearance="outline" style="width: 59%;" floatLabel="always">
+                    <mat-label>Category</mat-label>
+                    <input type="number" matInput #searchInput (input)="search(searchInput.value)" placeholder="100">
+                </mat-form-field>
+            </div>
+            
+    
+            @for(e of events; track e.id){
+                <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
+                <p style="align-self: flex-end; margin-right: 10px;">Distance: <span><b>{{calculateDistance(e)}} km </b> </span></p>
+            }
+        </div>
+        
     </div>
+
     <div id="map"></div>
+
 </div>
