@@ -7,9 +7,26 @@ mat-card{
 }
 
 #cards{
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     /* align-items: center; */
-    min-height: 70vh;
+    height: 20%;
 }
+
+.demo-chart {
+    margin-top: 50px;
+    height: 400px;
+    width: 50%;
+  }
+
+  .big-chart{
+    margin-top: 20px;
+    height: 400px;
+    width: 50%;
+  }
+
+  #chart-row1{
+    overflow: hidden;
+  }
