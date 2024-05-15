@@ -6,6 +6,7 @@ import { EventDetailsComponent } from '../event-details/event-details.component'
 import { EventStatsComponent } from '../event-stats/event-stats.component';
 import { Chart } from 'chart.js';
 import { AddTicketsComponent } from '../add-tickets/add-tickets.component';
+import { AddCouponsComponent } from '../add-coupons/add-coupons.component';
 
 @Component({
   selector: 'app-event-my-details',
@@ -16,7 +17,8 @@ import { AddTicketsComponent } from '../add-tickets/add-tickets.component';
      UpdateEventComponent,
      EventDetailsComponent,
      EventStatsComponent,
-     AddTicketsComponent
+     AddTicketsComponent,
+     AddCouponsComponent
   ],
   templateUrl: './event-my-details.component.html',
   styleUrl: './event-my-details.component.css'

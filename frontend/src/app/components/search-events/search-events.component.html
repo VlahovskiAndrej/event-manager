@@ -1,6 +1,5 @@
 <div style="background-color: rgb(247, 247, 247, 0.9);">
 
-
 <div class="filter-container">
 
     <mat-form-field id="search-bar" appearance="outline">
@@ -24,27 +23,39 @@
         </mat-date-range-picker>
     </mat-form-field>
 
-    <mat-form-field id="city-select" appearance="outline">
+
+    <!-- <mat-form-field id="city-select" appearance="outline">
         <mat-select placeholder="City">
             @for (city of cities; track city) {
             <mat-option [value]="city.value">{{city.viewValue}}</mat-option>
             }
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <button mat-fab extended color="primary" id="clear-filter" (click)="clearFilter()">
         <mat-icon>clear-filter</mat-icon>
-        Clear Filters
+        Clear
     </button>
+
+   
+
 </div>
+
+
+
 
 
 <div id="categories">
     @for(c of categories; track c){
     <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal"
         aria-multiselectable="true">
-        <mat-chip-option (click)="filterByCategory(c)"
-            [class.active]="selectedCategories.includes(c)">{{c}}</mat-chip-option>
+        <mat-chip-option 
+            [color]="'primary'"
+            (click)="filterByCategory(c)"
+            [class.active]="selectedCategories.includes(c)"
+            class="custom-chip-option"
+            >{{c}}
+        </mat-chip-option>
     </mat-chip-listbox>
     }
 </div>

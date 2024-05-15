@@ -17,6 +17,8 @@ import {  RouterLink, RouterOutlet } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 // import { NgxPaginationModule, PaginationService } from 'ngx-pagination';
 import { Events } from 'leaflet';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 @Component({
   selector: 'app-search-events',
   standalone: true,
@@ -32,7 +34,8 @@ import { Events } from 'leaflet';
     MatSelectModule,
     RouterOutlet,
     // NgxPaginationModule,
-    RouterLink
+    RouterLink,
+    MatExpansionModule
     ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',

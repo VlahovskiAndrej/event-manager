@@ -1,0 +1,47 @@
+
+<h2 mat-dialog-title>Add new coupon</h2>
+
+<mat-dialog-content class="mat-typography" style="padding: 60px; overflow: hidden;">
+
+    <div class="coupon">
+        <div class="left">
+          <div>Enjoy Your Gift</div>
+        </div>
+        <div class="center">
+          <div>
+            <small></small>
+            <h2> {{discount.value}}% OFF</h2>
+            <h3 style="border: 2px dashed rgba(0, 0, 0, 0.3); padding: 15px;">{{code.value | uppercase}}</h3>
+            <small>Event name</small>
+          </div>
+        </div>
+        
+        <!-- <div class="right">
+          <div>87878521112</div>
+        </div> -->
+        
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Code</mat-label>
+        <input #code matInput>
+      </mat-form-field>
+
+      <div id="slider" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+        <span style="width: 20%;"><b>Discount:</b></span>
+        10%<mat-slider 
+        max="90"
+        min="10"
+        step="5"
+         style="width: 55%;">
+          <input #discount matSliderThumb>
+        </mat-slider>90%
+      </div>
+      
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close (click)="onSubmit(code.value, discount.value)" color="primary">Add coupon</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>

@@ -25,7 +25,7 @@ interface EventRepository : JpaRepository<Event, Long>{
     @Query("select distinct e.category from Event e")
     fun findAllCategories() : List<Category>
 
-    @Query("select distinct e from Event e where e != :ev order by e.dateStart, e.timeStart limit 3")
+    @Query("select distinct e from Event e where e != :ev order by e.dateStart, e.timeStart limit 4")
     fun getRelatedEvents(ev: Event): List<Event>
 
 }

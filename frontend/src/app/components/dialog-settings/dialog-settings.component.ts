@@ -9,10 +9,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   standalone: true,
   imports: [
     MatDialogModule,
-     MatButtonModule,
-     MatSlideToggleModule,
+    MatButtonModule,
+    MatSlideToggleModule,
     FormsModule,
-    ],
+  ],
   templateUrl: './dialog-settings.component.html',
   styleUrl: './dialog-settings.component.css'
 })

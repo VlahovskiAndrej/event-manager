@@ -78,6 +78,7 @@
         <input #coupon (input)="onChangeCoupon(coupon.value)" matInput>
         <mat-icon matPrefix fontIcon="local_activity"></mat-icon>
         <mat-hint style="color: red;">{{errorCoupon}}</mat-hint>
+        <mat-hint style="color: green;">{{successCoupon}}</mat-hint>
       </mat-form-field>
   
       <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0;">

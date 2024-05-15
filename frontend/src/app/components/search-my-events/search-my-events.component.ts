@@ -4,6 +4,7 @@ import { Subject, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxj
 import { EventInterface } from '../../interfaces/event';
 import { EventMyComponent } from '../event-my/event-my.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { EventComponent } from '../event/event.component';
 
 @Component({
   selector: 'app-search-my-events',
@@ -12,6 +13,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     EventMyComponent,
     RouterOutlet,
     RouterLink,
+    EventComponent
   ],
   templateUrl: './search-my-events.component.html',
   styleUrl: './search-my-events.component.css'

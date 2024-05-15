@@ -31,8 +31,9 @@
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon> 
         </a>
         <mat-menu style="margin-bottom: 0;" #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="openAccountDetailsDialog()">Account</button>
+            <button mat-menu-item (click)="openAccountDetailsDialog()">View profile</button>
             <button mat-menu-item routerLink="/tickets">My Tickets</button>
+            <button mat-menu-item routerLink="/events/my-events">My Events</button>
             <button id="logout-btn" mat-menu-item (click)="logout()">
                 Logout
             </button>

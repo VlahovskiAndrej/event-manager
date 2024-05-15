@@ -1,0 +1,39 @@
+<p style="color: rgb(75, 0, 146); font-weight: 500; font-size: 25px; margin-bottom: 0;">Coupons & discounts</p>
+
+<p style="font-size: 14px;">You can add maximum of 6 coupon codes</p>
+
+@if(coupons.length < 6) {
+<button mat-stroked-button color="primary" style="margin: 10px 0;" (click)="onAddCoupon()">
+    <mat-icon>add</mat-icon>
+    Add new
+</button>
+}
+@else {
+    <button mat-stroked-button color="primary" style="margin: 10px 0;" (click)="onAddCoupon()" disabled>
+        <mat-icon>add</mat-icon>
+        Add new
+    </button>
+}  <span style="font-size: 18px; margin-left: 10px;">Currently active: {{coupons.length}}/6</span>
+
+<div id="all-coupons">
+    @for (coupon of coupons; track coupon.name) {
+        <div class="coupon" (click)="remove(coupon.name)">
+            <div class="left">
+              <div>Enjoy Your Gift</div>
+            </div>
+            <div class="center">
+              <div>
+                <small></small>
+                <h2> {{coupon.percentageDiscount}}% OFF</h2>
+                <h3 style="border: 2px dashed rgba(0, 0, 0, 0.3); padding: 15px;">{{coupon.name}}</h3>
+                <small >Event name</small>
+              </div>
+            </div>
+            
+            <!-- <div class="right">
+              <div>87878521112</div>
+            </div> -->
+            
+          </div>
+    }
+</div>

@@ -43,6 +43,7 @@ export class DialogBuyTicketComponent implements OnInit{
   discountPrice = 0
   numberOfTickets = 1
   errorCoupon: string = ""
+  successCoupon: string = ""
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -71,11 +72,13 @@ export class DialogBuyTicketComponent implements OnInit{
       this.discountPrice = 10
       this.price = this.event?.price!! - this.discountPrice
       this.errorCoupon = ""
+      this.successCoupon = "Valid coupon!"
     }
     else{
       this.price = this.event?.price!!
       this.discountPrice = 0
       this.errorCoupon = "Invalid coupon name!"
+      this.successCoupon = ""
     }
 
   }
