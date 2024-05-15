@@ -11,7 +11,13 @@
     @if(showDetails){
       <mat-card-content>
         <div class="event-details-icon"><mat-icon color="primary">local_activity </mat-icon><span>{{event?.availableTickets}} tickets left</span> </div>
-        <div class="event-details-icon"> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span></div>
+        @if(event?.dateStart == event?.dateFinish){
+          <div class="event-details-icon"> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}}</span></div>
+        }
+        @else{
+          <div class="event-details-icon"> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span></div>
+
+        }
         <div class="event-details-icon"> <mat-icon color="primary">schedule</mat-icon> <span> {{event?.timeStart?.toString()?.substring(0,5) }} - {{event?.timeFinish?.toString()?.substring(0,5)}}</span></div>
         <div class="event-details-icon" id="tip"> <mat-icon color="primary">room</mat-icon> <span>{{event?.type | uppercase }} event</span>  </div>
 

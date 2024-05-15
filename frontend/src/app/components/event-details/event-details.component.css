@@ -1,26 +1,24 @@
-#image-container{
-    width: 50%;
-    /* height: 400px; */
-    /* border: 1px solid rgb(133, 133, 133); */
+#image-container {
+    width: 400px;
+    height: 500px;
     margin-right: 30px;
-    /* border-radius: 15px; */
     overflow: hidden;
 }
 
-#event-data{
+#event-data {
     width: 50%;
     word-wrap: break-word;
 }
 
-img{
-    width: 100%;
-    height: 500px;
+app-image-galery {
+    max-width: 100%;
+    max-height: 300px;
     /* height: ; */
     border-radius: 15px;
     /* border: 1px solid rgb(133, 133, 133); */
 }
 
-#grid{
+#grid {
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -29,36 +27,52 @@ img{
     /* border: 1px solid black; */
 }
 
-#row1{
+#row1 {
+    width: 100%;
     display: flex;
-    flex-direction: row;   
+    flex-direction: row;
+
 }
- 
-#row2{
-    margin-top: 10px;
+
+#row2 {
     display: flex;
     flex-direction: row;
     overflow: hidden;
-}
-
-
-
-#when{
-    width: 50%;
-}
-
-#where{
-    width: 50%;
-    margin-right: 40px;
     margin-top: 20px;
+
 }
 
-#tags{
+#when {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 110%;
+}
+
+#where {
+    width: 100%;
+    margin-right: 40px;
+}
+
+#similar {
+    width: 500px;
+}
+
+#similar>p {
+    background-color: rgb(216, 234, 239);
+    border-radius: 10px;
+    width: 100px;
+    margin-bottom: -15px;
+    text-align: center;
+}
+
+#tags {
     display: flex;
     flex-direction: row;
 }
 
-#tags > p {
+#tags>p {
     background-color: rgb(248, 248, 197);
     margin: 0 3px;
     padding: 2px 8px;
@@ -66,12 +80,12 @@ img{
     text-align: center;
 }
 
-ul > li{
+ul>li {
     margin-top: 15px;
     text-align: justify;
 }
 
-#related-events{
+#related-events {
     width: 100%;
     display: flex;
     align-items: center;
@@ -80,7 +94,7 @@ ul > li{
 
 }
 
-app-image-galery{
+app-image-galery {
     border: 15px;
     height: 500px;
 }
