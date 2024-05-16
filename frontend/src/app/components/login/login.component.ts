@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @Component({
@@ -16,8 +18,11 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule, 
     MatFormFieldModule, 
     MatInputModule,
-    MatButton,
-    MatIconModule
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -29,6 +34,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    // private routerLink:
   ) {}
 
 

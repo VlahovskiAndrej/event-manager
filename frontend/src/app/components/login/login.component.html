@@ -1,23 +1,60 @@
-<div id="login-container">
-  <h1>Welcome back!</h1>
-  <h6 style="color: grey;">Login to continue</h6>
-  <form name="loginForm" class="example-form" (ngSubmit)="onSubmit( username.value, password.value)">
-      <mat-form-field appearance="outline" class="example-full-width">
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle" matPrefix></mat-icon>  
-        <mat-label>E-mail</mat-label>
-        <input matInput #username placeholder="example@gmail.com" name="email">
-      </mat-form-field>
-    
-      <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>Password</mat-label>
-        <input matInput #password type="password" name="password" [type]="hide ? 'password' : 'text'">
-        <mat-icon style="cursor: pointer;" matPrefix (click)="hide = !hide" [attr.aria-label]="'Hide password'">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </mat-form-field>
+<div id="login-page">
 
-      <button type="submit" mat-raised-button color="primary">
-          LOGIN
-      </button>
-      Dont have an account?<a href="http://localhost:4200/register"> Register now!</a>
+  <div id="image">
+    <img src="assets/SVG/Asset 5.svg">
+  </div>
   
-    </form>
+  <div id="login-container">
+    <h1 style="text-align: start; width: 100%; margin-left: 100px;"><span style="color: blueviolet;">Welcome </span>back :)</h1>
+    <h6 style="color: grey;text-align: start; width: 100%; margin-left: 110px; margin-bottom: 25px; font-size: 14px; padding-right: 100px;">
+      To keep connected with us please login with your personal information by email address and password
+    </h6>
+
+    <form name="loginForm" class="example-form" (ngSubmit)="onSubmit( username.value, password.value)">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle" matPrefix></mat-icon>  
+          <mat-label>E-mail</mat-label>
+          <input matInput #username placeholder="example@gmail.com" name="email">
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput #password type="password" name="password" [type]="hide ? 'password' : 'text'">
+          <mat-icon style="cursor: pointer;" matPrefix (click)="hide = !hide" [attr.aria-label]="'Hide password'">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+  
+  
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+          <mat-checkbox class="example-margin" style="margin-bottom: 15px;" color="primary">Remember me</mat-checkbox>
+          <p>Forgot password?</p>
+        </div>
+        
+        <button type="submit" mat-raised-button color="primary" style="width: 30%;">
+            Login now
+        </button>
+
+        <button mat-raised-button style="margin-left: 5px; width: 30%; border: 1px solid rgb(197, 197, 197);" routerLink="/register">
+          Create account
+        </button>
+    
+        <div class="separator">Or you can login with</div>
+
+        <div id="google-facebook-btns">
+          <button id="google-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="" width="20" height="20px" >
+            Google
+          </button>
+  
+          <button id="facebook-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="" width="20px" height="20px" >
+            Facebook
+          </button>
+        </div>
+        
+      </form>
+
+
+
+  </div>
 </div>
+

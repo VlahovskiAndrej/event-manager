@@ -5,7 +5,10 @@ import {FormsModule} from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-register',
@@ -14,12 +17,18 @@ import { Router } from '@angular/router';
     FormsModule, 
     MatFormFieldModule, 
     MatInputModule,
-    MatButton
+    MatButton,
+    MatCheckboxModule,
+    RouterLink,
+    MatIconModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
+  hide = true
+  hide2 = true
 
   constructor(
     private authService: AuthService,
