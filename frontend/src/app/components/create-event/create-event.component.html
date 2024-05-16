@@ -1,7 +1,7 @@
 
 
 <div class="stepper-container">
-  <mat-stepper linear #stepper>
+  <mat-stepper linear #stepper >
 
     <!-- Initial -->
     <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
@@ -14,7 +14,7 @@
          <!-- such as the title, date, time, location, category, type and tags while considering factors -->
         <!-- like your target audience, budget, and any special requirements. This information will help you plan and promote to the intended audience so we can execute a successful event.</p> -->
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Title</mat-label>
           <input #title matInput formControlName="name" placeholder="Event title" maxlength="50" required>
           <mat-hint>Clear and descriptive few words that capture the essence of your event.</mat-hint>

@@ -12,5 +12,6 @@ img{
     width:85%;
     margin: auto;
     align-items: center;
+    background-color: rgb(247, 247, 247, 0.9);
     justify-content: space-between;
 }

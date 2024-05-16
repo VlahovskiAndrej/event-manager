@@ -2,13 +2,12 @@
     flex: 1 1 auto;
 }
 
-#username{
-    color: rgb(243, 147, 147);
-}
 
-/* mat-toolbar{
-     margin-bottom: 25px; 
-} */
+
+mat-toolbar{
+     margin-bottom: 0px; 
+     background-color: white;
+}
 
 mat-icon{
     font-size: 55px;

@@ -3,7 +3,10 @@
 @import 'mdb-angular-ui-kit/assets/scss/mdb.scss';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+   background-color: rgb(247, 247, 247, 0.9);
+}
 
 
 .spinner {

@@ -1,17 +1,23 @@
-<h1 style="text-align: start; margin-top: 25px; margin-left: 10%;">  Upcoming Events</h1>
-<!-- <div class="input-container">
-    <input type="text" placeholder="Search..." #searchInput (input)="search(searchInput.value)">
-</div> -->
+<div class="main-container">
 
-<div id="my-events">
-    @if (!loading){
+    <h1 style="text-align: start; margin-left: 10%;"> Upcoming Events</h1>
+    <!-- <div class="input-container">
+        <input type="text" placeholder="Search..." #searchInput (input)="search(searchInput.value)">
+    </div> -->
+
+    <div id="my-events">
+        @if (!loading){
         @for (e of events; track e.id){
-            <app-event routerLink="/events/my-events/{{e.id}}" [event]="e"></app-event>
+        <app-event routerLink="/events/my-events/{{e.id}}" [event]="e"></app-event>
         }
-    }
-    @else {
+        }
+        @else {
         <p id="loading-text">Loading...</p>
-    }
-</div> <hr style="width: 80%; margin-left: 10%;">
+        }
+    </div>
+    <hr style="width: 80%; margin-left: 10%;">
 
-<h1 style="text-align: start; margin-top: 25px; margin-left: 10%;">My Past Events</h1>
+    <h1 style="text-align: start; margin-top: 25px; margin-left: 10%;">My Past Events</h1>
+
+
+</div>

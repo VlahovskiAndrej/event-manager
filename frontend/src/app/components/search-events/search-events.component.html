@@ -1,4 +1,4 @@
-<div style="background-color: rgb(247, 247, 247, 0.9);">
+<div class="main-container">
 
 <div class="filter-container">
 
@@ -76,7 +76,7 @@
 
 @if(!loading){
 <mat-paginator [length]="events?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 100]"
-    (page)="pageEvent = $event">
+    (page)="pageEvent = $event" style="background-color: rgb(247, 247, 247, 0.9);">
 </mat-paginator>
 }
 
