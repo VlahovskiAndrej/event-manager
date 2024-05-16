@@ -1,16 +1,19 @@
 <div id="login-container">
-  <h1>Login</h1>
+  <h1>Welcome back!</h1>
+  <h6 style="color: grey;">Login to continue</h6>
   <form name="loginForm" class="example-form" (ngSubmit)="onSubmit( username.value, password.value)">
       <mat-form-field appearance="outline" class="example-full-width">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle" matPrefix></mat-icon>  
         <mat-label>E-mail</mat-label>
         <input matInput #username placeholder="example@gmail.com" name="email">
       </mat-form-field>
     
       <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Password</mat-label>
-          <input matInput #password type="password" name="password">
+        <mat-label>Password</mat-label>
+        <input matInput #password type="password" name="password" [type]="hide ? 'password' : 'text'">
+        <mat-icon style="cursor: pointer;" matPrefix (click)="hide = !hide" [attr.aria-label]="'Hide password'">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </mat-form-field>
-  
+
       <button type="submit" mat-raised-button color="primary">
           LOGIN
       </button>

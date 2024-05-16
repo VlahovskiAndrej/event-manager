@@ -6,6 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -15,12 +16,15 @@ import { Router } from '@angular/router';
     FormsModule, 
     MatFormFieldModule, 
     MatInputModule,
-    MatButton
+    MatButton,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
+
+  hide = true;
 
   constructor(
     private authService: AuthService,
