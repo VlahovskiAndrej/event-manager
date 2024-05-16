@@ -7,12 +7,11 @@ import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import { CommonModule } from "@angular/common";
 import { EChartsOption } from 'echarts';
 
-
 @Component({
   selector: 'app-event-stats',
   standalone: true,
   imports: [
-    MatCardModule, 
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     CommonModule, NgxEchartsDirective
@@ -55,7 +54,7 @@ export class EventStatsComponent{
       },
     ],
   };
-  
+
 
   option: EChartsOption = {
     title: {
@@ -72,7 +71,7 @@ export class EventStatsComponent{
     },
     series: [
       {
-        name: 'Access From',
+        name: 'Gender',
         type: 'pie',
         radius: '50%',
         data: [
@@ -106,7 +105,7 @@ export class EventStatsComponent{
     },
     series: [
       {
-        name: 'Access From',
+        name: 'Age range',
         type: 'pie',
         radius: '50%',
         data: [

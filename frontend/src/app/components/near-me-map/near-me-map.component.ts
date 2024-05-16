@@ -48,13 +48,16 @@ export class NearMeMapComponent implements OnInit {
 
   private initializeMap() {
     this.map = L.map('map').setView([this.myLatitude!!, this.myLongitude!!], 13);
+
+
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
     var myIcon = L.icon({
-      iconUrl: 'assets/map-icons/location-pin.png',
-      iconSize: [40, 41],
+      iconUrl: 'assets/map-icons/location-home.png',
+      iconSize: [27, 36],
       iconAnchor: [12, 41],
-      popupAnchor: [8, -34],
+      popupAnchor: [1, -34],
       tooltipAnchor: [16, -28],
     });
 
@@ -88,12 +91,20 @@ export class NearMeMapComponent implements OnInit {
   private mapCoordinates(){
 
     // var eventIcon = L.icon({
-    //   iconUrl: 'assets/map-icons/billboard.png',
-    //   iconSize: [30, 31],
+    //   iconUrl: 'assets/map-icons/location-pin-blue.png',
+    //   iconSize: [25, 31],
     //   iconAnchor: [12, 41],
     //   popupAnchor: [8, -34],
     //   tooltipAnchor: [16, -28],
     // });
+
+    var eventIcon = L.icon({
+      iconUrl: 'assets/map-icons/location-pin.png',
+      iconSize: [40, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [8, -34],
+      tooltipAnchor: [16, -28],
+    });
 
     for(const e of this.events){
       
@@ -103,7 +114,7 @@ export class NearMeMapComponent implements OnInit {
 
 
 
-        L.marker([Number.parseFloat(e.latitude), Number.parseFloat(e.longitude)] ).addTo(this.map)
+        L.marker([Number.parseFloat(e.latitude), Number.parseFloat(e.longitude)], {icon: eventIcon}).addTo(this.map)
         .bindPopup(`
         <div class="custom-popup">
         <h4>
