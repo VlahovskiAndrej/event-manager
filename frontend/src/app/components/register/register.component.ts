@@ -39,9 +39,9 @@ export class RegisterComponent {
     this.authService.register(firstName, lastName, username, password).subscribe(
       (response) => {
         console.log(response)
-        localStorage.setItem('token', response['token'])
-        localStorage.setItem('username', response['username'])
-        location.href = '/events'
+        // localStorage.setItem('token', response['token'])
+        // localStorage.setItem('username', response['username'])
+        location.href = '/login'
       }
     )
   }

@@ -1,0 +1,19 @@
+
+<div id="content">
+
+    <div id="image">
+        <img [src]="thumbnailUrl" alt="" width="126px" height="126px">
+    </div>
+
+    <div id="text">
+        <h4>{{event?.name}}</h4>
+        <h6>{{event?.category}}</h6>
+        <p style="margin: 5px 0;">{{event?.dateStart | customDate}}</p>
+        <!-- <p style="margin: 0px 0px; height: 10px;">{{event?.timeStart?.toString()?.substring(0,5)}} -
+            {{event?.timeFinish?.toString()?.substring(0,5)}}</p> -->
+        <h6 style="text-align: end;">
+            <span style="background-color: rgb(255, 200, 200); padding: 2px 8px; border-radius: 10px; ">{{reformatDistance(distance!!)}}</span>
+        </h6>
+    </div>
+
+</div>

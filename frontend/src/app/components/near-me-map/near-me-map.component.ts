@@ -7,6 +7,10 @@ import { RouterLink } from '@angular/router';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInput, MatInputModule } from '@angular/material/input';
+import { NearMeEventComponent } from '../near-me-event/near-me-event.component';
+import { DatePipe } from '@angular/common';
+import { CustomDatePipe } from '../../pipes/custom.datepipe';
+import { CustomDatePipeDetails } from '../../pipes/custom.datepipedetails';
 
 @Component({
   selector: 'app-near-me-map',
@@ -19,7 +23,10 @@ import { MatInput, MatInputModule } from '@angular/material/input';
     MatInput,
     MatFormFieldModule, 
     MatInputModule, 
-    MatIconModule
+    MatIconModule,
+    NearMeEventComponent,
+    CustomDatePipe,
+    CustomDatePipeDetails
   ],
   templateUrl: './near-me-map.component.html',
   styleUrl: './near-me-map.component.css'
@@ -32,6 +39,11 @@ export class NearMeMapComponent implements OnInit {
   myLatitude: number|undefined
 
   events: EventInterface[] = [] 
+
+  polyline: L.Polyline | undefined;
+  private markers: Map<number, L.Marker> = new Map();
+  selectedEventId: number | null = null; // Track selected event
+
 
 
   constructor(private eventService: EventService) { }
@@ -89,15 +101,6 @@ export class NearMeMapComponent implements OnInit {
 
 
   private mapCoordinates(){
-
-    // var eventIcon = L.icon({
-    //   iconUrl: 'assets/map-icons/location-pin-blue.png',
-    //   iconSize: [25, 31],
-    //   iconAnchor: [12, 41],
-    //   popupAnchor: [8, -34],
-    //   tooltipAnchor: [16, -28],
-    // });
-
     var eventIcon = L.icon({
       iconUrl: 'assets/map-icons/location-pin.png',
       iconSize: [40, 41],
@@ -108,27 +111,85 @@ export class NearMeMapComponent implements OnInit {
 
     for(const e of this.events){
       
-
-
-      if (e.latitude != '' && e.longitude != ''){
-
-
-
-        L.marker([Number.parseFloat(e.latitude), Number.parseFloat(e.longitude)], {icon: eventIcon}).addTo(this.map)
-        .bindPopup(`
-        <div class="custom-popup">
-        <h4>
-          <h4 style="overflow: hidden;">${e.name}</h4>
-        </h4>
-        <h6>${e.category}</h6>
-        <p>Distance: ${this.calculateDistance(e)} km</p>
-        </div>
-        `)
-      }
+      let thumbnail
       
+      this.eventService.getThumbnail(e.id).subscribe(
+        (response: any) => {
+          const blob = new Blob([response], { type: 'image/jpeg' });
+          thumbnail = URL.createObjectURL(blob)
+
+          if (e.latitude != '' && e.longitude != ''){
+            const marker = L.marker([Number.parseFloat(e.latitude), Number.parseFloat(e.longitude)], {icon: eventIcon}).addTo(this.map)
+            .bindPopup(`
+            <head> 
+              <style>
+                img{
+                  border-radius: 5px;
+                }
+                .button-link{
+                  width: 100%;
+                  margin-top: 5px;
+                  display: inline-block;
+                  padding: 7px 20px;
+                  font-size: 16px;
+                  color: white;
+                  background-color: blueviolet;
+                  border: none;
+                  border-radius: 5px;
+                  text-align: center;
+                  text-decoration: none;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+                }
+                .button-link:hover {
+                  background-color: darkviolet;
+                }
+                
+                .button-link:active {
+                  background-color: rebeccapurple;
+                }
+              </style>
+            </head>
+            <div style="display: flex; gap: 15px;">
+              <div style="width: 50%;">
+                <img src='${thumbnail}' alt="andrej" width="150px" height="150px"></img>
+                <a href="http://localhost:4200/events/${e.id}" style="color:white;" class="button-link">
+                  View details
+                </a>
+              </div>
+          
+              <div style="width: 50%;">
+                <h4 style="overflow: hidden;">${e.name}</h4>
+                <h6>${e.category}</h6>
+                <h6>${e.creator.firstName}</h6>
+                <h6>${e.price}</h6>
+                <p>${this.calculateDistance(e)} km.</p>
+              </div>
+            </div>
+
+            <script>
+              showRoute(){
+                console.log(1)
+              }
+            </script>
+            `)
+            this.markers.set(e.id, marker);
+          }
+        }
+      )
     };
   }
 
+ zoomOnEvent(lat: string, lon: string, id: number) {
+
+  const marker = this.markers.get(id);
+  if (marker && this.map) {
+    const latLng = marker.getLatLng();
+    this.map.setView(latLng, 16, { animate: true }); 
+    setTimeout(() => { marker.openPopup(); }, 400); 
+  }
+
+  }
 
   onClick(num: number){
     console.log(num)
@@ -157,6 +218,10 @@ private deg2rad(deg: number) {
 
 search(value: string){
 
+}
+
+selectEvent(id: number) {
+  this.selectedEventId = id;
 }
 
 }

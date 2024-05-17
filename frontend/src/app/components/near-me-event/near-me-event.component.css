@@ -1,0 +1,17 @@
+#content{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+#image{
+    width: 45%;
+}
+
+img{
+    border-radius: 10px;
+}
+
+#text{
+    width: 57%;
+}

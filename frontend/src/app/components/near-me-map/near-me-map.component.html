@@ -25,8 +25,8 @@
             
             <div style="display: flex; flex-direction: column;">
                 @for(e of events; track e.id){
-                    <app-event style="height: 500px;" routerLink="/events/{{e.id}}" [event]="e"></app-event>
-                    <p style="text-align: end;">Distance: <span><b>{{calculateDistance(e)}} km </b> </span></p>
+                    <app-near-me-event [event]="e" [distance]="calculateDistance(e)" (click)="zoomOnEvent(e.latitude, e.longitude, e.id)" [class.selected]="selectedEventId === e.id" (click)="selectEvent(e.id)"></app-near-me-event> 
+                    <hr style="margin: 6px 0;">
                 }
             </div>
             

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 @Pipe({
-    standalone:true,
+    standalone: true,
     name: 'customDate'
 })
 export class CustomDatePipe extends DatePipe implements PipeTransform {
