@@ -6,12 +6,17 @@
     </div>
 
     <div id="text">
+
+        <h6 style="font-size: 13px; padding-bottom: 4px; margin-bottom: 4px; color: rgb(155, 155, 155); border-bottom: 1px solid  rgb(163, 163, 163); width: fit-content;">{{event?.category}}</h6>
+
         <h4>{{event?.name}}</h4>
-        <h6>{{event?.category}}</h6>
-        <p style="margin: 5px 0;">{{event?.dateStart | customDate}}</p>
+        <p style="margin: 5px 0;">
+            {{event?.dateStart | customDate}}
+        </p>
         <!-- <p style="margin: 0px 0px; height: 10px;">{{event?.timeStart?.toString()?.substring(0,5)}} -
             {{event?.timeFinish?.toString()?.substring(0,5)}}</p> -->
-        <h6 style="text-align: end;">
+        <h6 style="display: flex; justify-content: space-between; margin-top: 13px; margin-bottom: 0;">
+            <span style="background-color: rgb(200, 255, 222); padding: 2px 8px; border-radius: 10px; ">{{event?.price==0 ? 'Free' : '$'+event?.price}}</span>
             <span style="background-color: rgb(255, 200, 200); padding: 2px 8px; border-radius: 10px; ">{{reformatDistance(distance!!)}}</span>
         </h6>
     </div>

@@ -195,7 +195,7 @@ export class UpdateEventComponent implements OnInit{
 
 
 
-    this.eventService.updateEvent(formData).subscribe(
+    this.eventService.updateEvent(formData, this.event?.id!!).subscribe(
       res => {
         this.router.navigate(['events'])
         this.showSuccessMessage()

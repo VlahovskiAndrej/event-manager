@@ -15,6 +15,7 @@ data class Event(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
+    @Column(length = 100)
     var name: String,
 
     @Column(length = 550)

@@ -3,12 +3,13 @@
   }
 
   #container{
-    margin-top: 5%;
-    margin-bottom: 0;
-    height: 70vh;
+    margin: 2% 0;
+    height: 82vh;
     margin-left: 5%;
     width: 90%;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
   }
 
   #download-icon{
@@ -17,14 +18,14 @@
 
   #text-dot-red{
     color: red;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
     vertical-align: middle;
   }
 
   #text-dot-green{
-    color: rgb(72, 161, 72);
-    font-size: 30px;
+    color: rgb(62, 161, 62);
+    font-size: 40px;
     text-align: center;
     vertical-align: middle;
   }

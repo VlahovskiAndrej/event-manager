@@ -1,63 +1,82 @@
 
       <div class="mat-elevation-z8" id="container">
-        <h1 style="margin-left: 25px; padding-top: 15px;">Reserved Tickets</h1>
+        <div style="min-height: 70vh;">
+          <h1 style="margin-left: 25px; padding-top: 15px;">Reserved Tickets</h1>
 
-        <table mat-table [dataSource]="dataSource">
-      
-          <!-- Position Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <table mat-table [dataSource]="dataSource">
+        
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Paid price</th>
+              <td mat-cell *matCellDef="let element"> {{element.price}}$</td>
+            </ng-container>
+        
+            <!-- Weight Column -->
+            <ng-container matColumnDef="event">
+              <th mat-header-cell *matHeaderCellDef> Event name </th>
+              <td mat-cell *matCellDef="let element"> {{element.event.name}} </td>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="buyer">
+              <th mat-header-cell *matHeaderCellDef> E-mail </th>
+              <td mat-cell *matCellDef="let element"> {{element.buyer.username}} </td>
+            </ng-container>
+  
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Event Date </th>
+              <td mat-cell *matCellDef="let element"> 
+                  {{element.event.dateStart}}
+              </td>
           </ng-container>
-      
-          <!-- Name Column -->
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Paid price</th>
-            <td mat-cell *matCellDef="let element"> {{element.price}}$</td>
-          </ng-container>
-      
-          <!-- Weight Column -->
-          <ng-container matColumnDef="event">
-            <th mat-header-cell *matHeaderCellDef> Event name </th>
-            <td mat-cell *matCellDef="let element"> {{element.event.name}} </td>
-          </ng-container>
-      
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="buyer">
-            <th mat-header-cell *matHeaderCellDef> E-mail </th>
-            <td mat-cell *matCellDef="let element"> {{element.buyer.username}} </td>
-          </ng-container>
-
-        <!-- Date Column -->
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
+  
+          <!-- Date Column -->
+          <ng-container matColumnDef="date-purchased">
+            <th mat-header-cell *matHeaderCellDef>Date Purchased</th>
             <td mat-cell *matCellDef="let element"> 
                 {{element.event.dateStart}}
             </td>
         </ng-container>
-
-        <!-- Status Column -->
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let element"> 
-               <span id="text-dot-green"> &#8226;</span>  Active
-               <!-- <span id="text-dot-red"> &#8226;</span>  Done -->
-            </td>
-        </ng-container>
-
-          <!-- Pdf Column -->
-          <ng-container matColumnDef="pdf">
-            <th mat-header-cell *matHeaderCellDef> Ticket </th>
-            <td mat-cell *matCellDef="let element" (click)="onClickDownload(element)"> 
-                <mat-icon id="download-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>
-            </td>
+  
+        <!-- Date Column -->
+        <ng-container matColumnDef="coupon">
+          <th mat-header-cell *matHeaderCellDef>Coupon used</th>
+          <td mat-cell *matCellDef="let element"> 
+              /
+          </td>
+      </ng-container>
+  
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element"> 
+                 <span id="text-dot-green"> &#8226;</span>  Active
+                 <!-- <span id="text-dot-red"> &#8226;</span>  Done -->
+              </td>
           </ng-container>
+  
+            <!-- Pdf Column -->
+            <ng-container matColumnDef="pdf">
+              <th mat-header-cell *matHeaderCellDef> Ticket </th>
+              <td mat-cell *matCellDef="let element" (click)="onClickDownload(element)"> 
+                  <mat-icon id="download-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>
+              </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        
       
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        <mat-paginator [pageSizeOptions]="[7, 14]"
                        showFirstLastButtons
                        aria-label="Select page of ticket elements"
                        style="border-radius: 15px;">

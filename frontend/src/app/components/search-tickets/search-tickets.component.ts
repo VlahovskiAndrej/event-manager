@@ -30,7 +30,7 @@ export interface TicketInTable {
   styleUrl: './search-tickets.component.css'
 })
 export class SearchTicketsComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'price', 'event', 'buyer', 'date', 'status', 'pdf'];
+  displayedColumns: string[] = ['id', 'price', 'event', 'buyer', 'date', 'date-purchased', 'coupon', 'status', 'pdf'];
   dataSource: any;
   tickets: Ticket[] | undefined;
   ticketsInTable: TicketInTable[] = []

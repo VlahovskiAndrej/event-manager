@@ -61,8 +61,6 @@ export class NearMeMapComponent implements OnInit {
   private initializeMap() {
     this.map = L.map('map').setView([this.myLatitude!!, this.myLongitude!!], 13);
 
-
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
     var myIcon = L.icon({
@@ -76,9 +74,7 @@ export class NearMeMapComponent implements OnInit {
     L.marker([this.myLatitude!!, this.myLongitude!!], {icon: myIcon} ).addTo(this.map)
     .bindPopup('You are here!')
 
-    this.mapCoordinates();
-
-    
+    this.mapCoordinates()
   }
 
 
@@ -148,6 +144,18 @@ export class NearMeMapComponent implements OnInit {
                 .button-link:active {
                   background-color: rebeccapurple;
                 }
+
+                #price{
+                  background-color: #bdffcc;
+                  padding: 2px 8px;
+                  border-radius: 10px;
+                }
+
+                #distance{
+                  background-color: rgb(255, 200, 200);
+                  padding: 2px 8px;
+                  border-radius: 10px;
+                }
               </style>
             </head>
             <div style="display: flex; gap: 15px;">
@@ -159,11 +167,16 @@ export class NearMeMapComponent implements OnInit {
               </div>
           
               <div style="width: 50%;">
-                <h4 style="overflow: hidden;">${e.name}</h4>
-                <h6>${e.category}</h6>
-                <h6>${e.creator.firstName}</h6>
-                <h6>${e.price}</h6>
-                <p>${this.calculateDistance(e)} km.</p>
+                <h6 style="color: gray; font-size: 12px; margin-bottom: 0px;">${e.category}</h6>
+                <hr style="margin: 3px 0;">
+
+                <h4 style="overflow: hidden; height: 30px;">${e.name}</h4>
+                <h6 style="color: gray; font-size: 14px; margin-bottom: 10px; overflow: hidden; height: 53px;">${e.description}</h6>
+                <p style="margin:5px 0;">Tickets: ${e.availableTickets==0 ? '<span style="color: red;"><b>SOLD OUT!</b></span>' : '<b>' + e.availableTickets + '</b>'}</p>
+                <h6 style="display: flex; justify-content: space-between;"><span id="price">${e.price==0 ? 'Free' : '$'+e.price}</span>  <span id="distance">${this.calculateDistance(e)} km.</span></h6>
+
+                <hr style="margin: 3px 0;">
+                 <h6 style="color: gray; font-size: 12px; margin-bottom: 0px;">By ${e.creator.firstName} ${e.creator.lastName}</h6>
               </div>
             </div>
 
@@ -195,7 +208,7 @@ export class NearMeMapComponent implements OnInit {
     console.log(num)
   }
   
-  calculateDistance(e: EventInterface) {
+  calculateDistance(e: EventInterface): string {
 
     const lat: number = Number.parseFloat(e.latitude)
     const lon: number = Number.parseFloat(e.longitude)
@@ -217,11 +230,20 @@ private deg2rad(deg: number) {
 }
 
 search(value: string){
-
+  this.eventService.getEvents().subscribe(
+    (e) => {
+      this.events = e
+      this.mapCoordinates()
+    }
+  )
 }
 
 selectEvent(id: number) {
   this.selectedEventId = id;
+}
+
+sortDistance(value: string){
+
 }
 
 }

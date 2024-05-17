@@ -14,7 +14,7 @@
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
-    width: 23%;
+    width: 26%;
     height: 90vh;
     overflow: scroll;
 }
@@ -24,9 +24,11 @@
 }
 
 .custom-popup {
-    padding: 100px;
+    /* padding: 100px; */
     background-color: #fff;
     border-radius: 5px;
+
+    
   }
   
   .custom-popup a {
@@ -49,6 +51,7 @@
     transform: scale(1.05);
     box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2);
     background-color: rgb(250, 250, 250);
+    
   }
 
   .selected {

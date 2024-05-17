@@ -83,7 +83,7 @@ export class EventService {
 
 
 
-  updateEvent(formData: FormData) {
+  updateEvent(formData: FormData, id: number) {
 
     const headers = new HttpHeaders({
       //  'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export class EventService {
 
 
 
-    return this.http.post<String>(`http://localhost:8081/api/events/upload/update`, formData, { headers: headers })
+    return this.http.post<String>(`http://localhost:8081/api/events/${id}/update`, formData, { headers: headers })
   }
 
 

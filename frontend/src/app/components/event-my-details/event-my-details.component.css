@@ -2,10 +2,14 @@
     margin-right: 8px;
   }
 
-  mat-tab-group{
-    /* margin-top: 20px; */
-    width: 80%;
-    margin-left: 10%;
+   mat-tab-group{
+     min-height: 91vh;
+  } 
+
+.tab-item{
+  margin-top: 20px; 
+    width: 80%; 
+    margin-left: 10%; 
 }
 
 

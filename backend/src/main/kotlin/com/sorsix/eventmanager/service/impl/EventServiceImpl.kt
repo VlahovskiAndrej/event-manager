@@ -82,7 +82,9 @@ class EventServiceImpl(
         event.name = editEventRequest.name
         event.description = editEventRequest.description
         event.category = editEventRequest.category
-        event.tags = editEventRequest.tagsNames.split(',').map { tn -> Tag(tn.trim()) }.toMutableList()
+        event.tags = editEventRequest.tagsNames.split(',')
+            .map { tn -> tagService.createTag(tn.trim()) }
+            .toMutableList()
         event.latitude = editEventRequest.latitude
         event.longitude = editEventRequest.longitude
         event.dateStart = editEventRequest.dateStart

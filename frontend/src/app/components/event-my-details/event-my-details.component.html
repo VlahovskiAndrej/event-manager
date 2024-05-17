@@ -1,5 +1,5 @@
 <mat-tab-group>
-    <mat-tab backgroundColor="primary">
+    <mat-tab backgroundColor="primary" >
       <ng-template mat-tab-label>
         <mat-icon class="example-tab-icon">info</mat-icon>
         Details
@@ -7,12 +7,14 @@
       <app-event-details></app-event-details>
     </mat-tab>
   
-    <mat-tab>
+    <mat-tab >
       <ng-template mat-tab-label>
         <mat-icon class="example-tab-icon">bar_charts</mat-icon>
         Stats
       </ng-template>
-      <app-event-stats></app-event-stats>
+      <div style="width: 80%; margin-left: 10%; display: flex;">
+        <app-event-stats></app-event-stats>
+      </div>
     </mat-tab>
   
     <mat-tab>
@@ -20,7 +22,9 @@
           <mat-icon class="example-tab-icon">sell</mat-icon>
           Tickets
         </ng-template>
-        <app-add-tickets ></app-add-tickets>
+        <div style="width: 80%; margin-left: 10%; display: flex;">
+          <app-add-tickets ></app-add-tickets>
+        </div>
     </mat-tab>
 
     <mat-tab>
@@ -28,7 +32,10 @@
           <mat-icon class="example-tab-icon">money</mat-icon>
           Coupons
         </ng-template>
-        <app-add-coupons></app-add-coupons>
+        <div style="width: 80%; margin-left: 10%; display: flex;">
+          <app-add-coupons></app-add-coupons>
+        </div>
+        
     </mat-tab>
 
     <mat-tab>
@@ -36,8 +43,9 @@
         <mat-icon class="example-tab-icon">settings</mat-icon>
         Update
       </ng-template>
-  
-      <app-update-event></app-update-event>
+      <div style="width: 80%; margin-left: 10%; display: flex;">
+        <app-update-event></app-update-event>
+      </div>
     </mat-tab>
 
 

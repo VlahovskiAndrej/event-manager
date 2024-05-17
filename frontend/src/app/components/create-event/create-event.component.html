@@ -10,10 +10,6 @@
 
         <p style="color: rgb(75, 0, 146); font-weight: 500;">We are excited to assist you in planning and hosting your upcoming event.</p>
 
-        <!-- <p style="font-size: 14px;">Before creating an event, make sure to carefully gather key details  </p>  -->
-         <!-- such as the title, date, time, location, category, type and tags while considering factors -->
-        <!-- like your target audience, budget, and any special requirements. This information will help you plan and promote to the intended audience so we can execute a successful event.</p> -->
-
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Title</mat-label>
           <input #title matInput formControlName="name" placeholder="Event title" maxlength="50" required>
@@ -21,14 +17,14 @@
           <mat-hint align="end">{{title.value.length}} / 50</mat-hint>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Description</mat-label>
           <textarea #message style="height: 80px;" matInput formControlName="description" placeholder="Desc..." required></textarea>
           <mat-hint align="start">Give us details about the event.</mat-hint>
           <mat-hint align="end">{{message.value.length}} / 550</mat-hint>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Category</mat-label>
           <mat-select formControlName="category">
             @for (category of categories; track category) {
@@ -58,7 +54,7 @@
 
         <p style="font-size: 14px;">Including a date range and location to your event is essential for providing attendees with clear information about when and where the it will take place, helping them plan and participate effectively.</p>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [rangePicker]="picker">
             <input matStartDate formControlName="dateStart" placeholder="5/1/2024">
@@ -88,7 +84,7 @@
         </div>
 
         @if(favoriteSeason == 'virtual'){
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>URL</mat-label>
             <input matInput formControlName="meetingUrl" placeholder="https://google.meet.com">
             <mat-hint>Add your Google Map, or virtual (e.g. Zoom, Teams, Google Meet, etc.) link here.</mat-hint>
@@ -96,20 +92,19 @@
         }
         @else{
         <div id="coordinates-input" style="display: flex; flex-direction: row; justify-content: space-evenly; margin-bottom: 12px;">
-          <mat-form-field class="coordinates">
+          <mat-form-field class="coordinates" appearance="outline">
             <mat-label>Longitude</mat-label>
             <input matInput [value]="longitude" formControlName="longitude" placeholder="50.0547">
             <mat-hint>East-west position on the Earth's surface</mat-hint>
           </mat-form-field>
   
-          <mat-form-field class="coordinates">
+          <mat-form-field class="coordinates" appearance="outline">
             <mat-label>Lattitude</mat-label>
             <input matInput [value]="lattitude" formControlName="lattitude" placeholder="39.1127">
             <mat-hint>North-south position on the Earth's surface</mat-hint>
           </mat-form-field>
         </div>
         
-
         <app-map (longitudeEvent)="addCoordinates($event)"></app-map>
         }
 
@@ -148,7 +143,7 @@
           <p style="font-size: 14px;">This step is <span style="color: rgb(75, 0, 146); font-weight: 500;">optional</span>. You can always change the price or issue more tickets after creating and promoting the event.</p>
 
           <mat-checkbox color="primary" (change)="onChangeFreeEnterance()">Free Enterance</mat-checkbox>
-          <mat-form-field floatLabel="always" class="full-width">
+          <mat-form-field floatLabel="always" class="full-width" appearance="outline">
             <mat-label>Price per ticket:</mat-label>
             <input matInput formControlName="price" placeholder="2.00" type="number">
             <span matTextPrefix>$&nbsp;</span>
@@ -156,7 +151,7 @@
           </mat-form-field>
 
           <mat-checkbox color="primary" (change)="onChangeUnlimitedTickets()">Unlimited Tickets</mat-checkbox>
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Number of tickets:</mat-label>
             <input matInput formControlName="numberOfTickets" placeholder="20" type="number">
             <mat-hint>Consider venue capacity and demand when determining the number of tickets to issue for your event.</mat-hint>
@@ -177,7 +172,13 @@
 
       <p style="font-size: 14px;">Based on this information, we will proceed with creating and finalizing the event plan. Our team will ensure that everything is in place to make your event a memorable success. If there are any further details or adjustments needed, you can always come back.</p>
 
+      <img src="assets/logo/logoPurple.png" alt="" width="30%" style="margin-bottom: 20px;">
+
       <p style="font-size: 14px;">Thank you for choosing us as your event management partner.</p>
+
+      <p style="font-size: 14px; margin: 0;">Sincerely,</p>
+      <p style="font-size: 14px; margin: 0; margin-bottom: 25px;">EventFlow managment team.</p>
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-raised-button color="primary" (click)="createEvent()">Create Event</button>

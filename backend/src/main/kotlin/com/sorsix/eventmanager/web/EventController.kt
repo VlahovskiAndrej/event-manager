@@ -66,27 +66,11 @@ class EventController(
         return ResponseEntity.ok(event)
     }
 
-    @PostMapping("/upload/update")
-    fun updateUploadImage(@ModelAttribute req: EditEventRequest, request: HttpServletRequest): ResponseEntity<String> {
+    @PostMapping("/{id}/update")
+    fun updateUploadImage(@PathVariable id: Long, @ModelAttribute req: EditEventRequest, request: HttpServletRequest): ResponseEntity<Event> {
 
-//        val event: Event = eventService.createEvent(req, request)
-//
-//        val imageName: String = req.file.originalFilename ?: "image"
-//        val contentType: String = req.file.contentType ?: "image/jpeg"
-//        val imageData: ByteArray = req.file.bytes
-//        thumbnailService.saveThumbnail(event.id, imageName, contentType, imageData)
-//
-//        for (file in req.files) {
-//            imageService.saveImage(
-//                event,
-//                file.originalFilename ?: "image",
-//                file.contentType ?: "image/jpeg",
-//                file.bytes
-//            )
-//        }
-//
         println(req)
-        return ResponseEntity.ok("")
+        return ResponseEntity.ok(eventService.updateEvent(id, req))
     }
 
     @GetMapping("/image/{id}")

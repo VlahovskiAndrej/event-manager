@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EventInterface } from '../../interfaces/event';
 import { EventService } from '../../services/event.service';
 import { CustomDatePipe } from '../../pipes/custom.datepipe';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-near-me-event',
   standalone: true,
-  imports: [CustomDatePipe],
+  imports: [CustomDatePipe, MatIconModule],
   templateUrl: './near-me-event.component.html',
   styleUrl: './near-me-event.component.css'
 })
