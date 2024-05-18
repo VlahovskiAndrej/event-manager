@@ -2,41 +2,47 @@
     width: 100%;
   }
 
-  #container{
-    margin: 2% 0;
+  #container {
     height: 82vh;
     margin-left: 5%;
     width: 90%;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    background-color: white;
   }
 
-  #download-icon{
+  #main-container {
+    background-color: rgb(247, 247, 247, 0.9);
+    padding-top:30px;
+    padding-bottom: 30px;
+  }
+
+  #download-icon {
     cursor: pointer;
   }
 
-  #text-dot-red{
+  #text-dot-red {
     color: red;
     font-size: 40px;
     text-align: center;
     vertical-align: middle;
   }
 
-  #text-dot-green{
+  #text-dot-green {
     color: rgb(62, 161, 62);
     font-size: 40px;
     text-align: center;
     vertical-align: middle;
   }
 
-  td{
+  td {
     text-align: center;
     /* display: flex;    */
     justify-content: center;
     /* flex-direction: row; */
   }
 
-  th{
+  th {
     text-align: center;
   }

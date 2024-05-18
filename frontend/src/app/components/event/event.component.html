@@ -4,12 +4,10 @@
       <mat-card-title>{{event?.name}}</mat-card-title>
 
     </mat-card-header>
-    <mat-card-content>
 
-    </mat-card-content>
-    <img mat-card-image [src]="thumbnailUrl">
     @if(showDetails){
       <mat-card-content>
+        <img mat-card-image [src]="thumbnailUrl">
         <div class="event-details-icon"><mat-icon color="primary">local_activity </mat-icon><span>{{event?.availableTickets}} tickets left</span> </div>
         @if(event?.dateStart == event?.dateFinish){
           <div class="event-details-icon"> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}}</span></div>
@@ -27,5 +25,10 @@
         </button> 
       </mat-card-content>
     }
+    @else {
+      <img mat-card-image [src]="thumbnailUrl" style="height: 230px; width: 90%; margin-left: 20px;">
+
+    }
+  
 </mat-card>
 

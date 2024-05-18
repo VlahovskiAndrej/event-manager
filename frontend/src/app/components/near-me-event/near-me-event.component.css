@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: row;
     justify-content: start;
+    background-color: white;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+
 }
 
 #image{
@@ -14,4 +19,7 @@ img{
 
 #text{
     width: 65%;
+    margin-top: 0px; 
+    padding-left: 10px;
+    padding-bottom: 20px;
 }

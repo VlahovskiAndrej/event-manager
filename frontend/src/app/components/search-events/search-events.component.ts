@@ -15,8 +15,6 @@ import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import {  RouterLink, RouterOutlet } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-// import { NgxPaginationModule, PaginationService } from 'ngx-pagination';
-import { Events } from 'leaflet';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
@@ -33,7 +31,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatPaginator,
     MatSelectModule,
     RouterOutlet,
-    // NgxPaginationModule,
     RouterLink,
     MatExpansionModule
     ],

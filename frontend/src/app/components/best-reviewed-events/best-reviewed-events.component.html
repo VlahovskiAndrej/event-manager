@@ -1,44 +1,13 @@
 <div id="container">
     <h2>Best Reviewed</h2>
+    <div class="events">
         @if (events) {
-            <ngb-carousel [interval] = 0>
-                <ng-template ngbSlide>
-                    <div class="picsum-img-wrapper">
-                        <app-event [event]="events[0]" [showDetails]="false" ></app-event>
-                        <app-event [event]="events[1]" [showDetails]="false"></app-event>
-                        <app-event [event]="events[2]" [showDetails]="false"></app-event>
-                    </div>
-    
-                </ng-template>
-                <ng-template ngbSlide>
-                    <div class="picsum-img-wrapper">
-                        <app-event [event]="events[3]" [showDetails]="false"></app-event>
-                        <app-event [event]="events[0]" [showDetails]="false"></app-event>
-                        <app-event [event]="events[1]" [showDetails]="false"></app-event>
-                    </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                    <div class="picsum-img-wrapper">
-                        <app-event [event]="events[2]" [showDetails]="false"></app-event>
-                        <app-event [event]="events[3]" [showDetails]="false"></app-event>
-                        <app-event [event]="events[0]" [showDetails]="false"></app-event>               
-                     </div>
-                </ng-template>
-            </ngb-carousel>
+        <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
+        <app-event routerLink="/events/{{events[1].id}}" [event]="events[1]" [showDetails]="false"></app-event>
+        <app-event routerLink="/events/{{events[2].id}}" [event]="events[2]" [showDetails]="false"></app-event>
         }
-        <div class="companies">
-            Companies that trust us
-        </div>
-            
-    <!-- @if(events){
-        <div class="carousel-container">
-            @for (e of currentEvents; track e.id){
-                <div class="carousel-slide">
-                    <app-event [showDetails]="true"></app-event>
-                </div>
-            }
-            <button (click)="prevEvent()">Previous</button>
-            <button (click)="nextEvent()">Next</button>
-        </div>   
-    } -->
+    </div>
+    <div class="companies">
+        Companies that trust us
+    </div>
 </div>

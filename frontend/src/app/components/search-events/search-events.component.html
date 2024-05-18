@@ -1,83 +1,59 @@
 <div class="main-container">
+    <div class="filter-container">
+        <mat-form-field id="search-bar" appearance="outline">
+            <mat-icon matPrefix>search</mat-icon>
+            <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
+        </mat-form-field>
+        <mat-form-field class="date-picker" appearance="outline">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate formControlName="start" #startDateInput placeholder="Start date">
+                <input matEndDate formControlName="end" #endDateInput placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker>
+                <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDatepickerApply
+                        (click)="filterByDate(picker)">Apply</button>
+                </mat-datepicker-actions>
+            </mat-date-range-picker>
+        </mat-form-field>
+        <button mat-fab extended color="primary" id="clear-filter" (click)="clearFilter()">
+            <mat-icon>clear-filter</mat-icon>
+            Clear
+        </button>
+    </div>
 
-<div class="filter-container">
+    <div id="categories">
+        @for(c of categories; track c){
+        <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal"
+            aria-multiselectable="true">
+            <mat-chip-option [color]="'primary'" (click)="filterByCategory(c)"
+                [class.active]="selectedCategories.includes(c)" class="custom-chip-option">{{c}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+        }
+    </div>
 
-    <mat-form-field id="search-bar" appearance="outline">
-        <mat-icon matPrefix>search</mat-icon>
-        <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
-    </mat-form-field>
-
-    <mat-form-field class="date-picker" appearance="outline">
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate formControlName="start" #startDateInput placeholder="Start date">
-            <input matEndDate formControlName="end" #endDateInput placeholder="End date">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker>
-            <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply
-                    (click)="filterByDate(picker)">Apply</button>
-            </mat-datepicker-actions>
-        </mat-date-range-picker>
-    </mat-form-field>
-
-
-    <!-- <mat-form-field id="city-select" appearance="outline">
-        <mat-select placeholder="City">
-            @for (city of cities; track city) {
-            <mat-option [value]="city.value">{{city.viewValue}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field> -->
-
-    <button mat-fab extended color="primary" id="clear-filter" (click)="clearFilter()">
-        <mat-icon>clear-filter</mat-icon>
-        Clear
-    </button>
-
-   
-
-</div>
-
-
-
-
-
-<div id="categories">
-    @for(c of categories; track c){
-    <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal"
-        aria-multiselectable="true">
-        <mat-chip-option 
-            [color]="'primary'"
-            (click)="filterByCategory(c)"
-            [class.active]="selectedCategories.includes(c)"
-            class="custom-chip-option"
-            >{{c}}
-        </mat-chip-option>
-    </mat-chip-listbox>
-    }
-</div>
-
-<div id="events">
-    @if (!loading){
+    <div id="events">
+        @if (!loading){
         @for (e of events!; track e.id){
         <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
         }
-    }
-    @else {
-    <div class="spinner"></div>
-    }
-    @if(events?.length==0 && !loading){
-    <p>There are no found events with the given filter</p>
-    }
-</div>
+        }
+        @else {
+        <div class="spinner"></div>
+        }
+        @if(events?.length==0 && !loading){
+        <p>There are no found events with the given filter</p>
+        }
+    </div>
 
-@if(!loading){
-<mat-paginator [length]="events?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 100]"
-    (page)="pageEvent = $event" style="background-color: rgb(247, 247, 247, 0.9);">
-</mat-paginator>
-}
+    @if(!loading){
+    <mat-paginator [length]="events?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 100]"
+        (page)="pageEvent = $event" style="background-color: rgb(247, 247, 247, 0.9);">
+    </mat-paginator>
+    }
 
 </div>

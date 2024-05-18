@@ -4,12 +4,13 @@ import { EventInterface } from '../../interfaces/event';
 import { EventService } from '../../services/event.service';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { last } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-best-reviewed-events',
   standalone: true,
-  imports: [EventComponent,NgbCarouselModule],
+  imports: [EventComponent,NgbCarouselModule,RouterLink],
   templateUrl: './best-reviewed-events.component.html',
   styleUrl: './best-reviewed-events.component.css'
 })

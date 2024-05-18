@@ -7,6 +7,8 @@
 #near-me{
     display: flex;
     flex-direction: row;
+    background-color: rgb(247, 247, 247, 0.9); 
+
 }
 
 #event-list{

@@ -22,11 +22,17 @@ app-image-galery {
     padding: 15px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 80%;
     margin-left: 10%;
     /* border: 1px solid black; */
 }
-
+#main-container{
+    width:100%; 
+    background-color: rgb(247, 247, 247, 0.9); 
+    margin-top: 0px; 
+    padding-bottom: 20px;
+}
 #row1 {
     width: 100%;
     display: flex;
