@@ -6,7 +6,7 @@
     
                 <app-image-galery [slides]="imagesUrl"></app-image-galery>
     
-                @if(event?.availableTickets == 0){
+                @if(event?.availableTickets == 0 || user == null){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()"
                     disabled>Buy Ticket</button>
                 }
@@ -31,41 +31,54 @@
                     }
                 </div>
     
-                <div id="when">
-                    <div>
-                        <h3 style="margin-bottom: 20px;">When?</h3>
-                        <p style="display: flex; gap: 5px; margin-left: 20px;  flex-direction: row;">
-                            <mat-icon aria-label="Example home icon" fontIcon=""
-                                style="padding-right: 30px;">calendar_month</mat-icon>
-                            <span>{{event?.dateStart | customDateDetails}} - {{event?.dateFinish | customDateDetails}}
-                            </span>
-                        </p>
-    
-                        <p style="display: flex; gap: 5px; margin-left: 20px;">
-                            <mat-icon aria-label="Example home icon" fontIcon="schedule"></mat-icon>
-                            <span>{{event?.timeStart?.toString()?.substring(0,5)}} -
-                                {{event?.timeFinish?.toString()?.substring(0,5)}}</span>
-                        </p>
+                <div id="when-where">
+                    <div id="when">
+                        <h3>When?</h3>
+                        <div style="display: flex; flex-direction: row;">
+                            <div id="calendar-icon" style="margin-left: 15px;">
+                                <span id="month" style="text-align: center;">May</span>
+                                <span id="date" style="text-align: center;">17</span>
+                            </div>
+                            <div>
+                                <p style="display: flex; margin-left: 10px;  flex-direction: column; justify-content: space-evenly;">
+                                    <span>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}
+                                    </span>
+                                    <span style="color: gray;">{{event?.timeStart?.toString()?.substring(0,5)}} -
+                                        {{event?.timeFinish?.toString()?.substring(0,5)}}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <div id="where">
+                        <h3>Where?</h3>
     
-                    <div>
-                        <h3 style="margin-bottom: 20px; margin-left: 50px; ">Where?</h3>
     
-    
-                        <p style="display: flex; gap: 5px; margin-left: 70px;">
-                            <mat-icon aria-label="Example home icon" fontIcon="apartment"></mat-icon>
+                        <p style="display: flex;">
+                            
+                            <span id="calendar-icon" style="margin-left: 15px; display: flex; justify-content: center; align-items: center;">
+                                <img src="https://icones.pro/wp-content/uploads/2021/02/icone-de-localisation-violette.png" alt="" width="40px">
+                            </span>
+
                             @if(event?.latitude != null && event?.longitude != null &&
                             event?.latitude != "" && event?.longitude != ""){
-                            <span>Skopje, Macedonia</span>
+                                <div style="display: flex; margin-left: 10px;  flex-direction: column; justify-content: center; align-items: flex-start;">
+                                    <span style="margin: 0;">Skopje, Macedonia</span>
+                                    <span style="color: gray; margin: 0;">{{event?.longitude}}, {{event?.latitude}}</span>
+                                </div>
+                            
                             }@else{
-                            <span> <a href="">Google meet</a> or <a href="">Zoom</a></span>
+                                <div style="display: flex; margin-left: 6px;  flex-direction: column; justify-content: space-evenly;">
+                                    <a href="">Google meet</a> or <a href="">Zoom</a>
+                                    <span style="color: gray;">Url: {{event?.meetingUrl}}</span>
+                                </div>
+                            
                             }
     
                         </p>
     
-                        <p style="display: flex; gap: 5px; margin-left: 70px;">
-                            <mat-icon aria-label="Example home icon" fontIcon="location_on"></mat-icon>
-    
+                        <!-- <p style="display: flex; gap: 5px; margin-left: 70px;">
+                            
                             @if(event?.latitude != null && event?.longitude != null &&
                             event?.latitude != "" && event?.longitude != ""){
                             <span>{{event?.longitude}}, {{event?.latitude}}</span>
@@ -73,11 +86,29 @@
                             <span>ONLINE, You can be where you want!</span>
                             }
     
-                        </p>
+                        </p> -->
                     </div>
                 </div>
     
-    
+                <div id="register-div">
+                    <div style="background-color: rgb(234, 232, 232); height: 35px; color: rgb(79, 79, 79); padding: 15px; display: flex; align-items: center; font-size: 17px;">
+                        Registration
+                    </div>
+                    <div style="padding: 15px; font-size: 17px;">
+                        @if(user == null){  
+                            Welcome, to buy ticket for this event, please login or create an account.
+                            <button routerLink="/register" style="width: 100%; margin-top: 10px;" mat-raised-button color="primary">Create an account</button>
+                        }
+                        @else {
+                            Welcome {{user.firstName}}, every ticket you buy will be connected to this email.
+                            <p style="display: flex; padding: 10px; border: 1px dashed rgb(158, 158, 158); width: max-content; margin: 5px 5%; border-radius: 12px;">
+                                <mat-icon color="" aria-label="Example home icon" fontIcon="account_circle" style="margin-right: 10px;"></mat-icon>
+                                {{user.username}}
+                            </p>
+                        }
+                        
+                    </div>
+                </div>
     
             </div>
     
@@ -132,30 +163,41 @@
                 <h3 style="font-size: 20px;">
                     Similar events in the past year have happened in:
                 </h3>
-                <p> <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>Bitola
+                <p style="display: flex; padding: 3px;"> 
+                    <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>
+                    <span>Bitola</span>
                 </p> <br>
-                <p> <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>Prilep
+                <p style="display: flex; padding: 3px;">
+                    <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>
+                    <span>Prilep</span>
                 </p> <br>
-                <p> <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>Ohrid</p>
-                <br>
+                <p style="display: flex; padding: 3px;"> 
+                    <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>
+                    <span>Ohrid</span>
+                </p>
+                
             </div>
             }
     
     
         </div>
         <hr>
-    
+        
+        <h3 style="margin-bottom: 20px;">Organized by</h3>
         <div id="row4">
-            <h3 style="margin-bottom: 20px;">Organized by</h3>
-            <p style="display: flex; gap: 5px; margin-left: 20px;">
-                <mat-icon aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
-                <span>{{event?.creator?.firstName}}</span>
-            </p>
-    
-            <p style="display: flex; gap: 5px; margin-left: 20px;">
-                <mat-icon aria-label="Example home icon" fontIcon="mail"></mat-icon>
-                <span>{{event?.creator?.username}}</span>
-            </p>
+
+            <span id="calendar-icon" style="margin-left: 15px; display: flex; justify-content: center; align-items: center;">
+                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtXikD7JN5wLRCtD3c9ZwlICtFZJdRtYzfuGnCcthdipeNTK2-50Hmuk0q9Y4JSUnJpCY&usqp=CAU" alt="" width="40px"> -->
+                <span style="font-size: 26px;">{{event?.creator?.firstName?.charAt(0)}}</span>
+            </span>
+
+            <div style="display: flex; flex-direction: column; margin-left: 10px;">
+                    <span style="font-size: 18px;">{{event?.creator?.firstName}}</span>
+      
+        
+                    <span style="color: gray;">{{event?.creator?.username}}</span>
+            </div>
+            
         </div>
         <hr>
     

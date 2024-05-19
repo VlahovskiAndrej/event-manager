@@ -17,6 +17,8 @@ import { ImageGalleryComponent } from '../image-galery/image-galery.component';
 import { CustomDatePipe } from "../../pipes/custom.datepipe";
 import { CustomDatePipeDetails } from "../../pipes/custom.datepipedetails";
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../interfaces/user';
 
 
 @Component({
@@ -50,11 +52,22 @@ export class EventDetailsComponent implements OnInit {
   imagesUrl: any[] = []
   id: string | undefined
   hasMoreImages = true
+  user: User|null = null
 
-  constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
+    
+    this.authService.getLoggedUser().subscribe(
+      (user) => {
+        this.user = user
+      }
+    )
+
+    console.log(this.user)
+
+
     this.eventService.getEventById(id).subscribe(
       (e) => {
         this.event = e

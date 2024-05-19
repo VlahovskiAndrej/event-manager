@@ -57,6 +57,7 @@ export const routes: Routes = [
         path: '**',
         component: HomePageComponent,
         // ova mora da e najdole
+        // Moze da se implementira PAGE_NOT_FOUND COMPONENT
     },
 
 
