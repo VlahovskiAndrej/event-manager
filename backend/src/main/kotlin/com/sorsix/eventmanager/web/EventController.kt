@@ -88,12 +88,12 @@ class EventController(
     @GetMapping("/{id}/images/{num}")
     fun getImagesByEventId(@PathVariable id: Long, @PathVariable num: Int): ResponseEntity<Any> {
         val images: List<Image> = imageService.findAllByEvent(id)
-        if (images[num] != null) {
-            val headers: HttpHeaders = HttpHeaders()
-//            headers.contentType = (MediaType.parseMediaType(image.contentType))
-            return ResponseEntity<Any>(images[num].data, headers, HttpStatus.OK)
+        return if (images[num] != null) {
+            val headers = HttpHeaders()
+    //            headers.contentType = (MediaType.parseMediaType(image.contentType))
+            ResponseEntity<Any>(images[num].data, headers, HttpStatus.OK)
         } else {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
+            ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
 

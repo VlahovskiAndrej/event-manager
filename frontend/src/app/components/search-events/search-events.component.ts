@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { BehaviorSubject, Subject, combineLatest, debounceTime, distinctUntilChanged, mergeMap, switchMap, tap } from 'rxjs';
 import { EventInterface } from '../../interfaces/event';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { } from 'mdb-angular-ui-kit/'
 import { NgFor } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import {  RouterLink, RouterOutlet } from '@angular/router';
+import {  Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 
@@ -33,7 +33,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     RouterOutlet,
     RouterLink,
     MatExpansionModule
-    ],
+  ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './search-events.component.html',
   styleUrls: ['./search-events.component.css']
@@ -53,7 +53,7 @@ export class SearchEventsComponent {
   categories: string[] | undefined;
   selectedCategories: string[] = [];
 
-  query$: Subject<string> = new Subject();
+  query$: BehaviorSubject<string> = new BehaviorSubject("");
 
   date$ = new BehaviorSubject<any>("");
 
@@ -70,7 +70,7 @@ export class SearchEventsComponent {
   @ViewChild('date') dateInput!: ElementRef<HTMLInputElement>;
 
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -139,24 +139,13 @@ export class SearchEventsComponent {
 
   filterByDate(date: any) {
     const returned: string[] = [date._model.selection.start, date._model.selection.end]
-    console.log("raboti")
-    console.log(returned)
     this.date$.next(returned);
   }
 
   clearFilter() {
-
-    this.searchInput.nativeElement.value = '';
-    this.searchInput.nativeElement.placeholder='Search...';
-
-      this.startDateInput.nativeElement.value = '';
-      this.endDateInput.nativeElement.value = '';
-
-    this.date$.next("");
-
-    this.selectedCategories = [];
-
-    this.filterByCategory("ALL");
+    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/events']);
+  }); 
 
   }
 

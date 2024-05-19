@@ -30,7 +30,7 @@
         <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal"
             aria-multiselectable="true">
             <mat-chip-option [color]="'primary'" (click)="filterByCategory(c)"
-                [class.active]="selectedCategories.includes(c)" class="custom-chip-option">{{c}}
+                [class.active]="selectedCategories.includes(c)" class="custom-chip-option"><span> {{c}}</span> 
             </mat-chip-option>
         </mat-chip-listbox>
         }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventInterface } from '../interfaces/event';
-import { Image } from '../interfaces/image';
 
 @Injectable({
   providedIn: 'root'
