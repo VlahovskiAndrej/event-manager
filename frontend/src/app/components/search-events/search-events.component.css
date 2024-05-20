@@ -10,6 +10,7 @@
 
 .main-container{
     background-color: rgb(247, 247, 247, 0.9); margin-top: 0px; padding-bottom: 20px;
+    min-height: 92vh;
 }
 
 #search-bar {
@@ -75,4 +76,8 @@ mat-paginator{
     font-size: 14px  !important;
     font-family: Roboto, sans-serif !important;
     /* color: gray !important; */
+}
+
+.spinner{
+    margin-top: 100px;
 }

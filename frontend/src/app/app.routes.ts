@@ -11,6 +11,7 @@ import { MapComponent } from './components/create-event-map/map.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventMyDetailsComponent } from './components/event-my-details/event-my-details.component';
 import { NearMeMapComponent } from './components/near-me-map/near-me-map.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     {
@@ -54,8 +55,12 @@ export const routes: Routes = [
         component: EventMyDetailsComponent,
     },
     {
-        path: '**',
+        path: '',
         component: HomePageComponent,
+    },
+    {
+        path: '**',
+        component: PageNotFoundComponent,
         // ova mora da e najdole
         // Moze da se implementira PAGE_NOT_FOUND COMPONENT
     },
