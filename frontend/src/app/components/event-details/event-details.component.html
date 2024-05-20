@@ -8,7 +8,7 @@
     
                 @if(event?.availableTickets == 0 || user == null){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()"
-                    disabled>Buy Ticket</button>
+                    disabled>There isn't any tickets available.</button>
                 }
                 @else if (event?.price == 0){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary"
@@ -21,13 +21,12 @@
             </div>
     
             <div id="event-data">
-                <p
-                    style="background-color: rgb(247, 185, 185); text-align: center; border-radius: 10px; margin-top: 15px; margin-bottom: 0; display: inline-block; padding: 2px 8px;">
+                <p style="margin: 0; border-bottom: 1px solid gray; width: min-content; margin-bottom: 5px;">                
                     {{event?.category}}</p>
                 <h1>{{event?.name}}</h1>
                 <div id="tags">
                     @for (tag of event?.tags; track tag.id) {
-                    <p>#{{tag.name}}</p>
+                    <p>{{tag.name}}</p>
                     }
                 </div>
     

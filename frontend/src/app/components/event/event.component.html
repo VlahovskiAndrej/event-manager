@@ -7,19 +7,39 @@
 
     @if(showDetails){
       <mat-card-content>
-        <img mat-card-image [src]="thumbnailUrl">
-        <div class="event-details-icon"><mat-icon color="primary">local_activity </mat-icon><span>{{event?.availableTickets}} tickets left</span> </div>
+
+        <div class="image-container">
+          <img id="thumbnail-img" [src]="thumbnailUrl" alt="Thumbnail Image">
+          @if(event?.availableTickets == 0){
+            <div class="sold-out-text">Sold Out!</div>
+          }
+          @else if (event?.availableTickets!! < 6) {
+            <div class="few-remaining-text">{{event?.availableTickets}} Tickets Left!</div>
+          }
+        </div>
+
         @if(event?.dateStart == event?.dateFinish){
-          <div class="event-details-icon"> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}}</span></div>
+          <div class="event-details-icon"> 
+            <img src="assets/icons/calendar.png" alt="" width="20px" height="20px"> 
+            <span>{{event?.dateStart | customDate}}</span>
+          </div>
         }
         @else{
-          <div class="event-details-icon"> <mat-icon color="primary">calendar_month</mat-icon> <span>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span></div>
-
+          <div class="event-details-icon"> 
+            <img src="assets/icons/calendar.png" alt="" width="18px" height="18px">  
+            <span>{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span>
+          </div>
         }
-        <div class="event-details-icon"> <mat-icon color="primary">schedule</mat-icon> <span> {{event?.timeStart?.toString()?.substring(0,5) }} - {{event?.timeFinish?.toString()?.substring(0,5)}}</span></div>
-        <div class="event-details-icon" id="tip"> <mat-icon color="primary">room</mat-icon> <span>{{event?.type | uppercase }} event</span>  </div>
+        <div class="event-details-icon"> 
+          <img src="assets/icons/time.png" alt="" width="20px" height="20px"> 
+          <span> {{event?.timeStart?.toString()?.substring(0,5) }} - {{event?.timeFinish?.toString()?.substring(0,5)}}</span>
+        </div>
+        <div class="event-details-icon" id="tip"> 
+          <img src="assets/icons/location.png" alt="" width="20px" height="20px"> 
+          <span>{{event?.type | uppercase }} event</span>  
+        </div>
 
-        <button mat-raised-button extended color="primary">
+        <button mat-raised-button extended>
           <mat-icon>event_available</mat-icon>
           See Details
         </button> 

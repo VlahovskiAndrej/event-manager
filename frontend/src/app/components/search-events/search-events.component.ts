@@ -62,13 +62,10 @@ export class SearchEventsComponent {
 
   pageEvent: PageEvent | undefined;
 
-
-
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   @ViewChild('startDateInput') startDateInput!: ElementRef<HTMLInputElement>;
   @ViewChild('endDateInput') endDateInput!: ElementRef<HTMLInputElement>;
   @ViewChild('date') dateInput!: ElementRef<HTMLInputElement>;
-
 
   constructor(private eventService: EventService, private router: Router) { }
 
@@ -77,8 +74,6 @@ export class SearchEventsComponent {
     this.eventService.getEvents()
       .subscribe(
         events => {
-          this.events = events.sort((a, b) => (a.category.localeCompare(b.category)))
-          this.allEvents = events.sort((a, b) => (a.category.localeCompare(b.category)))
           this.loading = false
         }
       );

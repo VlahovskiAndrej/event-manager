@@ -5,6 +5,7 @@ import { EventInterface } from '../../interfaces/event';
 import { EventMyComponent } from '../event-my/event-my.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { EventComponent } from '../event/event.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-search-my-events',
@@ -13,7 +14,8 @@ import { EventComponent } from '../event/event.component';
     EventMyComponent,
     RouterOutlet,
     RouterLink,
-    EventComponent
+    EventComponent,
+    MatButtonModule
   ],
   templateUrl: './search-my-events.component.html',
   styleUrl: './search-my-events.component.css'

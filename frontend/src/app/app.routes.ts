@@ -64,6 +64,4 @@ export const routes: Routes = [
         // ova mora da e najdole
         // Moze da se implementira PAGE_NOT_FOUND COMPONENT
     },
-
-
 ];

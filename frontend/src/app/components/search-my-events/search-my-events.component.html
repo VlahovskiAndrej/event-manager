@@ -7,17 +7,29 @@
 
     <div id="my-events">
         @if (!loading){
-        @for (e of events; track e.id){
-        <app-event routerLink="/events/my-events/{{e.id}}" [event]="e"></app-event>
-        }
+            @if (events?.length == 0){
+                <div id="no-events">
+                    <h3>No upcoming events.</h3>
+                    <h5 style="color: gray;">You have no upcoming events. Why not host one?</h5>
+                    <button style="margin-top: 25px;" mat-raised-button color="primary" routerLink="/events/create">
+                        <i class="fa-solid fa-plus"></i>
+                        Create event
+                    </button>
+                </div>
+            }
+            @else {
+                @for (e of events; track e.id){
+                    <app-event routerLink="/events/my-events/{{e.id}}" [event]="e"></app-event>
+                    }
+            }   
         }
         @else {
-        <p id="loading-text">Loading...</p>
+            <p id="loading-text">Loading...</p>
         }
     </div>
-    <hr style="width: 80%; margin-left: 10%;">
+    <!-- <hr style="width: 80%; margin-left: 10%;"> -->
 
-    <h1 style="text-align: start; margin-top: 25px; margin-left: 10%;">My Past Events</h1>
+    <!-- <h1 style="text-align: start; margin-top: 25px; margin-left: 10%;">My Past Events</h1> -->
 
 
 </div>
