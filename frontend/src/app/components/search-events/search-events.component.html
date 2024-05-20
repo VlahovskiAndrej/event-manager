@@ -1,14 +1,16 @@
 <div class="main-container">
-    <div class="filter-container">
+    <div class="filter-container" style="font-size: 12px;">
+        
         <mat-form-field id="search-bar" appearance="outline">
             <mat-icon matPrefix>search</mat-icon>
-            <input type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
+            <input style="font-size: 15px;" type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
         </mat-form-field>
-        <mat-form-field class="date-picker" appearance="outline">
+        
+        <mat-form-field class="date-picker" appearance="outline" floatLabel="always">
             <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate formControlName="start" #startDateInput placeholder="Start date">
-                <input matEndDate formControlName="end" #endDateInput placeholder="End date">
+            <mat-date-range-input [rangePicker]="picker" >
+                <input style="font-size: 15px;" matStartDate formControlName="start" #startDateInput placeholder="Start date">
+                <input style="font-size: 15px;" matEndDate formControlName="end" #endDateInput placeholder="End date">
             </mat-date-range-input>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker>
@@ -19,10 +21,12 @@
                 </mat-datepicker-actions>
             </mat-date-range-picker>
         </mat-form-field>
-        <button mat-fab extended color="primary" id="clear-filter" (click)="clearFilter()">
-            <mat-icon>clear-filter</mat-icon>
-            Clear
+
+        <button id="clear-filter" (click)="clearFilter()" style="font-size: 16px;">
+            <i class="fa-solid fa-xmark"></i>
+            <span style="margin-left: 5px;">Clear</span>
         </button>
+
     </div>
 
     <div id="categories">

@@ -5,7 +5,7 @@
     justify-content: center;
     width: 80%;
     margin-left: 10%;
-    
+    gap: 5px;
 }
 
 .main-container{
@@ -26,10 +26,12 @@
 } */
 
 #clear-filter{
-    width: 10%;
-    margin-left: 0.5%;
-    margin-top: 5px;
-    box-shadow: none;
+    width: 7%;
+    height: 45px;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 12px;
+    border: none;
 }
 
 #categories{
@@ -80,4 +82,15 @@ mat-paginator{
 
 .spinner{
     margin-top: 100px;
+}
+
+:host ::ng-deep .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 12px;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 45px !important;
+}
+::ng-deep .mat-mdc-form-field-flex {
+    margin-top: -5px !important;
 }
