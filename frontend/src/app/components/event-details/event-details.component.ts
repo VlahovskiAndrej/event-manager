@@ -110,4 +110,9 @@ export class EventDetailsComponent implements OnInit {
     )
   }
 
+
+  openGoogleMaps(lat: string, lon: string){
+    location.href = 'https://www.google.com/maps/place/'+ lat + ',' + lon;
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -27,7 +27,7 @@ import { DialogSettingsComponent } from '../dialog-settings/dialog-settings.comp
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
   token: string | null = localStorage.getItem('token')
   username: string | null = localStorage.getItem('username')
 
@@ -35,6 +35,12 @@ export class NavbarComponent{
     private authService: AuthService,
     public dialog: MatDialog
   ){}
+
+  ngOnInit(): void {
+    this.authService.getLoggedUser().subscribe(
+      (u) => this.username = u.firstName
+    )
+  }
 
   logout() {
     this.authService.logout()

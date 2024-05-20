@@ -4,8 +4,8 @@
     flex-direction: row;
     justify-content: center;
     width: 80%;
-    margin-left: 10%;
-    gap: 5px;
+    margin-left: 9.5%;
+    gap: 0.5%;
 }
 
 .main-container{
@@ -26,7 +26,7 @@
 } */
 
 #clear-filter{
-    width: 7%;
+    width: 8%;
     height: 45px;
     background-color: blueviolet;
     color: white;

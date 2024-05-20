@@ -46,6 +46,7 @@
   app-near-me-event{
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
   }
 
   app-near-me-event:hover {
@@ -59,3 +60,14 @@
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+
+  :host ::ng-deep .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 12px;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 45px !important;
+}
+::ng-deep .mat-mdc-form-field-flex {
+    margin-top: -5px !important;
+}

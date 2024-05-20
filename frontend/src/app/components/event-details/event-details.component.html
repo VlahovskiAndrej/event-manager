@@ -8,7 +8,7 @@
     
                 @if(event?.availableTickets == 0 || user == null){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()"
-                    disabled>There isn't any tickets available.</button>
+                    disabled>There isn't any tickets a</button>
                 }
                 @else if (event?.price == 0){
                 <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary"
@@ -114,72 +114,68 @@
         </div>
     
         <hr>
+        
         <div id="row3">
             <h3>Additional info</h3>
             <div>
-                @if(event?.description?.length!!<50){ <p>Event Title: “TechConnect 2024”
-                    Join us for the TechConnect 2024 conference—an electrifying convergence of tech enthusiasts,
-                    innovators,
-                    and visionaries. Whether you’re a seasoned coder or a curious beginner, this event promises
-                    inspiration, learning, and connections.</p>
-                    <p>Event Title: “TechConnect 2024”
-                        Join us for the TechConnect 2024 conference—an electrifying convergence of tech enthusiasts,
-                        innovators,
-                        and visionaries. Whether you’re a seasoned coder or a curious beginner, this event promises
-                        inspiration, learning, and connections.</p>
-    
-                    }
-                    @else {
-                    <p>{{event?.description}}</p>
-                    }
+                @if(event?.description?.length!! == 0){ 
+                    <p style="margin: 0;">There isn't any additional information provided by the organizers...</p>
+                }
+                @else {
+                    <p style="margin: 0;">{{event?.description}}</p>
+                }
             </div>
         </div>
+
         <hr>
+
         <div id="row2">
     
-            <div id="where">
+            <div id="map-location">
                 @if (event?.latitude != null && event?.longitude != null &&
                 event?.latitude != "" && event?.longitude != ""){
-                <app-event-details-map [longitude]="event?.longitude" [latitude]="event?.latitude"></app-event-details-map>
+                    <app-event-details-map [longitude]="event?.longitude" [latitude]="event?.latitude"></app-event-details-map>
                 }
                 @else if(event?.meetingUrl != null){
     
-                <h6 style="margin-top: 25px;">ONLINE event! Here's what to expect:</h6>
-                <ul>
-                    <li>Accessible Online Platform: The event will be hosted virtually, providing you with the convenience
-                        of attending from anywhere.</li>
-                    <li>Personalized Credentials: Upon ticket purchase, you'll receive your unique username and password for
-                        exclusive access.</li>
-                    <li>Secure Your Spot: Don't miss out! Get your tickets now and prepare for an immersive online
-                        experience.</li>
-                </ul>
+                    <h6 style="margin-top: 25px;">ONLINE event! Here's what to expect:</h6>
+                    <ul>
+                        <li>Accessible Online Platform: The event will be hosted virtually, providing you with the convenience
+                            of attending from anywhere.</li>
+                        <li>Personalized Credentials: Upon ticket purchase, you'll receive your unique username and password for
+                            exclusive access.</li>
+                        <li>Secure Your Spot: Don't miss out! Get your tickets now and prepare for an immersive online
+                            experience.</li>
+                    </ul>
                 }
     
             </div>
             @if (event?.latitude != null && event?.longitude != null &&
             event?.latitude != "" && event?.longitude != ""){
-            <div id="similar">
+            <div id="location-details">
                 <h3 style="font-size: 20px;">
-                    Similar events in the past year have happened in:
+                    Event Location
                 </h3>
-                <p style="display: flex; padding: 3px;"> 
-                    <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>
-                    <span>Bitola</span>
-                </p> <br>
-                <p style="display: flex; padding: 3px;">
-                    <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>
-                    <span>Prilep</span>
-                </p> <br>
-                <p style="display: flex; padding: 3px;"> 
-                    <mat-icon aria-label="Example home icon" fontIcon="location_on"> </mat-icon>
-                    <span>Ohrid</span>
-                </p>
+                <p>Onsite events provide unparalleled opportunities for spontaneous networking and collaboration. Attendees can easily interact with peers, industry leaders, and make friends in a more natural and effective way.</p>
                 
+                <div id="map-buttons">
+                    <button id="google-maps-btn" (click)="openGoogleMaps(event?.latitude!!, event?.longitude!!)">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span style="margin-left: 10px;">Google maps</span>
+                    </button>
+                    <button id="nearby-btn" routerLink="/near-me">
+                        <i class="fa-solid fa-person-walking"></i>
+                        <span style="margin-left: 10px;">Nearby events</span>
+                    </button>
+                </div>
+                
+
             </div>
             }
     
     
         </div>
+
         <hr>
         
         <h3 style="margin-bottom: 20px;">Organized by</h3>
@@ -236,7 +232,6 @@
             </div>
     
         </div>
-        <hr>
-    
+        
     </div>
 </div>
