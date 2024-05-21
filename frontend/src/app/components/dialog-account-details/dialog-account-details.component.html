@@ -47,9 +47,9 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <mat-form-field style="margin-top: 15px;" appearance="outline" class="full-width">
-        <mat-label>Current password</mat-label>
-        <input #currentPassword formControlName="currentPassword" matInput [type]="hide1 ? 'password' : 'text'">
+      <mat-form-field style="margin-top: 15px; " appearance="outline" class="full-width">
+        <mat-label style="font-size: 14px;">Current password</mat-label>
+        <input style="font-size: 14px;" #currentPassword formControlName="currentPassword" matInput [type]="hide1 ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
           <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>

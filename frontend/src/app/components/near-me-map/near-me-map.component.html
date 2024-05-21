@@ -47,8 +47,10 @@
             
             <div style="display: flex; flex-direction: column;">
                 @for(e of events; track e.id){
-                    <app-near-me-event [event]="e" [distance]="calculateDistance(e)" (click)="zoomOnEvent(e.latitude, e.longitude, e.id)" [class.selected]="selectedEventId === e.id" (click)="selectEvent(e.id)"></app-near-me-event> 
-                    <hr style="margin: 2px 0;">
+                    @if (e.type == 'on-site'){
+                        <app-near-me-event [event]="e" [distance]="calculateDistance(e)" (click)="zoomOnEvent(e.latitude, e.longitude, e.id)" [class.selected]="selectedEventId === e.id" (click)="selectEvent(e.id)"></app-near-me-event> 
+                        <hr style="margin: 2px 0;">
+                    }
                 }
             </div>
             

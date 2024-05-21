@@ -72,19 +72,19 @@ export class SearchEventsComponent {
   ngOnInit(): void {
 
     this.eventService.getEvents()
-      .subscribe(
-        events => {
-          this.loading = false
-        }
-      );
+      // .subscribe(
+      //   events => {
+      //     this.loading = false
+      //   }
+      // );
 
-    this.eventService.getRecentEvents()
-      .subscribe(
-        recentEvents => {
-          this.recentEvents = recentEvents
-          this.loading = false
-        }
-      );
+    // this.eventService.getRecentEvents()
+    //   .subscribe(
+    //     recentEvents => {
+    //       this.recentEvents = recentEvents
+    //       this.loading = false
+    //     }
+    //   );
 
     this.eventService.getEventCategories()
       .subscribe(
@@ -94,7 +94,7 @@ export class SearchEventsComponent {
       )
 
     combineLatest([this.query$, this.date$]).pipe(
-      debounceTime(400),
+      debounceTime(200),
       distinctUntilChanged(),
       switchMap(([query, date]) =>
         this.eventService.getFilteredResults(

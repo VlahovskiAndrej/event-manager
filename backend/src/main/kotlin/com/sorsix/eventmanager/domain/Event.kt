@@ -18,7 +18,7 @@ data class Event(
     @Column(length = 100)
     var name: String,
 
-    @Column(length = 550)
+    @Column(length = 1500)
     var description: String,
 
     var availableTickets: Int,
@@ -48,6 +48,9 @@ data class Event(
 
     @ManyToOne
     val creator: User,
+
+//    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], orphanRemoval = true)
+//    val images: MutableList<Image>
 
 //    var thumbnailUrl: String
 

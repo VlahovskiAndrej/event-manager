@@ -17,5 +17,6 @@ data class Image(
     val data: ByteArray,
 
     @ManyToOne
+//    @JoinColumn(name = "event_id")
     val event: Event
 )

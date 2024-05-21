@@ -4,7 +4,8 @@
 
 html, body { height: 100%; }
 body { 
-   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+   margin: 0; 
+   font-family: Roboto, "Helvetica Neue", sans-serif;
    background-color: rgb(247, 247, 247, 0.9);
 }
 
@@ -37,3 +38,14 @@ body {
        transform: rotate(2turn);
     }
  }
+
+
+ .green-snackbar {
+   --mdc-snackbar-container-color: #4CAF50 !important;
+   --mdc-snackbar-supporting-text-color: white !important;
+}
+
+.red-snackbar{
+   --mdc-snackbar-container-color: red !important;
+   --mdc-snackbar-supporting-text-color: white !important;
+}

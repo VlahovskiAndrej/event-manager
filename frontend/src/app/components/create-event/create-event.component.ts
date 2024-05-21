@@ -105,7 +105,10 @@ export class CreateEventComponent{
   }
 
   showSuccessMessage(){
-    this.snackBar.open("Successfuly created event", '', {duration: 3000});
+    this.snackBar.open("Successfuly created event", '', {
+      duration: 2000, 
+      panelClass: 'green-snackbar'
+    },);
   }
 
   createEvent() {
@@ -129,7 +132,10 @@ export class CreateEventComponent{
       formData.append('timeStart', this.secondFormGroup.value.timeStart!!);
       formData.append('meetingUrl', this.secondFormGroup.value.meetingUrl!!);
       formData.append('price', this.thirdFormGroup.value.price!!);
-      formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
+      if(this.isUnlimitedTickets==true)
+        formData.append('maxPeople', '100');
+      else
+        formData.append('maxPeople', this.thirdFormGroup.value.numberOfTickets!!);
       formData.append('type', this.secondFormGroup.value.type!!);
 
       for (let img of this.images) {
@@ -163,6 +169,7 @@ export class CreateEventComponent{
 
     console.log("Images: " + value.images.toString())
     console.log("Thumbnail: " + value.thumbnail?.toString())
+    
   }
 
   onChangeFreeEnterance(){

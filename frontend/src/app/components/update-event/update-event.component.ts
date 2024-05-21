@@ -164,7 +164,17 @@ export class UpdateEventComponent implements OnInit{
   }
 
   showSuccessMessage(){
-    this.snackBar.open("Successfuly updated event", '', {duration: 3000});
+    this.snackBar.open("Successfuly updated event", '', {
+      duration: 2000, 
+      panelClass: 'green-snackbar'
+    },);
+  }
+
+  showFailureMessage(){
+    this.snackBar.open("Successfuly removed event", '', {
+      duration: 2000, 
+      panelClass: 'red-snackbar'
+    },);
   }
 
   createEvent() {
