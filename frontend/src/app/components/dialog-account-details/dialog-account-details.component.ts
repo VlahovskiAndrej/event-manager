@@ -36,7 +36,7 @@ export class DialogAccountDetailsComponent implements OnInit{
   lastNameDissabled = true
 
 
-  constructor(private authService: AuthService,  private _snackBar: MatSnackBar){}
+  constructor(private authService: AuthService,  private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     this.authService.getLoggedUser().subscribe(
@@ -48,8 +48,11 @@ export class DialogAccountDetailsComponent implements OnInit{
     )
   }
   
- openSnackBar(text: string) {
-    this._snackBar.open(text, '', {duration: 1000, panelClass: ['green-snackbar']})
+  showSuccessMessage(){
+    this.snackBar.open("Successfuly updated user", '', {
+      duration: 2500, 
+      panelClass: 'green-snackbar'
+    },);
   }
 
   onClickFirstName(){
@@ -81,7 +84,7 @@ export class DialogAccountDetailsComponent implements OnInit{
       this.authService.updateUser(formData).subscribe(
         u =>{
           this.user = u
-          this.openSnackBar("Successfuly updated user!")
+          this.showSuccessMessage()
         } 
           
       )
@@ -92,7 +95,7 @@ export class DialogAccountDetailsComponent implements OnInit{
     this.authService.deleteUser().subscribe(
       () =>{
         this.authService.logout()
-        this.openSnackBar("Successfuly deleted user!")
+        // this.openSnackBar("Successfuly deleted user!")
       } 
     )
   }

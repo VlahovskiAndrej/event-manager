@@ -55,7 +55,7 @@ export class AddTicketsComponent implements OnInit{
   isFreeEnterance: boolean = false
   isDontIssueMore: boolean = false
 
-  constructor(private _formBuilder: FormBuilder, private eventService: EventService, private route: ActivatedRoute, private router: Router){}
+  constructor(private _formBuilder: FormBuilder, private eventService: EventService, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar){}
 
 
   ngOnInit(): void {
@@ -102,10 +102,19 @@ onChangeDontIssueMore(){
 
   issueTickets(){
     this.eventService.publishTickets(this.event?.id!!, this.ticketsFormGroup.get('price')?.value!!, this.ticketsFormGroup.get('numberOfTickets')?.value!!).subscribe(
-      () => this.ngOnInit()
+      () => {
+        this.ngOnInit()
+        this.showSuccessMessage()
+      }
     )
   }
 
+  showSuccessMessage(){
+    this.snackBar.open("Successfuly issued tickets", '', {
+      duration: 3000, 
+      panelClass: 'green-snackbar'
+    },);
+  }
 
 
 }

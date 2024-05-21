@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { DialogAccountDetailsComponent } from '../dialog-account-details/dialog-account-details.component';
 import { DialogSettingsComponent } from '../dialog-settings/dialog-settings.component';
+import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
 
 @Component({
   selector: 'app-navbar',
@@ -43,7 +44,8 @@ export class NavbarComponent implements OnInit{
   }
 
   logout() {
-    this.authService.logout()
+    this.openLogoutDialog()
+    // this.authService.logout()
   } 
 
   openAccountDetailsDialog() {
@@ -62,4 +64,12 @@ export class NavbarComponent implements OnInit{
     });
   }
   
+  openLogoutDialog(): void {
+    const dialogRef = this.dialog.open(DialogLogoutComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 }

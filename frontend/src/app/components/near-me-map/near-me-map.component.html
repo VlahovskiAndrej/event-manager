@@ -1,63 +1,67 @@
 
-<div id="near-me">
+    <div id="near-me">
 
-    <div id="event-list">
-        <h3>Events near me</h3>
-        <div id="event-content">
-
-            <!-- <mat-form-field id="search-bar" appearance="outline">
-                <mat-icon matPrefix>search</mat-icon>
-                <input style="font-size: 15px;" type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
-            </mat-form-field>
-            
-            <mat-form-field class="date-picker" appearance="outline" floatLabel="always">
-                <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [rangePicker]="picker" >
-                    <input style="font-size: 15px;" matStartDate formControlName="start" #startDateInput placeholder="Start date">
-                    <input style="font-size: 15px;" matEndDate formControlName="end" #endDateInput placeholder="End date">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker>
-                    <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button color="primary" matDatepickerApply
-                            (click)="filterByDate(picker)">Apply</button>
-                    </mat-datepicker-actions>
-                </mat-date-range-picker>
-            </mat-form-field> -->
-
-            <mat-form-field id="search-bar" appearance="outline" style="width: 100%; font-size: 14px;">
-                <input type="search" matInput #searchInput (keydown)="search(searchInput.value)" placeholder="Search...">
-                <mat-icon matPrefix fontIcon="search"></mat-icon>
-            </mat-form-field>
-
-            <!-- <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                <mat-form-field id="max-distance" appearance="outline" style="width: 47%;" floatLabel="always">
-                    <mat-label>Max distance</mat-label>
-                    <input type="number" matInput #searchInput (keydown)="sortDistance(searchInput.value)" placeholder="100">
-                    <mat-icon matPrefix>assistant_direction</mat-icon>
-                    <span matTextSuffix>km.</span>
+        <div id="event-list">
+            <h3>Events near me</h3>
+            <div id="event-content">
+    
+                <!-- <mat-form-field id="search-bar" appearance="outline">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input style="font-size: 15px;" type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
                 </mat-form-field>
-
-                <mat-form-field id="max-distance" appearance="outline" style="width: 51%;" floatLabel="always">
-                    <mat-label>Category</mat-label>
-                    <input type="number" matInput #searchInput (input)="search(searchInput.value)" placeholder="100">
+                
+                <mat-form-field class="date-picker" appearance="outline" floatLabel="always">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" >
+                        <input style="font-size: 15px;" matStartDate formControlName="start" #startDateInput placeholder="Start date">
+                        <input style="font-size: 15px;" matEndDate formControlName="end" #endDateInput placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply
+                                (click)="filterByDate(picker)">Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-date-range-picker>
                 </mat-form-field> -->
-            <!-- </div> -->
-            
-            <div style="display: flex; flex-direction: column;">
-                @for(e of events; track e.id){
-                    @if (e.type == 'on-site'){
-                        <app-near-me-event [event]="e" [distance]="calculateDistance(e)" (click)="zoomOnEvent(e.latitude, e.longitude, e.id)" [class.selected]="selectedEventId === e.id" (click)="selectEvent(e.id)"></app-near-me-event> 
-                        <hr style="margin: 2px 0;">
+    
+                <mat-form-field id="search-bar" appearance="outline" style="width: 100%; font-size: 14px;">
+                    <input type="search" matInput #searchInput (keydown)="search(searchInput.value)" placeholder="Search...">
+                    <mat-icon matPrefix fontIcon="search"></mat-icon>
+                </mat-form-field>
+    
+                <!-- <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <mat-form-field id="max-distance" appearance="outline" style="width: 47%;" floatLabel="always">
+                        <mat-label>Max distance</mat-label>
+                        <input type="number" matInput #searchInput (keydown)="sortDistance(searchInput.value)" placeholder="100">
+                        <mat-icon matPrefix>assistant_direction</mat-icon>
+                        <span matTextSuffix>km.</span>
+                    </mat-form-field>
+    
+                    <mat-form-field id="max-distance" appearance="outline" style="width: 51%;" floatLabel="always">
+                        <mat-label>Category</mat-label>
+                        <input type="number" matInput #searchInput (input)="search(searchInput.value)" placeholder="100">
+                    </mat-form-field> -->
+                <!-- </div> -->
+                
+                <div style="display: flex; flex-direction: column;">
+                    @for(e of events; track e.id){
+                        @if (e.type == 'on-site'){
+                            <app-near-me-event [event]="e" [distance]="calculateDistance(e)" (click)="zoomOnEvent(e.latitude, e.longitude, e.id)" [class.selected]="selectedEventId === e.id" (click)="selectEvent(e.id)"></app-near-me-event> 
+                            <hr style="margin: 2px 0;">
+                        }
                     }
-                }
+                </div>
+                
             </div>
             
         </div>
-        
+    
+        <div id="map"></div>
+    
     </div>
 
-    <div id="map"></div>
+    
 
-</div>
+

@@ -42,9 +42,7 @@ export class NearMeMapComponent implements OnInit {
 
   polyline: L.Polyline | undefined;
   private markers: Map<number, L.Marker> = new Map();
-  selectedEventId: number | null = null; // Track selected event
-
-
+  selectedEventId: number | null = null; 
 
   constructor(private eventService: EventService) { }
 

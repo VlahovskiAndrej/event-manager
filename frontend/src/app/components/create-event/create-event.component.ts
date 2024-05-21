@@ -106,7 +106,7 @@ export class CreateEventComponent{
 
   showSuccessMessage(){
     this.snackBar.open("Successfuly created event", '', {
-      duration: 2000, 
+      duration: 2500, 
       panelClass: 'green-snackbar'
     },);
   }

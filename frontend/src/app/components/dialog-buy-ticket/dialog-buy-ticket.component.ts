@@ -16,6 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import { UpperCasePipe } from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -46,7 +47,7 @@ export class DialogBuyTicketComponent implements OnInit{
   successCoupon: string = ""
 
   constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -64,8 +65,15 @@ export class DialogBuyTicketComponent implements OnInit{
       e => this.event = e
     )
     this.dialog.closeAll()
+    this.showSuccessMessage()
   }
 
+  showSuccessMessage(){
+    this.snackBar.open("Successfuly purchased tickets", '', {
+      duration: 3000, 
+      panelClass: 'green-snackbar'
+    },);
+  }
 
   onChangeCoupon(value: string){
     if (this.event?.price != undefined && value.toUpperCase() == 'ANDREJ10'){
