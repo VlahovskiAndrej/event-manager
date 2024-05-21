@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../interfaces/event';
@@ -8,7 +8,6 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { NearMeEventComponent } from '../near-me-event/near-me-event.component';
-import { DatePipe } from '@angular/common';
 import { CustomDatePipe } from '../../pipes/custom.datepipe';
 import { CustomDatePipeDetails } from '../../pipes/custom.datepipedetails';
 
@@ -21,8 +20,8 @@ import { CustomDatePipeDetails } from '../../pipes/custom.datepipedetails';
     MatFormField,
     MatIcon,
     MatInput,
-    MatFormFieldModule, 
-    MatInputModule, 
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     NearMeEventComponent,
     CustomDatePipe,
@@ -32,13 +31,13 @@ import { CustomDatePipeDetails } from '../../pipes/custom.datepipedetails';
   styleUrl: './near-me-map.component.css'
 })
 export class NearMeMapComponent implements OnInit {
-  map: L.Map|any;
-  marker: L.Marker|any;
+  map: L.Map | any;
+  marker: L.Marker | any;
 
-  myLongitude: number|undefined
-  myLatitude: number|undefined
+  myLongitude: number | undefined
+  myLatitude: number | undefined
 
-  events: EventInterface[] = [] 
+  events: EventInterface[] = []
 
   polyline: L.Polyline | undefined;
   private markers: Map<number, L.Marker> = new Map();
@@ -69,8 +68,8 @@ export class NearMeMapComponent implements OnInit {
       tooltipAnchor: [16, -28],
     });
 
-    L.marker([this.myLatitude!!, this.myLongitude!!], {icon: myIcon} ).addTo(this.map)
-    .bindPopup('You are here!')
+    L.marker([this.myLatitude!!, this.myLongitude!!], { icon: myIcon }).addTo(this.map)
+      .bindPopup('You are here!')
 
     this.mapCoordinates()
   }
@@ -94,7 +93,7 @@ export class NearMeMapComponent implements OnInit {
   }
 
 
-  private mapCoordinates(){
+  private mapCoordinates() {
     var eventIcon = L.icon({
       iconUrl: 'assets/map-icons/location-pin.png',
       iconSize: [40, 41],
@@ -103,18 +102,18 @@ export class NearMeMapComponent implements OnInit {
       tooltipAnchor: [16, -28],
     });
 
-    for(const e of this.events){
-      
+    for (const e of this.events) {
+
       let thumbnail
-      
+
       this.eventService.getThumbnail(e.id).subscribe(
         (response: any) => {
           const blob = new Blob([response], { type: 'image/jpeg' });
           thumbnail = URL.createObjectURL(blob)
 
-          if (e.latitude != '' && e.longitude != ''){
-            const marker = L.marker([Number.parseFloat(e.latitude), Number.parseFloat(e.longitude)], {icon: eventIcon}).addTo(this.map)
-            .bindPopup(`
+          if (e.latitude != '' && e.longitude != '') {
+            const marker = L.marker([Number.parseFloat(e.latitude), Number.parseFloat(e.longitude)], { icon: eventIcon }).addTo(this.map)
+              .bindPopup(`
             <head> 
               <style>
                 img{
@@ -170,8 +169,8 @@ export class NearMeMapComponent implements OnInit {
 
                 <h4 style="overflow: hidden; height: 30px;">${e.name}</h4>
                 <h6 style="color: gray; font-size: 14px; margin-bottom: 10px; overflow: hidden; height: 53px;">${e.description}</h6>
-                <p style="margin:5px 0;">Tickets: ${e.availableTickets==0 ? '<span style="color: red;"><b>SOLD OUT!</b></span>' : '<b>' + e.availableTickets + '</b>'}</p>
-                <h6 style="display: flex; justify-content: space-between;"><span id="price">${e.price==0 ? 'Free' : '$'+e.price}</span>  <span id="distance">${this.calculateDistance(e)} km.</span></h6>
+                <p style="margin:5px 0;">Tickets: ${e.availableTickets == 0 ? '<span style="color: red;"><b>SOLD OUT!</b></span>' : '<b>' + e.availableTickets + '</b>'}</p>
+                <h6 style="display: flex; justify-content: space-between;"><span id="price">${e.price == 0 ? 'Free' : '$' + e.price}</span>  <span id="distance">${this.calculateDistance(e)} km.</span></h6>
 
                 <hr style="margin: 3px 0;">
                  <h6 style="color: gray; font-size: 12px; margin-bottom: 0px;">By ${e.creator.firstName} ${e.creator.lastName}</h6>
@@ -191,21 +190,21 @@ export class NearMeMapComponent implements OnInit {
     };
   }
 
- zoomOnEvent(lat: string, lon: string, id: number) {
+  zoomOnEvent(lat: string, lon: string, id: number) {
 
-  const marker = this.markers.get(id);
-  if (marker && this.map) {
-    const latLng = marker.getLatLng();
-    this.map.setView(latLng, 16, { animate: true }); 
-    setTimeout(() => { marker.openPopup(); }, 400); 
+    const marker = this.markers.get(id);
+    if (marker && this.map) {
+      const latLng = marker.getLatLng();
+      this.map.setView(latLng, 16, { animate: true });
+      setTimeout(() => { marker.openPopup(); }, 400);
+    }
+
   }
 
-  }
-
-  onClick(num: number){
+  onClick(num: number) {
     console.log(num)
   }
-  
+
   calculateDistance(e: EventInterface): string {
 
     const lat: number = Number.parseFloat(e.latitude)
@@ -215,33 +214,33 @@ export class NearMeMapComponent implements OnInit {
     const dLat = this.deg2rad(this.myLatitude!! - lat);
     const dLon = this.deg2rad(this.myLongitude!! - lon);
     const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(this.deg2rad(this.myLatitude!!)) * Math.cos(this.deg2rad(lat)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(this.myLatitude!!)) * Math.cos(this.deg2rad(lat)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in kilometers
     return distance.toFixed(2);
-}
+  }
 
-private deg2rad(deg: number) {
-  return deg * (Math.PI / 180);
-}
+  private deg2rad(deg: number) {
+    return deg * (Math.PI / 180);
+  }
 
-search(value: string){
-  this.eventService.getEvents().subscribe(
-    (e) => {
-      this.events = e
-      this.mapCoordinates()
-    }
-  )
-}
+  search(value: string) {
+    this.eventService.getEvents().subscribe(
+      (e) => {
+        this.events = e
+        this.mapCoordinates()
+      }
+    )
+  }
 
-selectEvent(id: number) {
-  this.selectedEventId = id;
-}
+  selectEvent(id: number) {
+    this.selectedEventId = id;
+  }
 
-sortDistance(value: string){
+  sortDistance(value: string) {
 
-}
+  }
 
 }

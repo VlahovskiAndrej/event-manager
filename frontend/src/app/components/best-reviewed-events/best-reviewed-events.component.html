@@ -3,11 +3,8 @@
     <div class="events">
         @if (events) {
         <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
-        <app-event routerLink="/events/{{events[1].id}}" [event]="events[1]" [showDetails]="false"></app-event>
-        <app-event routerLink="/events/{{events[2].id}}" [event]="events[2]" [showDetails]="false"></app-event>
+        <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
+        <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
         }
-    </div>
-    <div class="companies">
-        Companies that trust us
     </div>
 </div>

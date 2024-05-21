@@ -1,0 +1,134 @@
+.main-section{
+    padding-top: 70px;
+}
+#pp{
+    display: inline;
+    margin: auto;
+    margin-top:20px;
+    margin-bottom:40px;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 90%;
+}
+.companies{
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    padding-bottom: 30px;
+
+    height: 800px;
+    background-color:white;
+
+    border: 5px transparent;
+    border-top: 5px solid rgb(103, 58, 183, 0.6);
+    border-top-left-radius: 250px;
+    border-top-right-radius: 250px;
+}
+
+.testamonials{
+    display: flex;
+    flex-direction: column;
+}
+h1{
+    display: inline;
+    margin: auto;
+    /* color:  rgb(103, 58, 183); */
+    font-weight: bolder;
+    padding-top:70px;
+    padding-bottom: 30px;
+    color: rgb(0,0,0,0.8);
+    
+}
+
+
+.photos{
+    padding-left: 30px ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+.photos > img{
+    width:120px;
+    height:120px;
+}
+#google{
+    width:90px;
+    height:90px;
+}
+#sorsix{
+    width:200px;
+}
+
+#apple{
+    width:90px;
+    height:90px;
+}
+
+.review{
+    display: flex; 
+    width:80%;
+    margin: auto;
+    justify-content: space-around;
+    padding-top: 40px;
+    padding-left: 20px;
+
+
+    /* border: 3px solid black;
+    border-radius: 20px; */
+}
+.left{
+    float:right;
+    width: 5%;
+    text-align: right;
+}
+.right{
+    float:right;
+    width: 40%;
+}
+
+#right{
+    padding-top:30%;
+}
+
+.right > p{
+    display: flex; 
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+.image{
+    height: 40px;
+    width: 40px;
+}
+
+#person-review{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.people{
+    border-radius: 140px;
+    width:250px;
+    height:250px; 
+    
+}
+
+#person-review > .left{
+    width: 40%;
+}
+#person-review > .right{
+    width: 60%;
+}
+.stars{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+}

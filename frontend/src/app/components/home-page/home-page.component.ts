@@ -4,18 +4,22 @@ import { EventInterface } from '../../interfaces/event';
 import { EventService } from '../../services/event.service';
 import { MainSectionComponent } from '../main-section/main-section.component';
 import { MapComponent } from '../create-event-map/map.component';
+import { CompaniesComponent } from '../companies/companies.component';
+import { QualitiesComponent } from "../qualities/qualities.component";
 
 
 @Component({
-  selector: 'app-home-page',
-  standalone: true,
-  imports: [
-    BestReviewedEventsComponent,
-    MainSectionComponent,
-    MapComponent
-  ],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+    selector: 'app-home-page',
+    standalone: true,
+    templateUrl: './home-page.component.html',
+    styleUrl: './home-page.component.css',
+    imports: [
+        BestReviewedEventsComponent,
+        MainSectionComponent,
+        MapComponent,
+        CompaniesComponent,
+        QualitiesComponent
+    ]
 })
 export class HomePageComponent implements OnInit {
 
