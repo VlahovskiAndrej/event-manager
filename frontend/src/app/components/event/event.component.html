@@ -32,7 +32,7 @@
       }
       @else{
         <div class="event-details-icon"> 
-          <img src="assets/icons/calendar.png" alt="" width="16px" height="16px">  
+          <img src="assets/icons/calendar.png" alt="" width="16px" height="16px" style="color:rgb(103, 58, 183)">  
           <span style="font-size: 15px; color: rgb(87, 87, 87);">{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span>
         </div>
       }
@@ -47,7 +47,7 @@
 
       <div mat-card-subtitle id="heading" style="width: 260px;">
 
-        <button mat-raised-button extended>
+        <button mat-raised-button extended color="primary">
           See Details
           <i class="fa-solid fa-arrow-right"></i>
         </button> 

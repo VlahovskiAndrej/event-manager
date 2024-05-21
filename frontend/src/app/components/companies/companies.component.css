@@ -16,13 +16,14 @@
     margin-left: 0px;
     padding-bottom: 30px;
 
-    height: 800px;
+    height: 750px;
     background-color:white;
 
     border: 5px transparent;
     border-top: 5px solid rgb(103, 58, 183, 0.6);
     border-top-left-radius: 250px;
     border-top-right-radius: 250px;
+
 }
 
 .testamonials{
@@ -70,22 +71,20 @@ h1{
     display: flex; 
     width:80%;
     margin: auto;
-    justify-content: space-around;
-    padding-top: 40px;
-    padding-left: 20px;
-
-
+    justify-content: center;
+    padding-left: 50px;
     /* border: 3px solid black;
     border-radius: 20px; */
 }
 .left{
     float:right;
-    width: 5%;
+    width: 1%;
     text-align: right;
 }
 .right{
     float:right;
     width: 40%;
+    text-align: center;
 }
 
 #right{
@@ -104,14 +103,6 @@ h1{
     width: 40px;
 }
 
-#person-review{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .people{
     border-radius: 140px;
     width:250px;
@@ -119,16 +110,15 @@ h1{
     
 }
 
-#person-review > .left{
-    width: 40%;
-}
 #person-review > .right{
-    width: 60%;
+    width: 70%;
+    margin-top: -15px;
 }
+
 .stars{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
 }
