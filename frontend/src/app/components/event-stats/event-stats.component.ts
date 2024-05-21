@@ -6,6 +6,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import { CommonModule } from "@angular/common";
 import { EChartsOption } from 'echarts';
+import { TicketService } from "../../services/ticket.service";
+import { Stats } from "../../interfaces/stats";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-event-stats',
@@ -22,7 +25,18 @@ import { EChartsOption } from 'echarts';
     provideEcharts(),
   ]
 })
-export class EventStatsComponent{
+export class EventStatsComponent implements OnInit{
+
+  stats: Stats|undefined
+
+  constructor(private ticketService: TicketService, private route: ActivatedRoute){}
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+    this.ticketService.getStatsByEventId(id).subscribe(
+      (s) => this.stats = s
+    )
+  }
 
   chartOption: EChartsOption = {
     title: {

@@ -49,7 +49,7 @@ export class EventComponent implements OnInit{
   }
 
   buyTicket(){
-    this.eventService.buyTicket(this.event?.id).subscribe(
+    this.eventService.buyTicket(this.event?.id, '1').subscribe(
       e => this.event = e
     )
   }

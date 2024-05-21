@@ -2,6 +2,7 @@ package com.sorsix.eventmanager.service.impl
 
 import com.sorsix.eventmanager.config.AuthService
 import com.sorsix.eventmanager.domain.Event
+import com.sorsix.eventmanager.domain.Stats
 import com.sorsix.eventmanager.domain.Ticket
 import com.sorsix.eventmanager.domain.user.User
 import com.sorsix.eventmanager.repository.EventRepository
@@ -36,5 +37,13 @@ class TicketServiceImpl(
         val event: Event = eventRepository.findById(eventId).orElse(null)
         val user: User = userRepository.findById(userId).get()
         return ticketRepository.findTicketsByBuyerAndEvent(user, event)
+    }
+
+    override fun getStats(eventId: Long): Stats {
+        return Stats(
+            ticketRepository.findTotalRevenueByEventId(eventId),
+            ticketRepository.findTicketCountByEventId(eventId),
+            ticketRepository.findDistinctCustomerCountByEventId(eventId)
+        )
     }
 }

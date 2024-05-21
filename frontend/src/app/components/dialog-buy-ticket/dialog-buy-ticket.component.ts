@@ -59,9 +59,9 @@ export class DialogBuyTicketComponent implements OnInit{
     )
   }
 
-  buyTicket(){
+  buyTicket(num: string){
     // console.log(this.data)
-    this.eventService.buyTicket(this.data.id).subscribe(
+    this.eventService.buyTicket(this.data.id, num).subscribe(
       e => this.event = e
     )
     this.dialog.closeAll()

@@ -9,6 +9,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { DialogAccountDetailsComponent } from '../dialog-account-details/dialog-account-details.component';
 import { DialogSettingsComponent } from '../dialog-settings/dialog-settings.component';
 import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
+import { DialogDeleteAccountComponent } from '../dialog-delete-account/dialog-delete-account.component';
 
 @Component({
   selector: 'app-navbar',
@@ -71,5 +72,4 @@ export class NavbarComponent implements OnInit{
       console.log(`Dialog result: ${result}`);
     });
   }
-
 }

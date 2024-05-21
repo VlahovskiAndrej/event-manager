@@ -105,7 +105,7 @@
         <h4 style=" margin: 0;">Total: {{event?.price!! * numberOfTickets}}$</h4>
       }
   
-      <button style="width: 100%;" mat-raised-button color="primary" [mat-dialog-close]="event?.availableTickets" (click)="buyTicket()">Place order</button>
+      <button style="width: 100%;" mat-raised-button color="primary" [mat-dialog-close]="event?.availableTickets" (click)="buyTicket(numOfTickets.value)">Place order</button>
       
       <div id="payments-images" style="display: flex; justify-content: center;">
         <img style="width: 50%; margin-top: 10px; align-self: center;" src="assets/payments.png" alt="sliki payments.png">

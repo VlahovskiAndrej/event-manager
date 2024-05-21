@@ -131,7 +131,7 @@ export class SearchTicketsComponent implements OnInit, AfterViewInit {
     };
 
 
-    pdfMake.createPdf(dd).download('userdata.pdf');
+    pdfMake.createPdf(dd).download('ticket.pdf');
 
   }
 

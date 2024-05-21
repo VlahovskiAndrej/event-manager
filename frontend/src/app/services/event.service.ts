@@ -186,7 +186,7 @@ export class EventService {
     return this.http.get<EventInterface>(`${this.url}/${id}`)
   }
 
-  buyTicket(id: number | undefined): Observable<EventInterface> {
+  buyTicket(id: number | undefined, num: string): Observable<EventInterface> {
     const numberOfTickets = 1
 
     const headers = new HttpHeaders({
@@ -196,7 +196,7 @@ export class EventService {
 
     const body = {};
 
-    return this.http.post<EventInterface>(`${this.url}/${id}/buy?num=${numberOfTickets}`, body, { headers: headers })
+    return this.http.post<EventInterface>(`${this.url}/${id}/buy?num=${num}`, body, { headers: headers })
   }
 
   getEventCategories(): Observable<string[]> {

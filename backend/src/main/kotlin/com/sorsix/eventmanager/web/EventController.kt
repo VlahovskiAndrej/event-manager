@@ -118,7 +118,7 @@ class EventController(
     @PostMapping("/{id}/buy") // ?num=2
     fun buyTicketsForEventId(
         @PathVariable id: Long,
-        @RequestParam num: Int = 1,
+        @RequestParam num: Int,
         request: HttpServletRequest
     ): ResponseEntity<Any> {
         return ResponseEntity.ok(eventService.buyTicket(id, num, request))

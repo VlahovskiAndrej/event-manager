@@ -38,7 +38,8 @@ data class SecurityConfig (
                         "/api/events/image/{id}",
                         "/api/events/{id}/images/{num}",
                         "/api/coupons/",
-                        "/api/coupons/create"
+                        "/api/coupons/create",
+                        "/api/tickets/{id}/stats"
                     )
                     .permitAll()
                     .anyRequest()

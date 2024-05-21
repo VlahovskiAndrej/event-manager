@@ -9,6 +9,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DialogDeleteAccountComponent } from '../dialog-delete-account/dialog-delete-account.component';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class DialogAccountDetailsComponent implements OnInit{
   lastNameDissabled = true
 
 
-  constructor(private authService: AuthService,  private snackBar: MatSnackBar){}
+  constructor(private authService: AuthService,  private snackBar: MatSnackBar, public dialog: MatDialog){}
 
   ngOnInit(): void {
     this.authService.getLoggedUser().subscribe(
@@ -44,7 +45,6 @@ export class DialogAccountDetailsComponent implements OnInit{
         console.log(u)
         this.user = u
       } 
-        
     )
   }
   
@@ -92,11 +92,21 @@ export class DialogAccountDetailsComponent implements OnInit{
   }
 
   onDeleteAccount(){
-    this.authService.deleteUser().subscribe(
-      () =>{
-        this.authService.logout()
-        // this.openSnackBar("Successfuly deleted user!")
-      } 
-    )
+    // this.authService.deleteUser().subscribe(
+    //   () =>{
+    //     this.authService.logout()
+    //     // this.openSnackBar("Successfuly deleted user!")
+    //   } 
+    // )
+    this.openRemoveUserDialog()
   }
+
+  openRemoveUserDialog(): void {
+    const dialogRef = this.dialog.open(DialogDeleteAccountComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  
 }
