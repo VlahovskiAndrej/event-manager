@@ -1,0 +1,240 @@
+@if(event != null){
+    <div id="main-container">
+
+        <div id="grid">
+            <div id="row1">
+                <div id="image-container">
+        
+                    <app-image-galery [slides]="imagesUrl"></app-image-galery>
+        
+                    @if(event.availableTickets == 0 || user == null){
+                    <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary" (click)="buyTicketDialog()"
+                        disabled>There isn't any tickets available</button>
+                    }
+                    @else if (event.price == 0){
+                    <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary"
+                        >FREE Enterance</button>
+                    }
+                    @else {
+                    <button style="width: 100%; margin-top: 10px;" mat-flat-button color="primary"
+                        (click)="buyTicketDialog()">Buy Ticket (${{event.price}})</button>
+                    }
+                </div>
+        
+                <div id="event-data">
+                    <p style="margin: 0; border-bottom: 1px solid gray; width: min-content; margin-bottom: 5px;">                
+                        {{event.category}}</p>
+                    <h1>{{event.name}}</h1>
+                    <div id="tags">
+                        @for (tag of event.tags; track tag.id) {
+                        <p>{{tag.name}}</p>
+                        }
+                    </div>
+        
+                    <div id="when-where">
+                        <div id="when">
+                            <h3>When?</h3>
+                            <div style="display: flex; flex-direction: row;">
+                                <div id="calendar-icon" style="margin-left: 15px;">
+                                    <span id="month" style="text-align: center;">May</span>
+                                    <span id="date" style="text-align: center;">17</span>
+                                </div>
+                                <div>
+                                    <p style="display: flex; margin-left: 10px;  flex-direction: column; justify-content: space-evenly;">
+                                        <span>{{event.dateStart | customDate}} - {{event.dateFinish | customDate}}
+                                        </span>
+                                        <span style="color: gray;">{{event.timeStart.toString().substring(0,5)}} -
+                                            {{event.timeFinish.toString().substring(0,5)}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="where">
+                            <h3>Where?</h3>
+        
+        
+                            <p style="display: flex;">
+                                
+                                <span id="calendar-icon" style="margin-left: 15px; display: flex; justify-content: center; align-items: center;">
+                                    <img src="https://icones.pro/wp-content/uploads/2021/02/icone-de-localisation-violette.png" alt="" width="40px">
+                                </span>
+    
+                                @if(event.latitude != null && event.longitude != null &&
+                                event.latitude != "" && event.longitude != ""){
+                                    <div style="display: flex; margin-left: 10px;  flex-direction: column; justify-content: center; align-items: flex-start;">
+                                        <span style="margin: 0;">Skopje, Macedonia</span>
+                                        <span style="color: gray; margin: 0;">{{event.longitude}}, {{event.latitude}}</span>
+                                    </div>
+                                
+                                }@else{
+                                    <div style="display: flex; margin-left: 6px;  flex-direction: column; justify-content: space-evenly;">
+                                        <!-- <a href="">Google meet</a> or <a href="">Zoom</a> -->
+                                        <span style="margin: 0;">Online event</span>
+                                        <span style="color: gray;">{{event.meetingUrl}}</span>
+                                    </div>
+                                
+                                }
+        
+                            </p>
+        
+                            <!-- <p style="display: flex; gap: 5px; margin-left: 70px;">
+                                
+                                @if(event?.latitude != null && event?.longitude != null &&
+                                event?.latitude != "" && event?.longitude != ""){
+                                <span>{{event?.longitude}}, {{event?.latitude}}</span>
+                                }@else{
+                                <span>ONLINE, You can be where you want!</span>
+                                }
+        
+                            </p> -->
+                        </div>
+                    </div>
+        
+                    <div id="register-div">
+                        <div style="background-color: rgb(234, 232, 232); height: 35px; color: rgb(79, 79, 79); padding: 15px; display: flex; align-items: center; font-size: 17px;">
+                            Registration
+                        </div>
+                        <div style="padding: 15px; font-size: 17px;">
+                            @if(user == null){  
+                                Welcome, to buy ticket for this event, please login or create an account.
+                                <button routerLink="/register" style="width: 100%; margin-top: 10px;" mat-raised-button color="primary">Create an account</button>
+                            }
+                            @else {
+                                Welcome {{user.firstName}}, every ticket you buy will be connected to this email.
+                                <p style="display: flex; padding: 10px; border: 1px dashed rgb(158, 158, 158); width: max-content; margin: 5px 5%; border-radius: 12px;">
+                                    <mat-icon color="" aria-label="Example home icon" fontIcon="account_circle" style="margin-right: 10px;"></mat-icon>
+                                    {{user.username}}
+                                </p>
+                            }
+                            
+                        </div>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+            <hr>
+            
+            <div id="row3">
+                <h3>Additional info</h3>
+                <div>
+                    @if(event.description.length!! == 0){ 
+                        <p style="margin: 0;">There isn't any additional information provided by the organizers...</p>
+                    }
+                    @else {
+                        <p style="margin: 0;">{{event.description}}</p>
+                    }
+                </div>
+            </div>
+    
+            <hr>
+    
+            <div id="row2">
+        
+                <div id="map-location">
+                    @if (event.latitude != null && event.longitude != null &&
+                    event.latitude != "" && event.longitude != ""){
+                        <app-event-details-map [longitude]="event.longitude" [latitude]="event.latitude"></app-event-details-map>
+                    }
+                    @else if(event.meetingUrl != null){
+        
+                        <h6 style="margin-top: 25px;">ONLINE event! Here's what to expect:</h6>
+                        <ul>
+                            <li>Accessible Online Platform: The event will be hosted virtually, providing you with the convenience
+                                of attending from anywhere.</li>
+                            <li>Personalized Credentials: Upon ticket purchase, you'll receive your unique username and password for
+                                exclusive access.</li>
+                            <li>Secure Your Spot: Don't miss out! Get your tickets now and prepare for an immersive online
+                                experience.</li>
+                        </ul>
+                    }
+        
+                </div>
+                @if (event.latitude != null && event.longitude != null &&
+                event.latitude != "" && event.longitude != ""){
+                <div id="location-details">
+                    <h3 style="font-size: 20px;">
+                        Event Location
+                    </h3>
+                    <p>Onsite events provide unparalleled opportunities for spontaneous networking and collaboration. Attendees can easily interact with peers, industry leaders, and make friends in a more natural and effective way.</p>
+                    
+                    <div id="map-buttons">
+                        <button id="google-maps-btn" (click)="openGoogleMaps(event.latitude!!, event.longitude!!)">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span style="margin-left: 10px;">Google maps</span>
+                        </button>
+                        <button id="nearby-btn" routerLink="/near-me">
+                            <i class="fa-solid fa-person-walking"></i>
+                            <span style="margin-left: 10px;">Nearby events</span>
+                        </button>
+                    </div>
+                    
+    
+                </div>
+                }
+        
+        
+            </div>
+    
+            <hr>
+            
+            <h3 style="margin-bottom: 20px;">Organized by</h3>
+            <div id="row4">
+    
+                <span id="calendar-icon" style="margin-left: 15px; display: flex; justify-content: center; align-items: center;">
+                    <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtXikD7JN5wLRCtD3c9ZwlICtFZJdRtYzfuGnCcthdipeNTK2-50Hmuk0q9Y4JSUnJpCY&usqp=CAU" alt="" width="40px"> -->
+                    <span style="font-size: 26px;">{{event.creator.firstName.charAt(0)}}</span>
+                </span>
+    
+                <div style="display: flex; flex-direction: column; margin-left: 10px;">
+                        <span style="font-size: 18px;">{{event.creator.firstName}}</span>
+          
+            
+                        <span style="color: gray;">{{event.creator.username}}</span>
+                </div>
+                
+            </div>
+            <hr>
+        
+            <div id="row5">
+                <h3>Refund policy</h3>
+                <p style="margin-bottom: 0; font-weight: 500;"> Cancellation by Attendee</p>
+                <p>
+                    If you need to cancel your ticket purchase, please do so within [number of days] days of the event date to
+                    be eligible for a refund.
+                    To cancel your ticket and request a refund, please contact us at [email address] or [phone number] with your
+                    order details.
+                    Refunds are subject to approval and are typically processed within [number of days] days after receiving
+                    your cancellation request.
+                    To be eligible for a refund, your ticket must be unused and in the same condition as when you received it.
+                </p>
+        
+                <p style="margin-bottom: 0; font-weight: 500;"> Non refundable situations</p>
+                <p>
+                    Please note that certain tickets or events may be non-refundable. Check the event details or terms and
+                    conditions for specific refund policies.
+                    In the rare event that an event is canceled or rescheduled, you will be contacted regarding refund options.
+                    We strive to ensure fair resolutions for all attendees in such circumstances.
+                </p>
+                <p style="margin-bottom: 0; font-weight: 500;"> Contact us</p>
+                <p> If you have any questions or need assistance with your ticket refund, please contact us at [email address]
+                    or [phone number].</p>
+            </div>
+            <hr>
+        
+            <div id="row6">
+                <h3>Related events</h3>
+        
+                <div id="related-events">
+                    @for (e of relatedEvents; track e.id) {
+                        <app-event [event]="e" style="width: 24%;"></app-event>
+                    }
+                </div>
+        
+            </div>
+            
+        </div>
+    </div>
+}

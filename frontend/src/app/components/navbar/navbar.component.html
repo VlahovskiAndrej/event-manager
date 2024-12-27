@@ -1,35 +1,49 @@
-<mat-toolbar color="primary" class="mat-elevation-z6">
-    <span>Event-manager</span>
+<mat-toolbar >
+    <img src="assets/logo/logoPurple.png" alt="" width="200px" style="margin-left:50px; cursor: pointer;" routerLink="events">
 
     <div class="spacer"></div>
-
-    
 
     @if (token == null){   
         <a mat-button routerLink="/">Home</a>
         <a mat-button routerLink="/events">Events</a>
         <a mat-button routerLink="/">About Us</a>
-        <a mat-raised-button routerLink="/login">Sign up
+        <a mat-raised-button routerLink="/login">
+            Sign up
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>      
         </a>
     }
 
     @if (token != null){
-        <a mat-button routerLink="/">Home</a>
+        <!-- <a mat-button routerLink="/">Home</a> -->
         
         <button mat-button [matMenuTriggerFor]="menu">Events</button>
-        <mat-menu #menu="matMenu">
+        <mat-menu  #menu="matMenu">
             <a mat-menu-item routerLink="/events">Browse events</a>
             <a mat-menu-item routerLink="/events/create">Create event</a>
             <a mat-menu-item routerLink="/events/my-events">My events</a>
         </mat-menu>
 
-        <a mat-button>Near me</a>
-        <a mat-button>Tickets</a>
-        <a id="username" mat-button>{{username}}</a>
-        <a mat-button (click)="logout()"> 
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="exit_to_app"></mat-icon> 
+        <a mat-button routerLink="/near-me">Near me</a>
+        
+        <!-- <a id="username" mat-button style="color: blueviolet;">{{username}}</a> -->
+        <a [matMenuTriggerFor]="beforeMenu" mat-raised-button> 
+            <!-- <a id="username" mat-button > -->
+                <span id="username" style="color: blueviolet;">{{username}}</span> 
+            <!-- </a> -->
+            <mat-icon fontIcon="account_circle"></mat-icon> 
         </a>
+        <mat-menu style="margin-bottom: 0;" #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="openAccountDetailsDialog()">View profile</button>
+            <button mat-menu-item routerLink="/tickets">My Tickets</button>
+            <button mat-menu-item routerLink="/events/my-events">My Events</button>
+            <button id="logout-btn" mat-menu-item (click)="logout()">
+                Logout
+            </button>
+        </mat-menu>
+        <a id="settings" mat-button (click)="openSettingsDialog()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings">settings</mat-icon> 
+        </a>
+
     }
 
     

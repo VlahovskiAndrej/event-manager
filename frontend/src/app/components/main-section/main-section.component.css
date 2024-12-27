@@ -1,0 +1,17 @@
+h2{
+    font-size: 60px;
+}
+
+img{
+    width:700px;
+    height: 650px;
+}
+
+#frontpage{
+    display: flex; 
+    width:85%;
+    margin: auto;
+    align-items: center;
+    background-color: rgb(247, 247, 247, 0.9);
+    justify-content: space-between;
+}

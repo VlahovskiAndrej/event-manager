@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>
+  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="manage_accounts"></mat-icon>
+  Account Details</h2>
+<mat-dialog-content class="mat-typography">
+
+  <h3 style="display: flex; flex-direction: row; justify-content: space-between;">
+    
+    <span>User ID: <b> #{{user?.id}} </b> </span>
+    <button mat-raised-button (click)="onDeleteAccount()" color="warn">Delete account</button>
+  </h3>
+
+  <mat-form-field appearance="outline" class="edit-width">
+    <mat-label>First name</mat-label>
+    <input #firstName matInput formControlName="firstName" [value]="user?.firstName" [disabled]="firstNameDissabled">
+    <mat-icon style="cursor: pointer;" matSuffix aria-hidden="false" (click)="onClickFirstName()" aria-label="Example home icon" [fontIcon]="firstNameDissabled ? 'lock' : 'lock_open'"></mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="edit-width">
+    <mat-label>Lastname</mat-label>
+    <input #lastName matInput formControlName="lastName" [value]="user?.lastName" [disabled]="lastNameDissabled">
+    <mat-icon style="cursor: pointer;" matSuffix aria-hidden="false" (click)="onClickLastName()" aria-label="Example home icon" [fontIcon]="lastNameDissabled ? 'lock' : 'lock_open'"></mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input #email matInput [value]="user?.username" disabled>
+    <mat-icon matPrefix disabled>email</mat-icon>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Role</mat-label>
+    <input matInput [value]="user?.role" disabled>
+    <mat-icon matPrefix >admin_panel_settings</mat-icon>
+
+  </mat-form-field>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Change password
+        </mat-panel-title>
+
+        <mat-panel-description>
+          Forgoten password? <span href="" style="margin-left: 5px; color: purple;"> Recover with email</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field style="margin-top: 15px; " appearance="outline" class="full-width">
+        <mat-label style="font-size: 14px;">Current password</mat-label>
+        <input style="font-size: 14px;" #currentPassword formControlName="currentPassword" matInput [type]="hide1 ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
+          <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>New password</mat-label>
+        <input #newPassword formControlName="newPassword" matInput [type]="hide2 ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+          <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Repeat new password</mat-label>
+        <input #repeatNewPassword matInput [type]="hide3 ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide3 = !hide3" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide3">
+          <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+    </mat-expansion-panel>
+    
+    
+
+  </mat-accordion>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close (click)="onSubmit(firstName.value, lastName.value, currentPassword.value, newPassword.value, repeatNewPassword.value, email.value)" color="primary">Save changes</button>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

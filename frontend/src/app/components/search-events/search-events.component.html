@@ -1,23 +1,63 @@
-<h1>Events</h1>
-<div class="input-container">
-    <input type="text" placeholder="Search..." #searchInput (input)="search(searchInput.value)">
-</div>
+<div class="main-container">
+    <div class="filter-container" style="font-size: 12px;">
+        
+        <mat-form-field id="search-bar" appearance="outline">
+            <mat-icon matPrefix>search</mat-icon>
+            <input style="font-size: 15px;" type="search" matInput #searchInput (input)="search(searchInput.value)" placeholder="Search...">
+        </mat-form-field>
+        
+        <mat-form-field class="date-picker" appearance="outline" floatLabel="always">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" >
+                <input style="font-size: 15px;" matStartDate formControlName="start" #startDateInput placeholder="Start date">
+                <input style="font-size: 15px;" matEndDate formControlName="end" #endDateInput placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker>
+                <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDatepickerApply
+                        (click)="filterByDate(picker)">Apply</button>
+                </mat-datepicker-actions>
+            </mat-date-range-picker>
+        </mat-form-field>
 
-@if (!loading){
+        <button id="clear-filter" (click)="clearFilter()" style="font-size: 16px;">
+            <i class="fa-solid fa-xmark"></i>
+            <span style="margin-left: 5px;">Clear</span>
+        </button>
 
-    <!-- <p>{{events?.toString()}}</p> -->
+    </div>
 
-    @for (e of events; track e.id){
-        <app-event [event]="e"></app-event>
+    <div id="categories">
+        @for(c of categories; track c){
+        <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" ariaOrientation="horizontal"
+            aria-multiselectable="true">
+            <mat-chip-option [color]="'primary'" (click)="filterByCategory(c)"
+                [class.active]="selectedCategories.includes(c)" class="custom-chip-option"><span> {{c}}</span> 
+            </mat-chip-option>
+        </mat-chip-listbox>
+        }
+    </div>
+
+    <div id="events">
+        @if (!loading){
+        @for (e of events!; track e.id){
+        <app-event routerLink="/events/{{e.id}}" [event]="e"></app-event>
+        }
+        }
+        @else {
+        <div class="spinner"></div>
+        }
+        @if(events?.length==0 && !loading){
+        <p>There are no found events with the given filter</p>
+        }
+    </div>
+
+    @if(!loading){
+    <mat-paginator [length]="events?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 100]"
+        (page)="pageEvent = $event" style="background-color: rgb(247, 247, 247, 0.9);">
+    </mat-paginator>
     }
 
-    <!-- <div class="card-container">
-        <h2>{{events}}</h2>
-    </div> -->
-
-    <!-- <div *ngFor="let event of eventData">
-    </div>-->
-}
-@else {
-    <p id="loading-text">Loading...</p>
-}
+</div>

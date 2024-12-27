@@ -1,0 +1,100 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import { ActivatedRoute } from '@angular/router';
+import { EventService } from '../../services/event.service';
+import { EventInterface } from '../../interfaces/event';
+import {MatInputModule} from '@angular/material/input';
+import { UpperCasePipe } from '@angular/common';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
+
+@Component({
+  selector: 'app-dialog-buy-ticket',
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatDialogActions,
+    MatDialogClose,
+     MatDialogTitle,
+     MatDialogContent,
+     MatInputModule,
+     UpperCasePipe,
+     MatFormFieldModule,
+     MatIcon
+    ],
+  templateUrl: './dialog-buy-ticket.component.html',
+  styleUrl: './dialog-buy-ticket.component.css'
+})
+export class DialogBuyTicketComponent implements OnInit{
+
+  event: EventInterface|undefined
+  price: number = 0
+  discountPrice = 0
+  numberOfTickets = 1
+  errorCoupon: string = ""
+  successCoupon: string = ""
+
+  constructor(private route: ActivatedRoute, private eventService: EventService, public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar
+  ){}
+
+  ngOnInit(): void {
+    this.eventService.getEventById(this.data.id).subscribe(
+      e => {
+        this.event = e
+        this.price = e.price
+      }
+    )
+  }
+
+  buyTicket(num: string){
+    // console.log(this.data)
+    this.eventService.buyTicket(this.data.id, num).subscribe(
+      e => this.event = e
+    )
+    this.dialog.closeAll()
+    this.showSuccessMessage()
+  }
+
+  showSuccessMessage(){
+    this.snackBar.open("Successfuly purchased tickets", '', {
+      duration: 3000, 
+      panelClass: 'green-snackbar'
+    },);
+  }
+
+  onChangeCoupon(value: string){
+    if (this.event?.price != undefined && value.toUpperCase() == 'ANDREJ10'){
+      this.discountPrice = 10
+      this.price = this.event?.price!! - this.discountPrice
+      this.errorCoupon = ""
+      this.successCoupon = "Valid coupon!"
+    }
+    else{
+      this.price = this.event?.price!!
+      this.discountPrice = 0
+      this.errorCoupon = "Invalid coupon name!"
+      this.successCoupon = ""
+    }
+
+  }
+
+  onChangeNumberOfTickets(value: string){
+    if (value != "")
+      this.numberOfTickets = Number.parseInt(value)
+    else
+      this.numberOfTickets = 0
+  }
+}

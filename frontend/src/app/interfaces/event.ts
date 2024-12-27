@@ -1,3 +1,4 @@
+import { Time } from "@angular/common";
 import { User } from "./user";
 
 export interface EventInterface {
@@ -11,14 +12,19 @@ export interface EventInterface {
     tags: Tag[];
     dateStart: Date;
     dateFinish: Date;
-    creator: User
+    timeStart: Time;
+    timeFinish: Time;
+    creator: User;
+    meetingUrl: string,
+    type: string,
+    price: number,
 }
 
 // enum Category {
 //     Define your category options here
 // }
 
-interface Tag {
+export interface Tag {
     id?: number;
     name: string;
 }

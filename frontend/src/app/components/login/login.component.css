@@ -7,3 +7,73 @@
   .example-full-width {
     width: 100%;
   }
+
+  #login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 60vh;
+    width: 50%;
+  }
+
+
+  #login-page{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-left: 10%;
+    padding: 5% 0;
+    height: 91vh;
+  }
+
+  #image{
+    width: 50%;
+  }
+
+  .separator {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: rgb(160, 159, 159) ;
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgb(176, 176, 176);
+  }
+  
+  .separator:not(:empty)::before {
+    margin-right: .25em;
+  }
+  
+  .separator:not(:empty)::after {
+    margin-left: .25em;
+  }
+
+  #google-facebook-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #google-facebook-btns > button{
+    width: 49%;
+    height: 38px;
+    border-radius: 5px;
+  }
+
+  #google-btn{
+    border: 1px solid orangered;
+    background-color: rgb(250, 240, 237);
+    color: orangered;
+  }
+
+  #facebook-btn{
+    border: 1px solid blue;
+    background-color: rgb(241, 241, 252);
+    color: blue;
+  }

@@ -1,0 +1,96 @@
+.filter-container{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    margin-left: 9.5%;
+    gap: 0.5%;
+}
+
+.main-container{
+    background-color: rgb(247, 247, 247, 0.9); margin-top: 0px; padding-bottom: 20px;
+    min-height: 92vh;
+}
+
+#search-bar {
+    width: 70%;
+}
+
+.date-picker{
+    width: 20%;
+}
+
+/* #city-select{
+    width: 10%;
+} */
+
+#clear-filter{
+    width: 8%;
+    height: 45px;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 12px;
+    border: none;
+}
+
+#categories{
+    width: 80%;
+    display: flex;
+    margin-left: 10%;
+    margin-bottom: 1.5%;
+}
+
+mat-chip-listbox{
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    /* margin: 0 2px; */
+}
+
+#events{
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: none;
+}
+
+app-event{
+    width: 24%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    cursor: pointer;
+    /* border-radius: 25px; */
+}
+
+mat-paginator{
+    width: 37%;
+}
+
+
+.custom-chip-option {
+    /* border: 0.5px solid rgb(179, 179, 179) !important; */
+    /* background: #DFD9EA !important; */
+    font-size: 14px  !important;
+    font-family: Roboto, sans-serif !important;
+    /* color: gray !important; */
+}
+
+.spinner{
+    margin-top: 100px;
+}
+
+:host ::ng-deep .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 12px;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 45px !important;
+}
+::ng-deep .mat-mdc-form-field-flex {
+    margin-top: -5px !important;
+}

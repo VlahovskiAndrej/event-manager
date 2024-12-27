@@ -1,0 +1,80 @@
+<div>
+
+
+    <div id="cards">
+        <mat-card>
+            <mat-card-header style="width: 500px;">
+            <mat-card-title style="display: flex; align-items: center;">
+                Tickets purchased
+                <span style="margin-right: 40px;"></span>
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="local_activity"></mat-icon>
+            </mat-card-title>
+            <mat-card-subtitle>{{stats?.customers}}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content style="color: green;">
+                <span style=" font-weight: 500;">+{{stats?.customers}}</span> today!
+            </mat-card-content>
+
+        </mat-card>
+        
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title style="display: flex; align-items: center;">
+                    Revenue
+                    <span style="margin-right: 130px;"></span>
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="paid"></mat-icon>
+                </mat-card-title>
+            <mat-card-subtitle style="font-weight: 600;">${{stats?.revenue}}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content style="font-size: 16px; color: rgb(31, 135, 31);">
+                <span style=" font-weight: 500;">+${{stats?.revenue}}</span> this week
+            </mat-card-content>
+
+        </mat-card>
+        
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title style="display: flex; align-items: center;">
+                    Customers
+                    <span style="margin-right: 110px;"></span>
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="group"></mat-icon>
+                </mat-card-title>
+            <mat-card-subtitle>{{stats?.tickets}}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content style="font-size: 16px; color: rgb(31, 135, 31);">
+                <span style=" font-weight: 500;">+{{stats?.tickets}}</span> recetly registered
+            </mat-card-content>
+
+        </mat-card>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title style="display: flex; align-items: center;">
+                    Coupons activated
+                    <span style="margin-right: 40px;"></span>
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="redeem"></mat-icon>
+                </mat-card-title>
+            <mat-card-subtitle>0</mat-card-subtitle>
+            </mat-card-header>
+
+            <!-- <mat-card-content>
+                10 this week
+            </mat-card-content> -->
+        </mat-card>
+    </div>
+
+    <div id="chart-row1" style="display: flex; flex-direction: row; flex-wrap: wrap;">
+        <div echarts [options]="chartOption" class="demo-chart"></div>
+        <div echarts [options]="option" class="demo-chart" ></div>
+        <div echarts [options]="option2" class="big-chart" ></div>
+        <div echarts [options]="option3" class="big-chart" ></div>
+    </div>
+</div>
+
+
+
+
+

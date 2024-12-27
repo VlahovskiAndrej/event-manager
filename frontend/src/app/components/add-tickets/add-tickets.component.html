@@ -1,0 +1,53 @@
+<form [formGroup]="ticketsFormGroup" class="create-form">
+
+    <p style="color: rgb(75, 0, 146); font-weight: 500; font-size: 25px;">Tickets & price</p>
+
+    <!-- <p style="font-size: 14px;">Including the number of tickets available and the price on an event post is vital for transparency and convenience. It helps potential attendees gauge availability and affordability, making informed decisions about attending the event.</p>
+
+    <p style="font-size: 14px;">This step is <span style="color: rgb(75, 0, 146); font-weight: 500;">optional</span>. You can always change the price or issue more tickets after creating and promoting the event.</p> -->
+
+    <p style="font-size: 14px;">Issuing more tickets for an event can lead to increased revenue and higher attendance, expanding your reach and potential audience. However, it also carries risks such as overcrowding, resource strain, and potential negative feedback from attendees.</p>
+
+    <p style="font-size: 14px;">On the other hand, issuing fewer tickets can create an intimate experience, ensure a controlled environment, and increase the perceived value of tickets. However, it may also result in missed revenue opportunities, exclusivity concerns, and the risk of underbooking the event.</p>
+    
+
+    <h5>Currently available {{event?.availableTickets}} tickets</h5>
+    <h6 style="margin-bottom: 15px;">With price: ${{event?.price}}</h6>
+
+    <mat-checkbox color="primary" (change)="onChangeFreeEnterance()">Free Enterance</mat-checkbox>
+    <mat-form-field floatLabel="always" class="full-width">
+      <mat-label>Price per ticket:</mat-label>
+      <input matInput formControlName="price" placeholder="2.00" type="number">
+      <span matTextPrefix>$&nbsp;</span>
+      <mat-hint>Set ticket prices based on event value, audience budget and competition for optimal sales and attendee satisfaction.</mat-hint>
+    </mat-form-field>
+
+    <!-- <button mat-raised-button color="primary" (click)="onSetSamePrice()">Same Price</button> -->
+
+
+    <mat-checkbox color="primary" (change)="onChangeDontIssueMore()">Don't issue more tickets</mat-checkbox>
+    <mat-form-field class="full-width">
+      <mat-label>Issue more tickets:</mat-label>
+      <input matInput formControlName="numberOfTickets" placeholder="20" type="number">
+      <mat-hint>Consider venue capacity and demand when determining the number of tickets to issue for your event.</mat-hint>
+    </mat-form-field>
+
+    <div>
+
+    <!-- @if(this.ticketsFormGroup.get('numberOfTickets')?.value != '' && this.ticketsFormGroup.get('price')?.value != '' && 
+    this.ticketsFormGroup.get('numberOfTickets')?.value != null && this.ticketsFormGroup.get('price')?.value != null){
+        <button mat-raised-button color="primary" (click)="issueTickets()">Issue {{this.ticketsFormGroup.get('numberOfTickets')?.value}} and change price to ${{this.ticketsFormGroup.get('price')?.value}} </button>
+    }
+    @else if (this.ticketsFormGroup.get('numberOfTickets')?.value != '') {
+        <button mat-raised-button color="primary" (click)="issueTickets()">Issue {{this.ticketsFormGroup.get('numberOfTickets')?.value}} with same price </button>
+    }@else if (this.ticketsFormGroup.get('price')?.value != ''){
+        <button mat-raised-button color="primary" (click)="issueTickets()">Change price to ${{this.ticketsFormGroup.get('price')?.value}}</button>
+    }@else {
+        <p>Nuli</p>
+    } -->
+
+    <button mat-raised-button color="primary" (click)="issueTickets()">Push Ticket Changes</button>
+
+    </div>
+
+  </form>

@@ -1,16 +1,72 @@
-<p>event works!</p>
-<mat-card>
-    <mat-card-header>
-      <mat-card-title>{{event?.name}}</mat-card-title>
-      <mat-card-subtitle>Available tickets: {{event?.availableTickets}}</mat-card-subtitle>
-      <mat-card-subtitle>Username: {{event?.creator?.username}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-actions>
-    @if(event?.availableTickets == 0){
-        <button mat-flat-button color="primary" disabled>Buy Ticket</button>
-    }
-    @else{
-        <button mat-flat-button color="primary">Buy Ticket</button>
-    }
-    </mat-card-actions>
-  </mat-card>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-subtitle id="heading" style="width: 260px;">
+      <span  id="category"  style="color: black; font-weight: 400;">{{event?.category}}</span>
+      <span  style="color: black; font-weight: 400; display: flex; flex-direction: row; justify-content: center; align-items: baseline">
+        <i class="fa-regular fa-user"></i>
+        <span style="vertical-align: bottom;">{{event?.creator?.firstName}}</span>
+      </span>
+    </div>
+    <mat-card-title style="height: 30px;">{{event?.name}}</mat-card-title>
+
+  </mat-card-header>
+
+  @if(showDetails){
+    <mat-card-content>
+
+      <div class="image-container">
+        <img id="thumbnail-img" [src]="thumbnailUrl" alt="Thumbnail Image">
+        @if(event?.availableTickets == 0){
+          <div class="sold-out-text">Sold Out!</div>
+        }
+        @else if (event?.availableTickets!! < 6) {
+          <div class="few-remaining-text">{{event?.availableTickets}} Tickets Left!</div>
+        }
+      </div>
+
+      @if(event?.dateStart == event?.dateFinish){
+        <div class="event-details-icon"> 
+          <img src="assets/icons/calendar.png" alt="" width="16px" height="16px"> 
+          <span style="font-size: 15px; color: rgb(87, 87, 87);">{{event?.dateStart | customDate}}</span>
+        </div>
+      }
+      @else{
+        <div class="event-details-icon"> 
+          <img src="assets/icons/calendar.png" alt="" width="16px" height="16px" style="color:rgb(103, 58, 183)">  
+          <span style="font-size: 15px; color: rgb(87, 87, 87);">{{event?.dateStart | customDate}} - {{event?.dateFinish | customDate}}</span>
+        </div>
+      }
+      <div class="event-details-icon"> 
+        <img src="assets/icons/time.png" alt="" width="18px" height="18px"> 
+        <span style="font-size: 15px; color: rgb(87, 87, 87);"> {{event?.timeStart?.toString()?.substring(0,5) }} - {{event?.timeFinish?.toString()?.substring(0,5)}}</span>
+      </div>
+      <div class="event-details-icon" id="tip"> 
+        <img src="assets/icons/location.png" alt="" width="18px" height="18px"> 
+        <span style="font-size: 15px; color: rgb(87, 87, 87);">{{event?.type?.charAt(0)?.toUpperCase()!! + event?.type?.substring(1, event?.type?.length) }} event</span>  
+      </div>
+
+      <div mat-card-subtitle id="heading" style="width: 260px;">
+
+        <button mat-raised-button extended color="primary">
+          See Details
+          <i class="fa-solid fa-arrow-right"></i>
+        </button> 
+
+        <!-- <span style="color: black; font-weight: 400; display: flex; flex-direction: row; justify-content: center; align-items: baseline">
+          <i class="fa-regular fa-user"></i>
+          <span style="vertical-align: bottom;">{{event?.creator?.firstName}}</span>
+        </span> -->
+      </div>
+      
+
+      
+
+
+    </mat-card-content>
+  }
+  @else {
+    <img mat-card-image [src]="thumbnailUrl" style="height: 230px; width: 90%; margin-left: 20px;">
+
+  }
+
+</mat-card>

@@ -1,0 +1,24 @@
+.events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#container{
+    width:85%;
+    margin: auto;
+}
+
+.companies{
+    padding-top:200px;
+    margin: auto;
+}
+
+app-event{
+    width: 30%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    cursor: pointer;
+}
+

@@ -30,7 +30,16 @@ data class SecurityConfig (
                     .requestMatchers(
                         "/api/events",
                         "/api/auth/**",
-                        "/api/events/{id}"
+                        "/api/events/search",
+                        "/api/events/recents",
+                        "/api/events/{id}",
+                        "/api/events/categories",
+                        "/api/events/filteredByCategory",
+                        "/api/events/image/{id}",
+                        "/api/events/{id}/images/{num}",
+                        "/api/coupons/",
+                        "/api/coupons/create",
+                        "/api/tickets/{id}/stats"
                     )
                     .permitAll()
                     .anyRequest()
@@ -43,6 +52,6 @@ data class SecurityConfig (
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
 
 
-        return httpSecurity.build();
+        return httpSecurity.build()
     }
 }

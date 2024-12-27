@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventInterface } from '../interfaces/event';
 import { AuthResponse } from '../interfaces/auth-response';
+import { User } from '../interfaces/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private router: Router) { }
 
   login(username: string, password: string) : Observable<AuthResponse>{
     const body = {
@@ -17,7 +19,7 @@ export class AuthService {
       password: password,
     };
     
-    return this.http.post<AuthResponse>(`http://localhost:8080/api/auth/login`, body)
+    return this.http.post<AuthResponse>(`http://localhost:8081/api/auth/login`, body)
 
   }
 
@@ -30,7 +32,7 @@ export class AuthService {
       password: password,
     };
     
-    return this.http.post<AuthResponse>(`http://localhost:8080/api/auth/register`, body)
+    return this.http.post<AuthResponse>(`http://localhost:8081/api/auth/register`, body)
 
   }
 
@@ -38,6 +40,34 @@ export class AuthService {
     localStorage.removeItem('token')
     localStorage.removeItem('username')
     location.href = '/login'
+    // this.router.navigate(['login'])
+  }   
+
+  getLoggedUser(): Observable<User>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+
+    return this.http.get<User>(`http://localhost:8081/api/auth/user-details`, { headers: headers })
+  }
+
+  updateUser(formData: any): Observable<User>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+
+
+    return this.http.post<User>(`http://localhost:8081/api/auth/update`, formData, { headers: headers })
+  }
+
+  deleteUser(): Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    });
+    return this.http.delete(`http://localhost:8081/api/auth/remove`, { headers: headers })
   }
 
 }

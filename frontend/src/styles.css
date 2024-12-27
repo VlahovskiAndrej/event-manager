@@ -1,4 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import 'mdb-angular-ui-kit/assets/scss/mdb.scss';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+   margin: 0; 
+   font-family: Roboto, "Helvetica Neue", sans-serif;
+   background-color: rgb(247, 247, 247, 0.9);
+}
+
+
+.spinner {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    animation: spinner-plncf9 4s infinite;
+    margin: auto;
+ }
+ 
+ .spinner::before,
+ .spinner::after {
+    content: "";
+    grid-area: 1/1;
+    border: 9px solid;
+    border-radius: 50%;
+    border-color: #673ab7#673ab7 #ffffff #fff;
+    animation: spinner-plncf9 1s infinite linear;
+ }
+ 
+ .spinner::after {
+    border-color:#673ab7#673ab7 #dbdcef #dbdcef;
+    animation-direction: reverse;
+ }
+ 
+ @keyframes spinner-plncf9 {
+    100% {
+       transform: rotate(2turn);
+    }
+ }
+
+
+ .green-snackbar {
+   --mdc-snackbar-container-color: #4CAF50 !important;
+   --mdc-snackbar-supporting-text-color: white !important;
+}
+
+.red-snackbar{
+   --mdc-snackbar-container-color: red !important;
+   --mdc-snackbar-supporting-text-color: white !important;
+}

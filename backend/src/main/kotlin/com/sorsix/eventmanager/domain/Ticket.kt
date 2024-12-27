@@ -1,5 +1,6 @@
 package com.sorsix.eventmanager.domain
 
+import com.sorsix.eventmanager.domain.user.User
 import jakarta.persistence.*
 
 @Entity
@@ -11,5 +12,8 @@ data class Ticket(
     val price: Double,
 
     @ManyToOne
-    val event: Event
+    val event: Event,
+
+    @ManyToOne
+    val buyer: User
 )

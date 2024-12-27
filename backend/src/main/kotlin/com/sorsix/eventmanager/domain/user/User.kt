@@ -12,16 +12,18 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val firstName: String,
+    var firstName: String,
 
-    val lastName: String,
+    var lastName: String,
 
     private val email: String,
 
-    private val password: String,
+    private var password: String,
 
     @Enumerated(EnumType.STRING)
-    val role: Role
+    val role: Role,
+
+    var enabled: Boolean = true
 
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -37,18 +39,28 @@ data class User(
     }
 
     override fun isAccountNonExpired(): Boolean {
-        return true
+        return enabled
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return true
+        return enabled
     }
 
     override fun isCredentialsNonExpired(): Boolean {
-        return true
+        return enabled
     }
 
     override fun isEnabled(): Boolean {
-        return true
+        return enabled
     }
+
+    fun changePassword(password: String): Unit{
+        this.password = password
+    }
+
+    fun deleteUser(){
+        this.enabled = false
+    }
+
+
 }

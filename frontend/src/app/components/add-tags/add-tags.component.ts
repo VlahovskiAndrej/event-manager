@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild, inject} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild, inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
@@ -26,20 +26,26 @@ import { Output, EventEmitter } from '@angular/core';
     AsyncPipe,
   ],
 })
-export class AddTagsComponent {
+export class AddTagsComponent implements OnInit{
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl('');
   filteredFruits: Observable<string[]>;
   tags: string[] = []
   @Output() tagsEvent = new EventEmitter<string[]>();
   allTags: string[] = [];
+  @Input() editTags: string[]| null = null
 
   announcer = inject(LiveAnnouncer);
+
+  ngOnInit(): void {
+    if (this.editTags != null)
+      this.tags = this.editTags
+  }
 
   constructor() {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allTags.slice())),
+      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allTags.slice()))
     );
   }
 

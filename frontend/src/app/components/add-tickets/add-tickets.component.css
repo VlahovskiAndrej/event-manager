@@ -1,0 +1,9 @@
+.create-form{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+mat-form-field{
+    margin-bottom: 25px;
+}

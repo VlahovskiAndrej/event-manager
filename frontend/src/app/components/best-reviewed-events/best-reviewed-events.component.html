@@ -1,0 +1,10 @@
+<div id="container">
+    <h2>Best Reviewed</h2>
+    <div class="events">
+        @if (events) {
+        <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
+        <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
+        <app-event routerLink="/events/{{events[0].id}}" [event]="events[0]" [showDetails]="false"></app-event>
+        }
+    </div>
+</div>
